@@ -1,0 +1,16 @@
+
+###
+Circular referal(R) reward for each member will be calculated as follows
+
+####
+1. a = the to total amount to be shared.
+2. b  = number of associated referal.
+3. x = normal share for each member = a / b.
+4. y = lectua group fraction = c / b.
+5. p = position of each member.
+
+###
+R = reward per member.
+
+R = x - (p-1)y + (b-p)y
+

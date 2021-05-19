@@ -5,13 +5,15 @@ import { Container } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
 
-function Room({match}) {
-
+function Room() {
+const {id} = useParams
+console.log(id)
     return (
         <Container>
-           <Link to={`/host/${match.params.id}`}>
+            <p>This is the room</p>
+           {/* <Link to={`/host/${match.params.id}`}>
                Start Session Now
-           </Link>
+           </Link> */}
         </Container>
     )
 }

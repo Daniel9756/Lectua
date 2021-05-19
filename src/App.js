@@ -8,29 +8,6 @@ import Room from "./Component/Lession/Event/Room";
 
 
 
-// const theme = createMuiTheme({
-//   palette: {
-//     primary: {
-//       main: "#c23616",
-//       light: "#40407a",
-//     },
-//     secondary: {
-//       main: "#130f40",
-//       light: "#f5f6fa",
-//       dark: "#1d4354",
-//     },
-//     error: {
-//       light: "#e74c3c",
-//       main: "#c0392b",
-//     },
-//   },
-// });
-// const useStyles = makeStyles((theme) => ({
-//   cont: {
-//     marginTop: "20px",
-//   },
-// }));
-
 function App() {
   // const classes = useStyles();
 
