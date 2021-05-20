@@ -16,7 +16,7 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 
 import Avatar from "@material-ui/core/Avatar";
 import { useQuery, useQueryClient } from "react-query";
-import { fetchData } from "../../Async/lesson";
+import { fetchDetails } from "../../Async/lessonDetail";
 import { Title, InputLabel } from "../controls/Input";
 import DataTable from "./DataTable";
 import { CustomButton } from "../controls/Button";
@@ -71,8 +71,8 @@ export default function LessonTable() {
   const queryClient = useQueryClient();
   const [page, setPage] = React.useState(0);
 
-  const { data, status } = useQuery("lectures", fetchData, {
-    onSuccess: () => console.log("lecture successfully fetched"),
+  const { data, status } = useQuery("details", fetchDetails, {
+    onSuccess: () => console.log("All details successfully fetched"),
   });
   console.log(data, status);
   return (
@@ -103,7 +103,7 @@ export default function LessonTable() {
 
           <hr />
           <div>
-            <Title>{data?.lectures.length} Attendees in waiting room</Title>
+            <Title>{data?.details.length} Attendees in waiting room</Title>
             <hr />
             {status === "loading" && <div>Loading ...</div>}
             {status === "error" && <div>Error fetching data</div>}
@@ -134,7 +134,7 @@ export default function LessonTable() {
                 <StyledTableCell align="left">Course</StyledTableCell>
                 <StyledTableCell align="right">Host</StyledTableCell>
                 <StyledTableCell align="right">Price(#)</StyledTableCell>
-                <StyledTableCell align="right">Company</StyledTableCell>
+                <StyledTableCell align="right">Institution</StyledTableCell>
                 <StyledTableCell align="right">Type</StyledTableCell>
                 <StyledTableCell align="center">Start</StyledTableCell>
                 <StyledTableCell align="right">End</StyledTableCell>
@@ -146,7 +146,7 @@ export default function LessonTable() {
             <TableBody className={classes.body}>
               {status === "success" && (
                 <div>
-                  {data.lectures.map((item) => (
+                  {data.details.map((item) => (
                     <DataTable key={item.id} item={item} id={item.id} />
                   ))}
                 </div>

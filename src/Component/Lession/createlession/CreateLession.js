@@ -9,9 +9,10 @@ import LessonTable from "../Table";
 import { useMutation, useQueryClient } from "react-query";
 import { BiInfoCircle } from "react-icons/bi";
 import CreateSession from "./CreateSession";
-import LessionDetail from "./LessionDetail";
+import LessionDetail from "./LessonDetail";
 import CreateFinish from "./CreateFinish";
 import InviteStudent from "./InviteStudents";
+import { Link } from "react-router-dom";
 
 import { Stepper, Step, StepLabel } from "@material-ui/core";
 
@@ -122,23 +123,12 @@ function Lession() {
                   marginRight: 5,
                   marginBottom: 20,
                 }}
-              >
-               
-              </div>
+              ></div>
               <div
                 className="row"
                 style={{ marginLeft: 10, marginRight: 5, marginBottom: 20 }}
               ></div>
             </div>
-            {activeStep === steps.length ? (
-              "The Steps Completed"
-            ) : (
-              <>
-                <CustomButton onClick={handleNext}>
-                  {activeStep === steps.length ? "FINISH" : "NEXT"}
-                </CustomButton>
-              </>
-            )}
           </div>
 
           <div className="col-sm-12 col-md-8">

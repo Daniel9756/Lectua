@@ -8,6 +8,14 @@ import Notification from "../../../Component/utils/Notification";
 import Notify from "../../../Component/utils/Notify";
 import { useHistory } from "react-router-dom";
 import SessionTable from "../SessionTable";
+import ErrorMessage from "../../utils/Error/ErrorMessage"
+import * as Yup from "yup";
+import { Link } from "react-router-dom";
+
+import {
+  CircularProgress
+} from "@material-ui/core";
+
 
 function CreateSession({ handleNext }) {
   const queryClient = useQueryClient();
@@ -22,19 +30,19 @@ function CreateSession({ handleNext }) {
     // onSuccess: (data) => console.log(data, "user created succesfully")
   });
 
-  // if(isSuccess){
-  //   history.push("/SessionTable")
-  // }
+ 
 
   const formik = useFormik({
     initialValues: {
       email: "",
     },
+    validationSchema: Yup.object({     
+      email: Yup.string().required("Please your email address is reqiured").email("Invalid email address"),     
+    }),
     onSubmit: (values) => {
       mutate({ values: values });
     },
   });
-
   return (
     <>
       {isSuccess && <Notify />}
@@ -50,14 +58,22 @@ function CreateSession({ handleNext }) {
             onChange={formik.handleChange}
             value={formik.values.email}
           />
-          <CustomButton text="Submit" type="submit" width={200}>
-            submit
+          
+          <CustomButton text="Submit" type="submit" width={200} disabled={formik.isSubmitting} style={{ cursor: "pointer" }}>
+           {isAddingUser ? <CircularProgress style={{ fontSize: 40, color: "#DA7B93" }} /> :  "Submit"}
           </CustomButton>
+        </div>
+        <div style={{ marginLeft: 4 }} >
+        {formik.touched && formik.errors && (             
+                  <ErrorMessage                  
+                    errorValue={formik.errors.email}
+                  />               
+              )}
         </div>
         <div style={{ marginTop: 10 }}>
         </div>{" "}
       </form>
-      <SessionTable />
+      <SessionTable  handleNext={handleNext}/>
     </>
   );
 }

@@ -1,15 +1,21 @@
 import React from "react";
-import {
-  CustomInput,
-  InputLabel,
-  CustomDateInput,
- 
-} from "../../controls/Input";
+import { CustomInput, InputLabel, CustomDateInput } from "../../controls/Input";
 import { CustomSelect } from "../../controls/Select";
 import { CustomButton } from "../../controls/Button";
 import { useFormik } from "formik";
+import { Link, useParams } from "react-router-dom";
+import * as Yup from "yup";
+import ErrorMessage from "../../utils/Error/ErrorMessage";
+import {addDetail} from "../../../Async/lessonDetail"
+import { useMutation, useQueryClient } from "react-query";
+
+import {
+  CircularProgress
+} from "@material-ui/core";
+
 
 const options = [
+  { value: "select", label: "select" },
   { value: "tutorial", label: "tutorial" },
   { value: "annoucement", label: "annoucement" },
   { value: "lecture", label: "lecture" },
@@ -17,11 +23,26 @@ const options = [
   { value: "prayer", label: "prayer" },
 ];
 
-function LessionDetail({handleBack, handleNext}) {
+function LessionDetail({ handleBack, handleNext }) {
+  const queryClient = useQueryClient();
+
+  const params = useParams();
+  const {
+    mutate,
+    isLoading: isAddingUser,
+    isSuccess,
+    isError,
+  } = useMutation(addDetail, {
+    // onSuccess: () => queryClient.invalidateQueries("details"),
+        onSuccess: (data) => console.log(data, "Details inserted")
+
+  });
+
+ 
   const formik = useFormik({
     initialValues: {
-      courseCode: "",
       username: "",
+      courseCode: "",
       orgName: "",
       price: "",
       eventType: "",
@@ -30,11 +51,30 @@ function LessionDetail({handleBack, handleNext}) {
       endDate: "",
       endTime: "",
     },
-    onSubmit: (values) => {
-      //   mutate({values: values})
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .min(2, "Must be 2 characters or more")
+        .max(30, "Must be 15 characters or less")
+        .required("Your Full Name is Required"),
+      courseCode: Yup.string()
+        .max(12, "Must not be more than 20 characters")
+        .required("Add the course code"),
+      orgName: Yup.string().required("What organisation do you represent"),
+      price: Yup.string().required("How much to pay for this lesson"),
+      eventType: Yup.string().required("Please choose event time"),
+      startDate: Yup.string().required("Lesson start date"),
+      startTime: Yup.string().required("Lesson start time"),
+    }),
+    onSubmit: () => {
+      const values = {
+        details: formik.values,
+        id: params.id,
+      };
+        mutate({values: values})
       // handleNext()
     },
   });
+  // console.log(formik.values)
   return (
     <>
       <form onSubmit={formik.handleSubmit}>
@@ -49,6 +89,11 @@ function LessionDetail({handleBack, handleNext}) {
             value={formik.values.username}
           />
         </div>
+        <div style={{ marginLeft: 4 }}>
+          {formik.touched && formik.errors && (
+            <ErrorMessage errorValue={formik.errors.username} />
+          )}
+        </div>
         <div style={{ marginTop: 8 }}>
           <InputLabel>Course Code </InputLabel>
           <CustomInput
@@ -60,6 +105,11 @@ function LessionDetail({handleBack, handleNext}) {
             value={formik.values.courseCode}
           />
         </div>{" "}
+        <div style={{ marginLeft: 4 }}>
+          {formik.touched && formik.errors && (
+            <ErrorMessage errorValue={formik.errors.courseCode} />
+          )}
+        </div>
         <div style={{ marginTop: 8 }}>
           <InputLabel>Organisation</InputLabel>
           <CustomInput
@@ -71,6 +121,11 @@ function LessionDetail({handleBack, handleNext}) {
             type="text"
           />
         </div>{" "}
+        <div style={{ marginLeft: 4 }}>
+          {formik.touched && formik.errors && (
+            <ErrorMessage errorValue={formik.errors.orgName} />
+          )}
+        </div>
         <div style={{ marginTop: 8 }}>
           <InputLabel>Price</InputLabel>
           <CustomInput
@@ -82,6 +137,11 @@ function LessionDetail({handleBack, handleNext}) {
             type="text"
           />
         </div>{" "}
+        <div style={{ marginLeft: 4 }}>
+          {formik.touched && formik.errors && (
+            <ErrorMessage errorValue={formik.errors.price} />
+          )}
+        </div>
         <div style={{ marginTop: 8 }}>
           <InputLabel>Event Type </InputLabel>
           <CustomSelect
@@ -91,6 +151,11 @@ function LessionDetail({handleBack, handleNext}) {
             onChange={formik.handleChange}
             value={formik.values.eventType}
           />
+        </div>
+        <div style={{ marginLeft: 4 }}>
+          {formik.touched && formik.errors && (
+            <ErrorMessage errorValue={formik.errors.eventType} />
+          )}
         </div>
         <div class="row">
           <div class="col-md-6 col-sm-12">
@@ -104,6 +169,11 @@ function LessionDetail({handleBack, handleNext}) {
                 value={formik.values.startDate}
               />
             </div>{" "}
+            <div style={{ marginLeft: 4 }}>
+              {formik.touched && formik.errors && (
+                <ErrorMessage errorValue={formik.errors.startDate} />
+              )}
+            </div>
           </div>
           <div class="col-md-6 col-sm-12">
             <div style={{ marginTop: 8 }}>
@@ -116,6 +186,11 @@ function LessionDetail({handleBack, handleNext}) {
                 value={formik.values.startTime}
               />
             </div>{" "}
+            <div style={{ marginLeft: 4 }}>
+              {formik.touched && formik.errors && (
+                <ErrorMessage errorValue={formik.errors.startTime} />
+              )}
+            </div>
           </div>
         </div>
         <div class="row">
@@ -144,11 +219,11 @@ function LessionDetail({handleBack, handleNext}) {
             </div>{" "}
           </div>
         </div>
-        <CustomButton style={{marginTop: 40}} type="submit">
-          Next
+        <CustomButton style={{ marginTop: 20 }} type="submit">
+        {isAddingUser ? <CircularProgress style={{ fontSize: 40, color: "#DA7B93" }} /> :  "Next"}
         </CustomButton>
       </form>
-      <CustomButton style={{marginTop: 40}} onClick={handleBack}>
+      <CustomButton style={{ marginTop: 20 }} onClick={handleBack}>
         Back
       </CustomButton>
     </>

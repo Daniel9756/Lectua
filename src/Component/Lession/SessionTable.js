@@ -8,17 +8,17 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Checkbox,
-  Typography,
-  TableFooter,
+ 
 } from "@material-ui/core";
 import { GoDiffAdded } from "react-icons/go";
 import { MdCancel } from "react-icons/md";
+import { Link, useHistory } from "react-router-dom";
 
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { fetchData, removeLecture } from "../../Async/lesson";
 import { Title, InputLabel } from "../controls/Input";
 import { CustomButton } from "../controls/Button";
+
 const useStyles = makeStyles({
   table: {
     height: "100px",
@@ -45,7 +45,7 @@ const useStyles = makeStyles({
   }
 });
 
-export default function SessionTable() {
+export default function SessionTable({handleNext}) {
  
   const StyledTableCell = withStyles((theme) => ({
     head: {
@@ -64,19 +64,18 @@ export default function SessionTable() {
       border: "none",
     },
   }))(TableRow);
-
+const history = useHistory()
   const classes = useStyles();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(removeLecture, {
     onSuccess: () => queryClient.invalidateQueries("lectures"),
   });
-  
-
-
   const { data, status } = useQuery("lectures", fetchData, {
     onSuccess: () => console.log("lecture successfully fetched"),
   });
   console.log(data, status);
+ 
+
   return (
     <div
       style={{
@@ -137,7 +136,9 @@ export default function SessionTable() {
                         {" "}
                         {item.email}
                       </InputLabel>
-                      <GoDiffAdded  style={{cursor: "pointer", fontSize: 40, color: "#2f4454", marginRight: "4px important!"}}/>
+                      <Link style={{textDecoration: "none"}} to={`/LessonDetail/${item.id}`}>
+                      <GoDiffAdded  style={{cursor: "pointer", fontSize: 40, color: "#2f4454", marginRight: "4px important!"}} onClick={handleNext} />
+                      </Link>
                     </div>
                   ))}
                 </div>

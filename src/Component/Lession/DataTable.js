@@ -16,6 +16,7 @@ import { useMutation, useQueryClient, useQuery } from "react-query";
 import { removeLecture, fetchOne } from "../../Async/lesson";
 import { GiJoint } from "react-icons/gi";
 import { Link } from "react-router-dom";
+import { removeDetail } from "../../Async/lessonDetail";
 
 function DataTable({ id, item }) {
   const CustomTableRow = withStyles((theme) => ({
@@ -28,12 +29,12 @@ function DataTable({ id, item }) {
     },
   }))(TableRow);
   const queryClient = useQueryClient();
-  const { mutate } = useMutation(removeLecture, {
-    onSuccess: () => queryClient.invalidateQueries("lectures"),
+  const { mutate } = useMutation(removeDetail, {
+    onSuccess: () => queryClient.invalidateQueries("details"),
   });
   
 
-  const remove = () => {
+  const remove= () => {
     mutate(id);
   };
   // const fetchById = () => {
@@ -52,7 +53,7 @@ function DataTable({ id, item }) {
           }}
         >
           <TableCell align="left" style={{ border: "none" }}>
-          <Link style={{textDecoration: "none"}} to={`/room/${id}`}>
+          <Link style={{textDecoration: "none"}} to={`/room/detail/${id}`}>
             <GiJoint
               style={{ color: "#DA7B93" }}
              
@@ -84,7 +85,7 @@ function DataTable({ id, item }) {
           </TableCell>
           <TableCell align="right" style={{ border: "none" }}>
             <BiDotsVerticalRounded />
-            <MdCancel onClick={remove} id={id} />
+            <MdCancel onClick={remove} id={id} style={{ cursor: "pointer" }} />
           </TableCell>
         </CustomTableRow>
     

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const ErrorMessage = (props) => (
     <div>
-        <p className="error"> {props.errorValue} </p>
+        <p style={{color: "#e84118"}}> {props.errorValue} </p>
     </div>
 )
 
