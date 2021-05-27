@@ -1,6 +1,6 @@
 import React from "react";
-import { CustomInput, InputLabel, CustomDateInput } from "../../controls/Input";
 import { CustomSelect } from "../../controls/Select";
+import { CustomInput, InputLabel, CustomDateInput } from "../../controls/Input";
 import { CustomButton } from "../../controls/Button";
 import { useFormik } from "formik";
 import { Link, useParams } from "react-router-dom";
@@ -65,7 +65,8 @@ function LessionDetail({ handleBack, handleNext }) {
       startDate: Yup.string().required("Lesson start date"),
       startTime: Yup.string().required("Lesson start time"),
     }),
-    onSubmit: () => {
+    onSubmit: (event) => {
+      event.preventDefault();
       const values = {
         details: formik.values,
         id: params.id,

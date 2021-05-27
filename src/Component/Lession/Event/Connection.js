@@ -1,16 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types"
+import { CustomInput, InputLabel } from "../../controls/Input";
 
 function Connection(props, context) {
   // const classes = useStyles();
-  console.log(context, props)
+  // console.log(context, props)
 
-  const { connect } = props;
+  const { connect, session, stream } = props;
   const status = connect ? "Connected" : "Disconnected";
 
   return (
     <div>
-      <strong>You are:</strong> {status}
+      <InputLabel style={{textTransform: "uppercase", margin: `0 80 0 80`}}>You are<strong> {status}</strong> </InputLabel>
     </div>
   );
 }

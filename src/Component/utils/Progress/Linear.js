@@ -1,7 +1,7 @@
 import React from "react";
 import { LinearProgress } from "@material-ui/core";
 function Linear(props) {
-  console.log(props);
+ 
   const { valueBuffer: buffer, value: progress } = props;
   return (
     <div>

@@ -22,7 +22,6 @@ const useStyles = makeStyles({
   root: {
     width: "90%",
     margin: "2rem auto",
-    border: "1px dotted #999",
     boxShadow: "2px black",
     "& .MuiStepIcon-root.MuiStepIcon-active": {
       color: "#DA7B93",

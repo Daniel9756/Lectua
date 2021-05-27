@@ -9,7 +9,8 @@ function InviteStudent({handleNext, handleBack}) {
     initialValues: {
       phone: "",
     },
-    onSubmit: (values) => {
+    onSubmit: (values, event) => {
+      event.preventDefault()
       //   mutate({values: values})
     //   handleNext()
     },

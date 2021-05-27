@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
+  makeStyles,
+  withStyles,
   Table,
   TableBody,
   TableCell,
@@ -51,10 +52,8 @@ export default function LessonTable() {
       fontSize: 15,
       textTransform: "capitalize",
       boxShadow: 0,
-      border: "none"
+      border: "none",
     },
-
-    
   }))(TableCell);
 
   const StyledTableRow = withStyles((theme) => ({
@@ -67,7 +66,6 @@ export default function LessonTable() {
     },
   }))(TableRow);
 
- 
   const queryClient = useQueryClient();
   const [page, setPage] = React.useState(0);
 
@@ -126,7 +124,7 @@ export default function LessonTable() {
                   borderRadius: "30px",
                 }}
               >
-                <StyledTableCell align="left"  style={{ border: "none" }}>
+                <StyledTableCell align="left" style={{ border: "none" }}>
                   {" "}
                   <Checkbox style={{ color: "white" }} />
                 </StyledTableCell>

@@ -32,9 +32,8 @@ function DataTable({ id, item }) {
   const { mutate } = useMutation(removeDetail, {
     onSuccess: () => queryClient.invalidateQueries("details"),
   });
-  
 
-  const remove= () => {
+  const remove = () => {
     mutate(id);
   };
   // const fetchById = () => {
@@ -43,52 +42,50 @@ function DataTable({ id, item }) {
 
   return (
     <>
-      
-        <CustomTableRow
-          key={item.id}
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+      <CustomTableRow
+        key={item.id}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <TableCell align="left" style={{ border: "none" }}>
+          <Link style={{ textDecoration: "none" }} to={`/room/detail/${id}`}>
+           More
+          </Link>
+        </TableCell>
+
+        <TableCell
+          align="left"
+          style={{ textTransform: "uppercase", border: "none" }}
         >
-          <TableCell align="left" style={{ border: "none" }}>
-          <Link style={{textDecoration: "none"}} to={`/room/detail/${id}`}>
-            <GiJoint
-              style={{ color: "#DA7B93" }}
-             
-            />{" "}
-              </Link>
-          </TableCell>
+          {item.courseCode}
+        </TableCell>
+        <TableCell align="right" style={{ border: "none" }}>
+          {item.username}
+        </TableCell>
+        <TableCell align="right" style={{ border: "none" }}>
+          {item.price}
+        </TableCell>
+        <TableCell align="right" style={{ border: "none" }}>
+          {item.orgName}
+        </TableCell>
 
-          <TableCell align="left" style={{ textTransform: "uppercase", border: "none" }}>
-            {item.courseCode}
-          </TableCell>
-          <TableCell align="right" style={{ border: "none" }}>
-            {item.username}
-          </TableCell>
-          <TableCell align="right" style={{ border: "none" }}>
-            {item.price}
-          </TableCell>
-          <TableCell align="right" style={{ border: "none" }}>
-            {item.orgName}
-          </TableCell>
-
-          <TableCell align="right" style={{ border: "none" }}>
-            {item.eventType}
-          </TableCell>
-          <TableCell align="center" style={{ border: "none" }}>
-            {item.startDate}|{item.startTime}
-          </TableCell>
-          <TableCell align="right" style={{ border: "none" }}>
-            {item.endDate}|{item.endTime}
-          </TableCell>
-          <TableCell align="right" style={{ border: "none" }}>
-            <BiDotsVerticalRounded />
-            <MdCancel onClick={remove} id={id} style={{ cursor: "pointer" }} />
-          </TableCell>
-        </CustomTableRow>
-    
+        <TableCell align="right" style={{ border: "none" }}>
+          {item.eventType}
+        </TableCell>
+        <TableCell align="center" style={{ border: "none" }}>
+          {item.startDate}|{item.startTime}
+        </TableCell>
+        <TableCell align="right" style={{ border: "none" }}>
+          {item.endDate}|{item.endTime}
+        </TableCell>
+        <TableCell align="right" style={{ border: "none" }}>
+          <BiDotsVerticalRounded />
+          <MdCancel onClick={remove} id={id} style={{ cursor: "pointer" }} />
+        </TableCell>
+      </CustomTableRow>
     </>
   );
 }

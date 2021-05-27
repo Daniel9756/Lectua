@@ -4,7 +4,11 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import CreateLession from "./Component/Lession/createlession/CreateLession";
 import Event from "./Component/Lession/Event/Event";
 import Host from "./Component/Lession/Event/Host";
+import Guest from "./Component/Lession/Event/Guest";
+
 import Room from "./Component/Lession/Event/Room";
+
+
 
 
 
@@ -20,6 +24,7 @@ function App() {
         <Route path="/Event" exact component={Event} />
         <Route path="/room/detail/:id" exact component={Room} />
         <Route path="/host/:id" exact component={Host} />
+        <Route path="/guest/:id" exact component={Guest} />
         <Route path="/LessonDetail/:id" exact component={CreateLession} />
       </Switch>
     </Router>

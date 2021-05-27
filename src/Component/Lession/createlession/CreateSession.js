@@ -35,11 +35,14 @@ function CreateSession({ handleNext }) {
   const formik = useFormik({
     initialValues: {
       email: "",
+      topic: "",
     },
     validationSchema: Yup.object({     
-      email: Yup.string().required("Please your email address is reqiured").email("Invalid email address"),     
+      email: Yup.string().required("Please your email address is reqiured").email("Invalid email address"),
+      topic: Yup.string().min(2, "Topic must be more than two characters long").required("This field is reqiured"),   
     }),
     onSubmit: (values) => {
+      
       mutate({ values: values });
     },
   });
@@ -48,15 +51,28 @@ function CreateSession({ handleNext }) {
       {isSuccess && <Notify />}
       {isError && <div>Something went wrong, try again</div>}
       <form onSubmit={formik.handleSubmit}>
-          <InputLabel>Teacher Email</InputLabel>
-        <div style={{ marginTop: 8, display: "flex", justifyContent: "center", "alignItems": "center" }}>
+      <InputLabel>Teacher Email</InputLabel>
+        <div style={{ marginTop: 8, marginBottom: 8, display: "flex", justifyContent: "center", "alignItems": "center" }}>
           <CustomInput
             name="email"
             type="text"
-            placeholder="Your Email Address"
+            placeholder="Your Email address"
             label="label"
             onChange={formik.handleChange}
             value={formik.values.email}
+          />
+          
+         
+        </div>
+          <InputLabel>Lecture Topic</InputLabel>
+        <div style={{ marginTop: 2, display: "flex", justifyContent: "center", "alignItems": "center" }}>
+          <CustomInput
+            name="topic"
+            type="text"
+            placeholder="Topic of the day"
+            label="label"
+            onChange={formik.handleChange}
+            value={formik.values.topic}
           />
           
           <CustomButton text="Submit" type="submit" width={200} disabled={formik.isSubmitting} style={{ cursor: "pointer" }}>
@@ -66,7 +82,7 @@ function CreateSession({ handleNext }) {
         <div style={{ marginLeft: 4 }} >
         {formik.touched && formik.errors && (             
                   <ErrorMessage                  
-                    errorValue={formik.errors.email}
+                    errorValue={formik.errors.topic}
                   />               
               )}
         </div>
