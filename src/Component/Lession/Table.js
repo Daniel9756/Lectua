@@ -14,13 +14,14 @@ import {
   TableFooter,
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-
+// import LinearLoading from "../"
 import Avatar from "@material-ui/core/Avatar";
 import { useQuery, useQueryClient } from "react-query";
 import { fetchDetails } from "../../Async/lessonDetail";
-import { Title, InputLabel } from "../controls/Input";
+import { Title, LabelText } from "../../controls/Input";
 import DataTable from "./DataTable";
-import { CustomButton } from "../controls/Button";
+import { CustomButton } from "../../controls/Button";
+import LinearLoading from "../../utils/Progress/Linear";
 const useStyles = makeStyles({
   table: {
     minHeigth: 860,
@@ -78,7 +79,6 @@ export default function LessonTable() {
       style={{
         height: "100vh",
         background: "#dcdde1",
-
         overflow: "scroll",
       }}
     >
@@ -96,15 +96,14 @@ export default function LessonTable() {
           }}
         >
           <div className={classes.title}>
-            <InputLabel>UPCOMING EVENT </InputLabel>
+            <LabelText>UPCOMING EVENT </LabelText>
           </div>
 
           <hr />
           <div>
             <Title>{data?.details.length} Attendees in waiting room</Title>
             <hr />
-            {status === "loading" && <div>Loading ...</div>}
-            {status === "error" && <div>Error fetching data</div>}
+           
           </div>
           <Avatar alt="person" src="/images/person.jpg" />
         </div>{" "}
@@ -142,6 +141,8 @@ export default function LessonTable() {
               </StyledTableRow>
             </TableHead>
             <TableBody className={classes.body}>
+            {status === "loading" && (<LinearLoading />)}
+            {status === "error" && <div>Error fetching data</div>}
               {status === "success" && (
                 <div>
                   {data.details.map((item) => (

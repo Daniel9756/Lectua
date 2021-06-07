@@ -1,11 +1,13 @@
 import React from "react";
 import { useMutation, useQueryClient } from "react-query";
 import { useHistory } from "react-router-dom";
-import { CustomInput, InputLabel, CustomDateInput } from "../../controls/Input";
-import { CustomButton } from "../../controls/Button";
+import { CustomInput, InputLabel, CustomDateInput } from "../../../controls/Input";
+import { CustomButton } from "../../../controls/Button";
 import { useFormik } from "formik";
 import { sendMessage } from "../../../Async/message";
 import * as Yup from "yup";
+
+const { initSession } = require("@opentok/client");
 
 function Message(props) {
   const queryClient = useQueryClient();
@@ -17,10 +19,11 @@ function Message(props) {
     isError,
   } = useMutation(sendMessage, {
     // onSuccess: () => queryClient.invalidateQueries("lectures"),
-    onSuccess: (data) => console.log(data, "user created succesfully")
+    onSuccess: (data) => console.log(data, "user created succesfully"),
   });
-
-  const { sessionId, apiKey, token, topic, id } = props;
+  const { sessionId, apiKey, token, topic, id, name } = props;
+  const session = initSession(process.env.API_KEY, sessionId);
+  console.log(session, "initSession");
 
   const formik = useFormik({
     initialValues: {
@@ -29,17 +32,20 @@ function Message(props) {
     validationSchema: Yup.object({
       message: Yup.string().required("You can't send an empty message"),
     }),
-    onSubmit: () => {
-      const values = {
-        "data": formik.values,
-        sessionId,
-        id,
-        "type": "chat",
-      };
-     
-      mutate({ values: values });
+    onSubmit: (values) => {
+      session.signal({
+        type: "chat",
+        data: `name: ${values.message}`,
+      });
+      session.on("signal:chat", (event) => {
+        const content = event.data;
+        props.chatContent(content);
+      });
+      values.message = "";
+      //   mutate({ values: values });
     },
   });
+
   return (
     <div style={{ marginRight: 60 }}>
       <form onSubmit={formik.handleSubmit}>

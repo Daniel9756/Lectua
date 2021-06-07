@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik } from "formik";
-import { CustomInput, InputLabel, Title, Info } from "../../controls/Input";
-import { CustomButton } from "../../controls/Button";
+import { CustomInput, LabelText, Title, Info } from "../../../controls/Input";
+import { CustomButton } from "../../../controls/Button";
 
 
 function InviteStudent({handleNext, handleBack}) {
@@ -21,7 +21,7 @@ function InviteStudent({handleNext, handleBack}) {
       {" "}
       <form onSubmit={formik.handleSubmit}>
         <div style={{ marginTop: 8 }}>
-          <InputLabel>Student Mobile</InputLabel>
+          <LabelText>Student Mobile</LabelText>
           <CustomInput
             name="phone"
             type="text"

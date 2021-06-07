@@ -5,12 +5,12 @@ import { Container, Typography } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { useQuery, useQueryClient } from "react-query";
 import { fetchDetails, fetchOneDetail } from "../../../Async/lessonDetail";
-import Linear from "../../utils/Progress/Linear";
+import Linear from "../../../utils/Progress/Linear";
 import { makeStyles } from "@material-ui/core/styles";
-import { CustomButton } from "../../controls/Button";
-import { Title } from "../../controls/Input";
+import { CustomButton } from "../../../controls/Button";
+import { Title } from "../../../controls/Input";
 import { MdDetails } from "react-icons/md";
-import { CustomInput, InputLabel } from "../../controls/Input";
+import { CustomInput, LabelText } from "../../../controls/Input";
 
 const useStyles = makeStyles({
   imagediv: {
@@ -77,23 +77,23 @@ function Room() {
         >
           <div className={classes.imagediv}></div>
           <div className={classes.info}>
-          <InputLabel>Ticket Sold</InputLabel>
-            <InputLabel>2, 500</InputLabel>
+          <LabelText>Ticket Sold</LabelText>
+            <LabelText>2, 500</LabelText>
           </div>
           <hr  className={classes.hr} />
           <div className={classes.info}>
-          <InputLabel>Expected Attendance</InputLabel>
-            <InputLabel>2, 500</InputLabel>
+          <LabelText>Expected Attendance</LabelText>
+            <LabelText>2, 500</LabelText>
           </div>
           <hr className={classes.hr} /> <div className={classes.info}>
-          <InputLabel>Total Revenue</InputLabel>
-            <InputLabel>2, 200, 500</InputLabel>
+          <LabelText>Total Revenue</LabelText>
+            <LabelText>2, 200, 500</LabelText>
           </div>
           <hr className={classes.hr} />
           <CustomButton  style={{
              borderRadius: 10
              
-            }}>  <InputLabel style={{color: "#DA7B93" }}>Buy Ticket</InputLabel></CustomButton>
+            }}>  <LabelText style={{color: "#DA7B93" }}>Buy Ticket</LabelText></CustomButton>
           <div
             style={{
               display: "flex",
@@ -103,7 +103,7 @@ function Room() {
           >
             
             <Link
-              to={`/host/${params.id}`}
+              to={`/joinAuth/${params.id}`}
               target="_blank"
               className={classes.links}
             >
@@ -113,7 +113,7 @@ function Room() {
               </CustomButton>
             </Link>
             <Link
-              to={`/host/${params.id}`}
+              to={`/joinAuth/${params.id}`}
               target="_blank"
               className={classes.links}
             >
@@ -136,48 +136,48 @@ function Room() {
             }}>  Buy Ticket</CustomButton>
           </div>
           <div className={classes.list}>
-            <InputLabel>Institution</InputLabel>
-            <InputLabel>{data?.response.orgName}</InputLabel>
+            <LabelText>Institution</LabelText>
+            <LabelText>{data?.response.orgName}</LabelText>
           </div>
           <hr  className={classes.hr} />
           <div className={classes.list}>
-            <InputLabel>Event Type</InputLabel>
-            <InputLabel style={{textTransform: "Capitalize"}}>{data?.response.eventType}</InputLabel>
+            <LabelText>Event Type</LabelText>
+            <LabelText style={{textTransform: "Capitalize"}}>{data?.response.eventType}</LabelText>
           </div>
           <hr  className={classes.hr} />
           <div className={classes.list}>
-            <InputLabel>Host</InputLabel>
-            <InputLabel>{data?.response.username}</InputLabel>
+            <LabelText>Host</LabelText>
+            <LabelText>{data?.response.username}</LabelText>
           </div>
           <hr  className={classes.hr} />{" "}
           <div className={classes.list}>
-            <InputLabel>Course</InputLabel>
-            <InputLabel>{data?.response.courseCode}</InputLabel>
+            <LabelText>Course</LabelText>
+            <LabelText>{data?.response.courseCode}</LabelText>
           </div>
           <hr  className={classes.hr}/>{" "}
           <div className={classes.list}>
-            <InputLabel>Price</InputLabel>
-            <InputLabel>{data?.response.price}</InputLabel>
+            <LabelText>Price</LabelText>
+            <LabelText>{data?.response.price}</LabelText>
           </div>
           <hr className={classes.hr} />
          
           <div className={classes.list}>
-            <InputLabel>Start Date</InputLabel>
-            <InputLabel>{data?.response.startDate}</InputLabel>
+            <LabelText>Start Date</LabelText>
+            <LabelText>{data?.response.startDate}</LabelText>
           </div>
           <hr  className={classes.hr} /> <div className={classes.list}>
-            <InputLabel>Start Time</InputLabel>
-            <InputLabel>{data?.response.startTime}</InputLabel>
+            <LabelText>Start Time</LabelText>
+            <LabelText>{data?.response.startTime}</LabelText>
           </div>
           <hr className={classes.hr} />
            <div className={classes.list}>
-            <InputLabel>End Date</InputLabel>
-            <InputLabel>{data?.response.endDate}</InputLabel>
+            <LabelText>End Date</LabelText>
+            <LabelText>{data?.response.endDate}</LabelText>
           </div>
           <hr  className={classes.hr} />
           <div className={classes.list}>
-            <InputLabel>End Time</InputLabel>
-            <InputLabel>{data?.response.endTime}</InputLabel>
+            <LabelText>End Time</LabelText>
+            <LabelText>{data?.response.endTime}</LabelText>
           </div>
           <hr  className={classes.hr} />
           

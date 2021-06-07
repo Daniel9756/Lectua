@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types"
-import { CustomInput, InputLabel } from "../../controls/Input";
+import {  LabelText } from "../../../controls/Input";
 
 function Connection(props, context) {
   // const classes = useStyles();
@@ -11,7 +11,7 @@ function Connection(props, context) {
 
   return (
     <div>
-      <InputLabel style={{textTransform: "uppercase", margin: `0 80 0 80`}}>You are<strong> {status}</strong> </InputLabel>
+      <LabelText style={{textTransform: "uppercase", margin: `0 80 0 80`}}>You are<strong> {status}</strong> </LabelText>
     </div>
   );
 }

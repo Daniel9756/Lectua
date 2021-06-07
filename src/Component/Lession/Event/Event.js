@@ -5,7 +5,7 @@ import React, { useReducer } from "react";
 
 import { Link } from "react-router-dom";
 
-import { CustomInput } from "../../controls/Input";
+import { CustomInput } from "../../../controls/Input";
 
 // const options = [
 //   { value: "birthday", label: "birthday" },

@@ -1,14 +1,14 @@
 import React from "react";
 import { useFormik } from "formik";
-import { CustomInput, InputLabel } from "../../controls/Input";
-import { CustomButton } from "../../controls/Button";
+import { CustomInput, LabelText } from "../../../controls/Input";
+import { CustomButton } from "../../../controls/Button";
 import { useMutation, useQueryClient } from "react-query";
 import { addLecture } from "../../../Async/lesson";
-import Notification from "../../../Component/utils/Notification";
-import Notify from "../../../Component/utils/Notify";
+import Notification from "../../../utils/Notification";
+import Notify from "../../../utils/Notify";
 import { useHistory } from "react-router-dom";
 import SessionTable from "../SessionTable";
-import ErrorMessage from "../../utils/Error/ErrorMessage"
+import ErrorMessage from "../../../utils/Error/ErrorMessage"
 import * as Yup from "yup";
 import { Link } from "react-router-dom";
 
@@ -51,7 +51,7 @@ function CreateSession({ handleNext }) {
       {isSuccess && <Notify />}
       {isError && <div>Something went wrong, try again</div>}
       <form onSubmit={formik.handleSubmit}>
-      <InputLabel>Teacher Email</InputLabel>
+      <LabelText>Teacher Email</LabelText>
         <div style={{ marginTop: 8, marginBottom: 8, display: "flex", justifyContent: "center", "alignItems": "center" }}>
           <CustomInput
             name="email"
@@ -64,7 +64,7 @@ function CreateSession({ handleNext }) {
           
          
         </div>
-          <InputLabel>Lecture Topic</InputLabel>
+          <LabelText>Lecture Topic</LabelText>
         <div style={{ marginTop: 2, display: "flex", justifyContent: "center", "alignItems": "center" }}>
           <CustomInput
             name="topic"

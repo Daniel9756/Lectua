@@ -1,13 +1,13 @@
 import React from "react";
 import {
   CustomInput,
-  InputLabel,
+  LabelText,
   CustomDateInput,
   Title,
   Info,
-} from "../../controls/Input";
+} from "../../../controls/Input";
 import { MdAddCircle } from "react-icons/md";
-import { CustomButton } from "../../controls/Button";
+import { CustomButton } from "../../../controls/Button";
 import { BrowserRouter as Router, Link } from "react-router-dom";
 
 function CreateFinish({ handleBack, setActiveStep }) {
@@ -22,7 +22,7 @@ function CreateFinish({ handleBack, setActiveStep }) {
             margin: 4,
           }}
         >
-          <InputLabel style={{ color: "#DA7B93" }}>Create More</InputLabel>
+          <LabelText style={{ color: "#DA7B93" }}>Create More</LabelText>
           <MdAddCircle
             onClick={() => setActiveStep(0)}
             style={{ fontSize: 25, marginRight: 16, cursor: "pointer", }}
@@ -30,9 +30,9 @@ function CreateFinish({ handleBack, setActiveStep }) {
         </div>
         <div style={{ margin: 4 }}>
           <Title>Congratulations</Title>
-          <InputLabel style={{ marginTop: 8 }}>
+          <LabelText style={{ marginTop: 8 }}>
             You have successfully created your virtual classroom
-          </InputLabel>
+          </LabelText>
         </div>
       </div>
       <div style={{ marginTop: 40 }}>

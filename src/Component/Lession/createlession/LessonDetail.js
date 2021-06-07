@@ -1,11 +1,11 @@
 import React from "react";
-import { CustomSelect } from "../../controls/Select";
-import { CustomInput, InputLabel, CustomDateInput } from "../../controls/Input";
-import { CustomButton } from "../../controls/Button";
+import { CustomSelect } from "../../../controls/Select";
+import { CustomInput, LabelText, CustomDateInput } from "../../../controls/Input";
+import { CustomButton } from "../../../controls/Button";
 import { useFormik } from "formik";
 import { Link, useParams } from "react-router-dom";
 import * as Yup from "yup";
-import ErrorMessage from "../../utils/Error/ErrorMessage";
+import ErrorMessage from "../../../utils/Error/ErrorMessage";
 import {addDetail} from "../../../Async/lessonDetail"
 import { useMutation, useQueryClient } from "react-query";
 
@@ -80,7 +80,7 @@ function LessionDetail({ handleBack, handleNext }) {
     <>
       <form onSubmit={formik.handleSubmit}>
         <div style={{ marginTop: 8 }}>
-          <InputLabel>Teacheer Name</InputLabel>
+          <LabelText>Teacheer Name</LabelText>
           <CustomInput
             name="username"
             type="text"
@@ -96,7 +96,7 @@ function LessionDetail({ handleBack, handleNext }) {
           )}
         </div>
         <div style={{ marginTop: 8 }}>
-          <InputLabel>Course Code </InputLabel>
+          <LabelText>Course Code </LabelText>
           <CustomInput
             name="courseCode"
             placeholder="Your Course"
@@ -112,7 +112,7 @@ function LessionDetail({ handleBack, handleNext }) {
           )}
         </div>
         <div style={{ marginTop: 8 }}>
-          <InputLabel>Organisation</InputLabel>
+          <LabelText>Organisation</LabelText>
           <CustomInput
             placeholder="Organisation"
             name="orgName"
@@ -128,7 +128,7 @@ function LessionDetail({ handleBack, handleNext }) {
           )}
         </div>
         <div style={{ marginTop: 8 }}>
-          <InputLabel>Price</InputLabel>
+          <LabelText>Price</LabelText>
           <CustomInput
             placeholder="eg. Free or #1000"
             name="price"
@@ -144,7 +144,7 @@ function LessionDetail({ handleBack, handleNext }) {
           )}
         </div>
         <div style={{ marginTop: 8 }}>
-          <InputLabel>Event Type </InputLabel>
+          <LabelText>Event Type </LabelText>
           <CustomSelect
             name="eventType"
             type="text"
@@ -161,7 +161,7 @@ function LessionDetail({ handleBack, handleNext }) {
         <div class="row">
           <div class="col-md-6 col-sm-12">
             <div style={{ marginTop: 8 }}>
-              <InputLabel>Start Date</InputLabel>
+              <LabelText>Start Date</LabelText>
               <CustomDateInput
                 name="startDate"
                 label="label"
@@ -178,7 +178,7 @@ function LessionDetail({ handleBack, handleNext }) {
           </div>
           <div class="col-md-6 col-sm-12">
             <div style={{ marginTop: 8 }}>
-              <InputLabel>Start Time</InputLabel>
+              <LabelText>Start Time</LabelText>
               <CustomDateInput
                 name="startTime"
                 label="label"
@@ -197,7 +197,7 @@ function LessionDetail({ handleBack, handleNext }) {
         <div class="row">
           <div class="col-md-6 col-sm-12">
             <div style={{ marginTop: 8 }}>
-              <InputLabel>End Date</InputLabel>
+              <LabelText>End Date</LabelText>
               <CustomDateInput
                 name="endDate"
                 label="label"
@@ -209,7 +209,7 @@ function LessionDetail({ handleBack, handleNext }) {
           </div>
           <div class="col-md-6 col-sm-12">
             <div style={{ marginTop: 8 }}>
-              <InputLabel>End Time</InputLabel>
+              <LabelText>End Time</LabelText>
               <CustomDateInput
                 name="endTime"
                 label="label"

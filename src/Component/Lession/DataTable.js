@@ -9,7 +9,7 @@ import {
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { CustomButton } from "../controls/Button";
+import { CustomButton } from "../../controls/Button";
 import { GoTrashcan } from "react-icons/go";
 import { MdCancel } from "react-icons/md";
 import { useMutation, useQueryClient, useQuery } from "react-query";

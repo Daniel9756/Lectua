@@ -16,8 +16,8 @@ import { Link, useHistory } from "react-router-dom";
 
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { fetchData, removeLecture } from "../../Async/lesson";
-import { Title, InputLabel } from "../controls/Input";
-import { CustomButton } from "../controls/Button";
+import { Title, LabelText } from "../../controls/Input";
+import { CustomButton } from "../../controls/Button";
 
 const useStyles = makeStyles({
   table: {
@@ -95,7 +95,7 @@ const history = useHistory()
           }}
         >
           <div className={classes.title}>
-            <InputLabel style={{display: "inline-block"}}>ADD EVENT DETAILS</InputLabel>
+            <LabelText style={{display: "inline-block"}}>ADD EVENT DETAILS</LabelText>
           </div>
 
           <hr />
@@ -120,9 +120,9 @@ const history = useHistory()
                 }}
               >
                 <StyledTableCell align="center">
-                  <InputLabel style={{ color: "#DA7B93", fontFamily: "serif" }}>
+                  <LabelText style={{ color: "#DA7B93", fontFamily: "serif" }}>
                     Your Email Address
-                  </InputLabel>
+                  </LabelText>
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>
@@ -132,10 +132,10 @@ const history = useHistory()
                   {data.lectures.map((item) => (
                     <div key={item.id} item={item}  className={classes.email}>
                         <MdCancel onClick={()=>mutate(item.id)}  style={{ marginLeft:10, cursor: "pointer", fontSize: 20,  }}/>
-                      <InputLabel  style={{ margin: 10,}}>
+                      <LabelText  style={{ margin: 10,}}>
                         {" "}
                         {item.email}
-                      </InputLabel>
+                      </LabelText>
                       <Link style={{textDecoration: "none"}} to={`/LessonDetail/${item.id}`}>
                       <GoDiffAdded  style={{cursor: "pointer", fontSize: 40, color: "#2f4454", marginRight: "4px important!"}} onClick={handleNext} />
                       </Link>
