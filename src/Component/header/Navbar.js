@@ -9,7 +9,7 @@ import {
   NavItem,
   NavLink,
 } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { Avatar, makeStyles, Typography, Grid, Box } from "@material-ui/core";
 import NestedList from "./Settings";
@@ -25,7 +25,6 @@ import { GroupButton } from "../../controls/Button";
 import Settings from "./Settings";
 import Academics from "./Academics";
 
-
 const useStyles = makeStyles((theme) => ({
   root: {
     position: "",
@@ -34,6 +33,13 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     padding: "10px",
     color: "#DA7B93",
+     fontFamily: "serif",
+    '&:hover': {
+      color: "#DA7B93",
+   
+    textDecoration: "none",
+    padding: "10px",
+   },
   },
   btn: {
     borderRadius: 8,
@@ -53,12 +59,31 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "center",
     hight: "auto",
     marginTop: 255,
-   zIndex: 100,
+    zIndex: 100,
     position: "fixed",
+  },
+  links: {
+    color: "#DA7B93",
+    fontFamily: "serif",
+    textDecoration: "none",
+    padding: "10px",
+    '&:hover': {
+      color: "#DA7B93",
+    fontFamily: "serif",
+    textDecoration: "none",
+    padding: "10px",
+   },
   },
 }));
 const NavgBar = (props) => {
   const classes = useStyles();
+  const location = useLocation();
+  console.log(location);
+
+  const active = {
+    color: "#376e6f",
+    borderBottom: "3px solid #376e6f",
+  };
 
   const [isShown, setIsShown] = useState(false);
   const [isSeen, setIsSeen] = useState(false);
@@ -82,7 +107,12 @@ const NavgBar = (props) => {
     <div className={classes.root}>
       <Navbar
         light
-        style={{ backgroundColor: "#2f4454", color: "#1C3334", padding: 10, height: 100 }}
+        style={{
+          backgroundColor: "#2f4454",
+          color: "#1C3334",
+          padding: 10,
+          height: 100,
+        }}
       >
         <div
           style={{
@@ -101,21 +131,32 @@ const NavgBar = (props) => {
               marginLeft: 16,
             }}
           >
-            LECTUA
+            <Link
+              to="/"
+              style={location.pathname === "/" ? active : {}}
+              className={classes.anchor}
+            >
+              {" "}
+              LECTUA
+            </Link>
           </NavbarBrand>
-          <NavLink
-            href="/CreateLesson"
-            style={{ color: "#DA7B93", fontFamily: "serif" }}
-          >
-            Create Lession
-          </NavLink>
-          <NavLink
-            href="/register"
-            style={{ color: "#DA7B93", fontFamily: "serif" }}
-          >
-            Register
-          </NavLink>
 
+          <Link
+            to="/CreateLesson"
+            style={location.pathname === "/CreateLesson" ? active : {}}
+            className={classes.links}
+          >
+            {" "}
+            Create Lession
+          </Link>
+          <Link
+            to="/register"
+            style={location.pathname === "/register" ? active : {}}
+            className={classes.links}
+          >
+            {" "}
+            Register
+          </Link>
         </div>
 
         <div
@@ -135,12 +176,15 @@ const NavgBar = (props) => {
             onMouseEnter={togleInDisplay}
             onMouseLeave={togleOutDisplay}
           >
-            <NavLink
-              href="/dashboard"
-              style={{ color: "#DA7B93", fontFamily: "serif", margin: 0 }}
-            >
-              Academics
-            </NavLink>
+             <Link
+            to="/dashboard"
+            style={location.pathname === "/dashboard" ? active : {}}
+            className={classes.links}
+          >
+            {" "}
+            Academics
+          </Link>
+          
             {isShown ? (
               <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
             ) : (
@@ -149,20 +193,23 @@ const NavgBar = (props) => {
 
             <Box className={classes.btn}>
               {isShown && (
-                <Academics 
-                onMouseEnter={togleInDisplay}
-                onMouseLeave={togleOutDisplay}
+                <Academics
+                  onMouseEnter={togleInDisplay}
+                  onMouseLeave={togleOutDisplay}
                 />
               )}
             </Box>
           </Box>
-          <NavLink
-            href="/CreateLesson"
-            style={{ color: "#DA7B93", fontFamily: "serif" }}
+          <Link
+            to="/CreateLesson"
+            style={location.pathname === "/Find Courses" ? active : {}}
+            className={classes.links}
           >
+            {" "}
             Find Courses
-          </NavLink>
-         
+          </Link>
+        
+
           <Box
             style={{
               display: "flex",
@@ -172,12 +219,16 @@ const NavgBar = (props) => {
             onMouseEnter={togleInAvaterDisplay}
             onMouseLeave={togleOutAvaterDisplay}
           >
-            <NavLink
-              href="/dashboard"
-              style={{ color: "#DA7B93", fontFamily: "serif", margin: 0 }}
-            >
-              Settings
-            </NavLink>
+             <Link
+            to="/Settings"
+            style={location.pathname === "/Settings" ? active : {}}
+            className={classes.links}
+          >
+            {" "}
+            Settings
+          </Link>
+        
+
             {isSeen ? (
               <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
             ) : (
@@ -186,13 +237,12 @@ const NavgBar = (props) => {
 
             <Box className={classes.btnSet}>
               {isSeen && (
-               <Settings 
-               onMouseEnter={togleInAvaterDisplay}
-               onMouseLeave={togleOutAvaterDisplay}
-               />
+                <Settings
+                  onMouseEnter={togleInAvaterDisplay}
+                  onMouseLeave={togleOutAvaterDisplay}
+                />
               )}
             </Box>
-            
           </Box>
         </div>
       </Navbar>
