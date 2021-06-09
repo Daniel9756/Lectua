@@ -1,16 +1,14 @@
 import React from "react";
-import Host from "./Host";
 import { useParams } from "react-router-dom";
-import { Container, Typography } from "@material-ui/core";
+import { Container, } from "@material-ui/core";
 import { Link } from "react-router-dom";
-import { useQuery, useQueryClient } from "react-query";
-import { fetchDetails, fetchOneDetail } from "../../../Async/lessonDetail";
+import { useQuery,  } from "react-query";
+import {  fetchOneDetail } from "../../../Async/lessonDetail";
 import Linear from "../../../utils/Progress/Linear";
 import { makeStyles } from "@material-ui/core/styles";
 import { CustomButton } from "../../../controls/Button";
 import { Title } from "../../../controls/Input";
-import { MdDetails } from "react-icons/md";
-import { CustomInput, LabelText } from "../../../controls/Input";
+import {  LabelText } from "../../../controls/Input";
 
 const useStyles = makeStyles({
   imagediv: {
@@ -60,7 +58,7 @@ function Room() {
   const classes = useStyles();
   const params = useParams();
 
-  const { data, isLoading, isError } = useQuery(
+  const { data, isLoading } = useQuery(
     ["details", params.id],
     () => fetchOneDetail(params.id),
     {
@@ -125,7 +123,7 @@ function Room() {
             </Link>
           </div>
         </div>
-        <div className="col-md-6 col-sm-12" className={classes.rightdiv}>
+        <div class="col-md-6 col-sm-12" className={classes.rightdiv}>
           <div className={classes.title}>
             <Title>Information about the Event</Title>
             <CustomButton  style={{

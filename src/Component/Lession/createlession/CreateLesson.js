@@ -1,23 +1,14 @@
 import React, { useState } from "react";
 import { Title } from "../../../controls/Input";
 // import { CustomSelect } from "../controls/Select";
-import { CustomSelect } from "../../../controls/Select";
-import { CustomButton } from "../../../controls/Button";
 import { CustomDivRight, CustomDivLeft } from "../../../controls/Div";
-import { useFormik } from "formik";
 import LessonTable from "../Table";
-import { useMutation, useQueryClient } from "react-query";
-import { BiInfoCircle } from "react-icons/bi";
 import CreateSession from "./CreateSession";
 import LessionDetail from "./LessonDetail";
 import CreateFinish from "./CreateFinish";
 import InviteStudent from "./InviteStudents";
-import { Link } from "react-router-dom";
-
 import { Stepper, Step, StepLabel } from "@material-ui/core";
-
 import { makeStyles } from "@material-ui/core/styles";
-import { GiClawSlashes } from "react-icons/gi";
 const useStyles = makeStyles({
   root: {
     width: "90%",
@@ -40,13 +31,7 @@ const useStyles = makeStyles({
     justifyContent: "center",
   },
 });
-const options = [
-  { value: "tutorial", label: "tutorial" },
-  { value: "annoucement", label: "annoucement" },
-  { value: "lecture", label: "lecture" },
-  { value: "fixed lecture", label: "fixed lecture" },
-  { value: "prayer", label: "prayer" },
-];
+
 
 function getSteps() {
   return ["CREATE SESSION", "ADD DETAILS", "INVITE", "FINISH"];

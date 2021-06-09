@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { useQuery, useQueryClient } from "react-query";
+import React, {  useState } from "react";
+import { useQuery } from "react-query";
 import { fetchOneEvent } from "../../../Async/lesson";
-import { OTSession, OTPublisher, OTStreams } from "opentok-react";
+import { OTSession,  OTStreams } from "opentok-react";
 import Connection from "./Connection";
 import Publisher from "./Publisher";
 import Subscriber from "./Subscriber";
 import { Title } from "../../../controls/Input";
-import { CustomInput, LabelText } from "../../../controls/Input";
+import {  LabelText } from "../../../controls/Input";
 
 // const apiKey="47217034"
 
-import { makeStyles, Container } from "@material-ui/core";
 import Message from "./Message";
 import { useParams } from "react-router";
-const useStyles = makeStyles({});
 
 const Host = (props) => {
   // STEP 1: get utilities from useOpenTok;
@@ -23,7 +21,6 @@ const params = useParams()
   const [connect, setConnect] = useState(false);
   const [content, setContent] = useState([]);
 
-  const name = params.name
   const { data, isLoading, isError } = useQuery(
     ["lecture", params.id],
     () => fetchOneEvent(params.id)
@@ -48,13 +45,7 @@ const params = useParams()
   if (data) {
     const { apiKey, session: sessionId, token, topic, JWTtoken, id } = data;
     localStorage.setItem("token", JWTtoken);
-    const sessionData = () => {
-      return {
-        apiKey,
-        sessionId,
-        token,
-      };
-    };
+   
    
     return (
       <div className="row">
@@ -74,6 +65,7 @@ const params = useParams()
                 href={`/joinAuth/${params.id}`}
                 target="_blank"
                 style={{ marginLeft: 80, textTransform: "uppercase" }}
+                rel="noreferrer"
               >
                 <LabelText>Join here</LabelText>
               </a>
@@ -106,6 +98,8 @@ const params = useParams()
         </div>
       </div>
     );
+  } else {
+    return null
   }
 };
 

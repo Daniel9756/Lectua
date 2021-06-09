@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types"
 import {  LabelText } from "../../../controls/Input";
 
-function Connection(props, context) {
+function Connection(props) {
   // const classes = useStyles();
   // console.log(context, props)
 
-  const { connect, session, stream } = props;
+  const { connect } = props;
   const status = connect ? "Connected" : "Disconnected";
 
   return (

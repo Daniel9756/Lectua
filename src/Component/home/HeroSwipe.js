@@ -1,12 +1,10 @@
 import React from "react";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
-import MobileStepper from "@material-ui/core/MobileStepper";
-import Paper from "@material-ui/core/Paper";
-import Typography from "@material-ui/core/Typography";
+import MobileStepper from "@material-ui/core/MobileStepper"
 import Button from "@material-ui/core/Button";
 import SwipeableViews from "react-swipeable-views";
 import { autoPlay } from "react-swipeable-views-utils";
-import { MdKeyboardArrowRight, MdKeyboardArrowLeft } from "react-icons/md";
+import { MdKeyboardArrowRight } from "react-icons/md";
 
 import { GrFormPrevious } from "react-icons/gr";
 
@@ -48,7 +46,6 @@ const useStyles = makeStyles((theme) => ({
     display: "block",
     width: "100%",
     overflow: "hidden",
-    width: "100%",
   },
 }));
 

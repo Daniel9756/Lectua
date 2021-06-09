@@ -10,7 +10,7 @@ import {
   AccordionDetails,
 } from "@material-ui/core";
 import { GiLaserSparks} from "react-icons/gi";
-import { CustomButton, GroupButton } from "../../controls/Button";
+import {  GroupButton } from "../../controls/Button";
 
 import { 
   MdExpandMore

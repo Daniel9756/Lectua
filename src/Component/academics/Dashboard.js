@@ -5,10 +5,8 @@ import {
   Typography,
   Container,
   InputLabel,
-  Paper,
 } from "@material-ui/core";
 // import Controls from "../../controls/Controls";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 import { CustomInput, Title } from "../../controls/Input";
 import { CustomButton } from "../../controls/Button";
 import { HiOutlineDesktopComputer } from "react-icons/hi";

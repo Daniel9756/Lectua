@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormik } from "formik";
-import { CustomInput, LabelText, Title, Info } from "../../../controls/Input";
+import { CustomInput, LabelText } from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
 
 

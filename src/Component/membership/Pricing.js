@@ -16,7 +16,6 @@ import {
   GiCrossedBones,
 } from "react-icons/gi";
 import { CustomButton } from "../../controls/Button";
-import { IoIosBed, IoLibraryOutline } from "react-icons/io";
 import Service from "../service/Service";
 
 const useStyles = makeStyles((theme) => ({

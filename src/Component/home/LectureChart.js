@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   makeStyles,
   withStyles,
@@ -10,17 +10,15 @@ import {
   TableRow,
   Paper,
   Checkbox,
-  Typography,
   TableFooter,
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 // import LinearLoading from "../"
 import Avatar from "@material-ui/core/Avatar";
-import { useQuery, useQueryClient } from "react-query";
+import { useQuery } from "react-query";
 import { fetchDetails } from "../../Async/lessonDetail";
 import { Title, LabelText } from "../../controls/Input";
 import Chart from "./Chart";
-import { CustomButton } from "../../controls/Button";
 import LinearLoading from "../../utils/Progress/Linear";
 const useStyles = makeStyles({
   table: {
@@ -67,8 +65,7 @@ export default function LectureChart() {
     },
   }))(TableRow);
 
-  const queryClient = useQueryClient();
-  const [page, setPage] = React.useState(0);
+  
 
   const { data, status } = useQuery("details", fetchDetails, {
     onSuccess: () => console.log("All details successfully fetched"),

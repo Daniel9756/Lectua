@@ -1,14 +1,12 @@
 import React from "react";
 import {
-  CustomInput,
+ 
   LabelText,
-  CustomDateInput,
-  Title,
-  Info,
+ 
+  Title, 
 } from "../../../controls/Input";
 import { MdAddCircle } from "react-icons/md";
 import { CustomButton } from "../../../controls/Button";
-import { BrowserRouter as Router, Link } from "react-router-dom";
 
 function CreateFinish({ handleBack, setActiveStep }) {
   return (

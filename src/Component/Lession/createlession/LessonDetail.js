@@ -3,11 +3,11 @@ import { CustomSelect } from "../../../controls/Select";
 import { CustomInput, LabelText, CustomDateInput } from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
 import { useFormik } from "formik";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import * as Yup from "yup";
 import ErrorMessage from "../../../utils/Error/ErrorMessage";
 import {addDetail} from "../../../Async/lessonDetail"
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 
 import {
   CircularProgress
@@ -23,15 +23,12 @@ const options = [
   { value: "prayer", label: "prayer" },
 ];
 
-function LessionDetail({ handleBack, handleNext }) {
-  const queryClient = useQueryClient();
-
+function LessionDetail({ handleBack }) {
   const params = useParams();
   const {
     mutate,
     isLoading: isAddingUser,
-    isSuccess,
-    isError,
+   
   } = useMutation(addDetail, {
     // onSuccess: () => queryClient.invalidateQueries("details"),
         onSuccess: (data) => console.log(data, "Details inserted")

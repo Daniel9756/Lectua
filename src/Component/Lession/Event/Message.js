@@ -1,27 +1,14 @@
 import React from "react";
-import { useMutation, useQueryClient } from "react-query";
-import { useHistory } from "react-router-dom";
-import { CustomInput, InputLabel, CustomDateInput } from "../../../controls/Input";
+import { CustomInput,   } from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
 import { useFormik } from "formik";
-import { sendMessage } from "../../../Async/message";
 import * as Yup from "yup";
 
 const { initSession } = require("@opentok/client");
 
 function Message(props) {
-  const queryClient = useQueryClient();
-  const history = useHistory();
-  const {
-    mutate,
-    isLoading: isAddingUser,
-    isSuccess,
-    isError,
-  } = useMutation(sendMessage, {
-    // onSuccess: () => queryClient.invalidateQueries("lectures"),
-    onSuccess: (data) => console.log(data, "user created succesfully"),
-  });
-  const { sessionId, apiKey, token, topic, id, name } = props;
+ 
+  const { sessionId,} = props;
   const session = initSession(process.env.API_KEY, sessionId);
   console.log(session, "initSession");
 

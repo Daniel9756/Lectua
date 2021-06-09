@@ -1,24 +1,8 @@
 import React, { useState } from "react";
 import { GroupButton } from "../../controls/Button";
 
-import {
-  makeStyles,
-  Grid,
-  Typography,
-  Container,
-  CardContent,
-  Card,
-} from "@material-ui/core";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { SiMarketo, SiWhatsappn, SiExpertsexchange } from "react-icons/si";
-import {
-  GiLighthouse,
-  GiSurroundedEye,
-  GiSatelliteCommunication,
-  GiFreedomDove,
-} from "react-icons/gi";
-import { HiOutlineChatAlt } from "react-icons/hi";
-import { Title } from "../../controls/Input";
+import {  Grid, Typography, Container } from "@material-ui/core";
+
 import Arts from "../courses/Arts";
 import All from "../courses/All";
 import Business from "../courses/Business";
@@ -32,8 +16,6 @@ import SSCE from "../courses/SSCE";
 import WAEC from "../courses/WAEC";
 import Marketing from "../courses/Marketing";
 import Subjects from "../courses/Subjects";
-
-const useStyles = makeStyles((theme) => ({}));
 
 function CourseLinks() {
   function getContent(page) {
@@ -60,15 +42,14 @@ function CourseLinks() {
         return <SSCE />;
       case "WAEC":
         return <WAEC />;
-        case "WAEC":
-          return <Subjects />;
+      case "Subjects":
+        return <Subjects />;
       case "Marketing":
         return <Marketing />;
       default:
         return "UNKNOWN STEP";
     }
   }
-  const classes = useStyles();
   const [content, setContent] = useState("All");
 
   return (
@@ -133,7 +114,7 @@ function CourseLinks() {
           Marketing
         </GroupButton>
         <GroupButton onClick={() => setContent("Subjects")}>
-         Subjects
+          Subjects
         </GroupButton>
         <GroupButton onClick={() => setContent("Business")}>
           Business

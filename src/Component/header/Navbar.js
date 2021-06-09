@@ -1,13 +1,8 @@
 import React, { useState } from "react";
-import { LabelText } from "../../controls/Input";
 import {
-  Collapse,
   Navbar,
-  NavbarToggler,
   NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
+ 
 } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 
@@ -74,7 +69,6 @@ const useStyles = makeStyles((theme) => ({
     color: "#376e6f",
     fontFamily: "serif",
     textDecoration: "none",
-    padding: "10px",
     width: "auto",
     height: "auto",
     padding: 4,
@@ -114,7 +108,6 @@ const NavgBar = (props) => {
     setIsSeen(false);
   };
 
-  const [collapsed, setCollapsed] = useState(true);
 
   return (
     <div className={classes.root}>

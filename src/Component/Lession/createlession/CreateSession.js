@@ -4,13 +4,10 @@ import { CustomInput, LabelText } from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
 import { useMutation, useQueryClient } from "react-query";
 import { addLecture } from "../../../Async/lesson";
-import Notification from "../../../utils/Notification";
 import Notify from "../../../utils/Notify";
-import { useHistory } from "react-router-dom";
 import SessionTable from "../SessionTable";
 import ErrorMessage from "../../../utils/Error/ErrorMessage"
 import * as Yup from "yup";
-import { Link } from "react-router-dom";
 
 import {
   CircularProgress
@@ -19,7 +16,6 @@ import {
 
 function CreateSession({ handleNext }) {
   const queryClient = useQueryClient();
-  const history = useHistory();
   const {
     mutate,
     isLoading: isAddingUser,

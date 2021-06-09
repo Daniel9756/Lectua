@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import {
   Table,
@@ -12,12 +12,11 @@ import {
 } from "@material-ui/core";
 import { GoDiffAdded } from "react-icons/go";
 import { MdCancel } from "react-icons/md";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { fetchData, removeLecture } from "../../Async/lesson";
-import { Title, LabelText } from "../../controls/Input";
-import { CustomButton } from "../../controls/Button";
+import {  LabelText } from "../../controls/Input";
 
 const useStyles = makeStyles({
   table: {
@@ -64,7 +63,6 @@ export default function SessionTable({handleNext}) {
       border: "none",
     },
   }))(TableRow);
-const history = useHistory()
   const classes = useStyles();
   const queryClient = useQueryClient();
   const { mutate } = useMutation(removeLecture, {

@@ -4,19 +4,16 @@ import {
   makeStyles,
   Grid,
   Typography,
-  Container,
   CardContent,
   Card,
 } from "@material-ui/core";
-import { BrowserRouter as Router, Link } from "react-router-dom";
-import { SiMarketo, SiWhatsappn, SiExpertsexchange } from "react-icons/si";
+import { Link } from "react-router-dom";
+import { SiExpertsexchange } from "react-icons/si";
 import {
   GiLighthouse,
-  GiSurroundedEye,
   GiSatelliteCommunication,
   GiFreedomDove,
 } from "react-icons/gi";
-import { HiOutlineChatAlt } from "react-icons/hi";
 import { Title } from "../../controls/Input";
 import { CustomButton } from "../../controls/Button";
 
@@ -42,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 40,
   },
   choose1: {
-    textAlign: "center",
-    color: "secondary",
+    textAlign: "center",  
     fontWeight: "bold",
     fontFamily: "serif",
     color: "#DA7B93",

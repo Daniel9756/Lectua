@@ -1,6 +1,6 @@
 import { Container, Grid, makeStyles } from "@material-ui/core";
 import React from "react";
-import { CustomButton, GroupButton } from "../../controls/Button";
+import { CustomButton } from "../../controls/Button";
 import { CustomInput, LabelText, Title } from "../../controls/Input";
 import { Link } from "react-router-dom";
 
