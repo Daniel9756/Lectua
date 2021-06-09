@@ -11,17 +11,13 @@ import {
 } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
 
-import { Avatar, makeStyles, Typography, Grid, Box } from "@material-ui/core";
-import NestedList from "./Settings";
+import {  makeStyles,  Box } from "@material-ui/core";
 import {
-  MdRateReview,
-  MdSend,
+ 
   MdExpandLess,
   MdExpandMore,
-  MdBookmarkBorder,
-  MdEmail,
+ 
 } from "react-icons/md";
-import { GroupButton } from "../../controls/Button";
 import Settings from "./Settings";
 import Academics from "./Academics";
 
@@ -33,20 +29,19 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     padding: "10px",
     color: "#DA7B93",
-     fontFamily: "serif",
-    '&:hover': {
+    fontFamily: "serif",
+    "&:hover": {
       color: "#DA7B93",
-   
-    textDecoration: "none",
-    padding: "10px",
-   },
+
+      textDecoration: "none",
+    },
   },
   btn: {
     borderRadius: 8,
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 435,
+    marginTop: 415,
     padding: 1,
     position: "fixed",
     zIndex: 100,
@@ -58,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 255,
+    marginTop: 280,
     zIndex: 100,
     position: "fixed",
   },
@@ -67,12 +62,30 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "serif",
     textDecoration: "none",
     padding: "10px",
-    '&:hover': {
+    "&:hover": {
       color: "#DA7B93",
+      fontFamily: "serif",
+      textDecoration: "none",
+      padding: "10px",
+    },
+  },
+  reg: {
+    background: "#DA7B93",
+    color: "#376e6f",
     fontFamily: "serif",
     textDecoration: "none",
     padding: "10px",
-   },
+    width: "auto",
+    height: "auto",
+    padding: 4,
+    marginLeft: 8,
+    "&:hover": {
+      background: "#fff",
+      color: "#DA7B93",
+      fontFamily: "serif",
+      textDecoration: "none",
+      
+    },
   },
 }));
 const NavgBar = (props) => {
@@ -82,7 +95,7 @@ const NavgBar = (props) => {
 
   const active = {
     color: "#376e6f",
-    borderBottom: "3px solid #376e6f",
+    borderBottom: "3px solid #DA7B93",
   };
 
   const [isShown, setIsShown] = useState(false);
@@ -111,7 +124,7 @@ const NavgBar = (props) => {
           backgroundColor: "#2f4454",
           color: "#1C3334",
           padding: 10,
-          height: 100,
+          height: 120,
         }}
       >
         <div
@@ -150,13 +163,15 @@ const NavgBar = (props) => {
             Create Lession
           </Link>
           <Link
-            to="/register"
-            style={location.pathname === "/register" ? active : {}}
+            to="/CreateLesson"
+            style={location.pathname === "/Find Courses" ? active : {}}
             className={classes.links}
           >
             {" "}
-            Register
+            Find Courses
           </Link>
+
+         
         </div>
 
         <div
@@ -176,15 +191,15 @@ const NavgBar = (props) => {
             onMouseEnter={togleInDisplay}
             onMouseLeave={togleOutDisplay}
           >
-             <Link
-            to="/dashboard"
-            style={location.pathname === "/dashboard" ? active : {}}
-            className={classes.links}
-          >
-            {" "}
-            Academics
-          </Link>
-          
+            <Link
+              to="/dashboard"
+              style={location.pathname === "/dashboard" ? active : {}}
+              className={classes.links}
+            >
+              {" "}
+              Academics
+            </Link>
+
             {isShown ? (
               <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
             ) : (
@@ -200,15 +215,6 @@ const NavgBar = (props) => {
               )}
             </Box>
           </Box>
-          <Link
-            to="/CreateLesson"
-            style={location.pathname === "/Find Courses" ? active : {}}
-            className={classes.links}
-          >
-            {" "}
-            Find Courses
-          </Link>
-        
 
           <Box
             style={{
@@ -219,15 +225,14 @@ const NavgBar = (props) => {
             onMouseEnter={togleInAvaterDisplay}
             onMouseLeave={togleOutAvaterDisplay}
           >
-             <Link
-            to="/Settings"
-            style={location.pathname === "/Settings" ? active : {}}
-            className={classes.links}
-          >
-            {" "}
-            Settings
-          </Link>
-        
+            <Link
+              to="/Settings"
+              style={location.pathname === "/Settings" ? active : {}}
+              className={classes.links}
+            >
+              {" "}
+              Settings
+            </Link>
 
             {isSeen ? (
               <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
@@ -244,6 +249,13 @@ const NavgBar = (props) => {
               )}
             </Box>
           </Box>
+          <Link
+            to="/Register"
+            style={location.pathname === "/register" ? active : {}}
+            className={classes.reg}
+          >
+            Register
+          </Link>
         </div>
       </Navbar>
     </div>

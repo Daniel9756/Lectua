@@ -30,8 +30,8 @@ import Science from "../courses/Science";
 import Software from "../courses/Software";
 import SSCE from "../courses/SSCE";
 import WAEC from "../courses/WAEC";
-
 import Marketing from "../courses/Marketing";
+import Subjects from "../courses/Subjects";
 
 const useStyles = makeStyles((theme) => ({}));
 
@@ -60,6 +60,8 @@ function CourseLinks() {
         return <SSCE />;
       case "WAEC":
         return <WAEC />;
+        case "WAEC":
+          return <Subjects />;
       case "Marketing":
         return <Marketing />;
       default:
@@ -129,6 +131,9 @@ function CourseLinks() {
         <GroupButton onClick={() => setContent("Design")}>Design</GroupButton>
         <GroupButton onClick={() => setContent("Marketing")}>
           Marketing
+        </GroupButton>
+        <GroupButton onClick={() => setContent("Subjects")}>
+         Subjects
         </GroupButton>
         <GroupButton onClick={() => setContent("Business")}>
           Business

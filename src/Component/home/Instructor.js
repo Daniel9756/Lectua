@@ -22,20 +22,22 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
   },
   container: {
-    background: "#dcdde1",
+    background: "#2f4454",
     padding: 40,
   },
   title: {
     padding: 10,
     fontWeight: "bold",
     fontFamily: "serif",
-    color: "#2f4454",
+    color: "#DA7B93",
+
   },
   title1: {
     padding: 10,
     fontFamily: "serif",
     fontWeight: "bold",
-    color: "#2f4454",
+    color: "#DA7B93",
+
   },
   box: {
     marginLeft: 8,

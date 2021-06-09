@@ -3,11 +3,10 @@ import { makeStyles, Grid, Typography, Box } from "@material-ui/core";
 
 import Avatar from "@material-ui/core/Avatar";
 // import {useSpring, animated} from 'react-spring'
-import { FaRegEdit, FaRegIdBadge } from "react-icons/fa";
+import { FaRegIdBadge } from "react-icons/fa";
 import { FcReading } from "react-icons/fc";
 import { CgProfile } from "react-icons/cg";
 import { TiMessages } from "react-icons/ti";
-import { CustomButton, GroupButton } from "../../controls/Button";
 
 const useStyles = makeStyles((theme) => ({
   step: {
@@ -157,21 +156,6 @@ function How() {
         </Grid>{" "}
       </Grid>
      
-        <Box
-          item
-          md="6"
-          style={{
-            paddingLeft: "2px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 40,
-            color: "#DA7B93",
-          }}
-        >
-          <Typography variant="h2">Join us </Typography>{" "}
-          <GroupButton style={{width: 150, color: "#DA7B93", background: "#2f4454", height: 40, fontSize: 20, borderRadius: 8, marginLeft: 20}}>Now</GroupButton>
-        </Box>
       
     </Box>
   );

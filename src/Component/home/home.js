@@ -2,19 +2,19 @@ import React from "react";
 import HeroSwipe from "./HeroSwipe";
 import HowIt from "./HowIt";
 import Instructor from "./Instructor";
-
+import Process from "./Process"
 import { Box, Container } from "@material-ui/core";
-import LessonTable from "../Lession/Table";
+import LectureChart from "./LectureChart";
 
 function home() {
   return (
     <Box>
       <HeroSwipe />
-      <HowIt />
+      <Process />
       <Instructor />
-      <Container style={{paddingTop:40}}>
-        <LessonTable />
-      </Container>
+      <Box style={{paddingTop:40, marginRight: 40, marginLeft: 40}}>
+        <LectureChart />
+      </Box>
     </Box>
   );
 }

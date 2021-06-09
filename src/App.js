@@ -11,7 +11,7 @@ import JoinAuth from "./Component/Lession/Event/JoinAuth";
 import Dashboard from "./Component/academics/Dashboard";
 import Register from "./Component/user/Register";
 import Login from "./Component/user/Login";
-import Home from "./Component/home/home";
+import Home from "./Component/home/Home";
 
 function App() {
   // const classes = useStyles();
