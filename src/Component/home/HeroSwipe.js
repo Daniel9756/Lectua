@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function HeroSwipe() {
+  
   const classes = useStyles();
   const theme = useTheme();
   const [activeStep, setActiveStep] = React.useState(0);

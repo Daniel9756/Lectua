@@ -33,10 +33,9 @@ const useStyles = makeStyles((theme) => ({
   },
   btn: {
     borderRadius: 8,
-    background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 415,
+    marginTop: 200,
     padding: 1,
     position: "fixed",
     zIndex: 100,
@@ -85,8 +84,6 @@ const useStyles = makeStyles((theme) => ({
 const NavgBar = (props) => {
   const classes = useStyles();
   const location = useLocation();
-  console.log(location);
-
   const active = {
     color: "#376e6f",
     borderBottom: "3px solid #DA7B93",
@@ -164,7 +161,14 @@ const NavgBar = (props) => {
             Find Courses
           </Link>
 
-         
+          <Link
+            to="/Profile"
+            style={location.pathname === "/Profile" ? active : {}}
+            className={classes.links}
+          >
+            {" "}
+           Profile
+          </Link>
         </div>
 
         <div
@@ -194,9 +198,9 @@ const NavgBar = (props) => {
             </Link>
 
             {isShown ? (
-              <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
+              <MdExpandLess style={{ color: "#DA7B93", margin: 0, fontSize: 30 }} />
             ) : (
-              <MdExpandMore style={{ color: "#DA7B93", margin: 0 }} />
+              <MdExpandMore style={{ color: "#DA7B93", margin: 0, fontSize: 30  }} />
             )}
 
             <Box className={classes.btn}>
@@ -228,9 +232,9 @@ const NavgBar = (props) => {
             </Link>
 
             {isSeen ? (
-              <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
+              <MdExpandLess style={{ color: "#DA7B93", margin: 0,fontSize: 30  }} />
             ) : (
-              <MdExpandMore style={{ color: "#DA7B93", margin: 0 }} />
+              <MdExpandMore style={{ color: "#DA7B93", margin: 0,fontSize: 30  }} />
             )}
 
             <Box className={classes.btnSet}>

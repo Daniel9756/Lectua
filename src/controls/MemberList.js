@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme=>({
 
 function MemberList(props) {
   const classes = useStyles();
-  const { text, icon } = props;
+  const { text, icon, } = props;
   return (
     <div className={classes.memberlist}>
    {icon}

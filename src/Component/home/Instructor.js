@@ -5,7 +5,7 @@ import {
   Typography,
   Box,
   Container,
-  Paper,
+  Paper,Avatar
 } from "@material-ui/core";
 import { RiHandHeartFill } from "react-icons/ri";
 import { GiLaserSparks, GiOldKing, } from "react-icons/gi";
@@ -13,17 +13,17 @@ import { MdDevicesOther } from "react-icons/md";
 
 const useStyles = makeStyles((theme) => ({
   service: {
-    backgroundImage: `url(/images/ws3.jpg)`,
-    backgroundRepeat: "no-repeat",
-    objectFit: "cover",
+  
     width: "100%",
-    height: "auto",
-    paddingTop: theme.spacing(2),
+    height: "630px",
+    borderRadius: 12,  
     color: "#fff",
   },
   container: {
     background: "#2f4454",
-    padding: 40,
+    paddingTop: 40,
+    paddingBottom: 40,
+
   },
   title: {
     padding: 10,
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 
   },
   box: {
-    marginLeft: 8,
+   
     display: "flex",
     flexDirection: "column",
     marginRight: 8,
@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: 120,
     padding: 10,
-    marginLeft: 40,
+    marginLeft: 20,
     marginTop: 10,
     width: "300px",
   },
@@ -74,9 +74,23 @@ function Instructor() {
     <Box className={classes.container}>
       <Container>
         <Grid container>
-          <Grid md="6" item className={classes.service}></Grid>
-          <Grid md="6" item>
-            <Box style={{ marginLeft: 20 }}>
+         
+        <Grid item md="6">
+          <Box style={{margin:10}}>
+
+            <Avatar
+              variant="rounded"
+              src="/images/ws3.jpg"
+              alt="company logo"
+              className={classes.service}
+            ></Avatar>
+          </Box>
+          </Grid>
+          <Grid item md="6">
+            <Box  style={{marginleft:10}}>
+
+          
+            <Box>
               <Typography variant="h4" className={classes.title}>
                 Don’t change what you learn, just change your learning habit.
               </Typography>
@@ -129,6 +143,7 @@ function Instructor() {
                 </Box>
               </Grid>
             </Grid>
+          </Box>
           </Grid>
         </Grid>{" "}
       </Container>

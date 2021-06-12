@@ -1,4 +1,4 @@
-import { Container, Grid, makeStyles } from "@material-ui/core";
+import { Box, Grid, makeStyles, Avatar, Container } from "@material-ui/core";
 import React from "react";
 import { CustomButton } from "../../controls/Button";
 import { CustomInput, LabelText, Title } from "../../controls/Input";
@@ -6,10 +6,10 @@ import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   register: {
-    marginTop: 40,
+    marginTop: 10,
     marginBottom: 40,
-    background: "#376e6f",
-    color: "#fff",
+    background: "#fff",
+    // color: "#fff",
     width: "100%",
     height: "auto",
     padding: 20,
@@ -17,29 +17,30 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 12,
   },
   Istgrid: {
-    backgroundImage: `url(/images/whero.jpg)`,
-    marginTop: 40,
-    width: "100%",
-    height: "auto",
+  
+ 
+   width: "100vh",
+    height: "100%",
     borderRadius: 12,
 
   },
-  Secgrid: {
-    backgroundImage: `url(/images/whero4.jpg)`,
-    marginTop: 40,
-    width: "100%",
-    height: "auto",
-    borderRadius: 12,
-
-  }
+ 
 }));
 function Register() {
   const classes = useStyles();
   return (
-    <Container>
-      <Grid container style={{marginBottom:20}}>
-        <Grid item md="4" className={classes.Istgrid}></Grid>
-        <Grid item md="4" className={classes.Secgrid}></Grid>
+    <Box style={{background:"#2f4454", paddingBottom: 40}}>
+      <Container>
+      <Grid container style={{display:"flex", alignItems:"center"}}>
+        <Grid item md="8">
+        <Avatar
+            variant="rounded"
+            src="/images/carol6.jpg"
+            alt="company logo"
+            className={classes.Istgrid}
+          ></Avatar>
+        </Grid>
+      
         <Grid item md="4" className={classes.register}>
           <Title
             style={{
@@ -60,6 +61,8 @@ function Register() {
               alignItems: "center",
               fontSize: 20,
               color: "#DA7B93",
+              fontWeight:"bold",
+              fontFamily:"serif"
             }}
           >
             I already have an account{" "}
@@ -81,15 +84,12 @@ function Register() {
             <LabelText>Password</LabelText>
             <CustomInput />
           </div>{" "}
-          <div>
-            <LabelText>Confirm Password</LabelText>
-            <CustomInput />
-          </div>
+         
           <div>
             <CustomButton
               style={{
-                color: "#376e6f",
-                background: "#DA7B93",
+                color: "#DA7B93",
+                background: "#2f4454",
                 borderRadius: 12,
                 marginTop: 20,
               }}
@@ -99,7 +99,8 @@ function Register() {
           </div>
         </Grid>
       </Grid>
-    </Container>
+      </Container>
+    </Box>
   );
 }
 

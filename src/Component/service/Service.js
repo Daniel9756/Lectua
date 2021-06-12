@@ -1,7 +1,7 @@
 import React from "react";
 import { makeStyles, Grid, Typography } from "@material-ui/core";
 // import Controls from "../../controls/Controls";
-import { Link } from "react-router-dom";
+import { LabelText } from "../../controls/Input";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -9,15 +9,10 @@ const useStyles = makeStyles((theme) => ({
   },
 
   service: {
-    backgroundImage: `url(/img/hero/hero2.jpg)`,
-    backgroundRepeat: "no-repeat",
-    objectFit: "cover",
+  
     width: "100%",
-    height: "300px",
-    marginTop: "-20px",
-
-    paddingTop: theme.spacing(2),
-    color: "#fff",
+    height: "auto",
+       paddingTop: theme.spacing(2),
   },
   home: {
     color: "#c23616",
@@ -45,11 +40,11 @@ function Service() {
           >
             Start a good life
           </Typography>
-          <Typography
-            variant="subtitle1"
-            component="div"
-            color="secondary"
+          <LabelText
+           
+          
             style={{
+              fontSize: 20,
               textAlign: "center",
               marginTop: "20px",
               fontWeight: "bold",
@@ -62,10 +57,8 @@ function Service() {
             provide house package that give you access to an array of house
             designs, suited to a variety of lots of sizes and your unique family
             housing needs.
-            <Link to="#" className={classes.home}>
-              OUR DESIGN
-            </Link>
-          </Typography>
+           
+          </LabelText>
         </Grid>
         <Grid item md={2}></Grid>
       </Grid>

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { GroupButton } from "../../controls/Button";
 
-import {  Grid, Typography, Container } from "@material-ui/core";
+import {  Grid, Typography, Container, Box } from "@material-ui/core";
 
 import Arts from "../courses/Arts";
 import All from "../courses/All";
@@ -16,6 +16,8 @@ import SSCE from "../courses/SSCE";
 import WAEC from "../courses/WAEC";
 import Marketing from "../courses/Marketing";
 import Subjects from "../courses/Subjects";
+import University from "../courses/University";
+
 
 function CourseLinks() {
   function getContent(page) {
@@ -46,6 +48,8 @@ function CourseLinks() {
         return <Subjects />;
       case "Marketing":
         return <Marketing />;
+        case "University":
+          return <University />;
       default:
         return "UNKNOWN STEP";
     }
@@ -85,8 +89,9 @@ function CourseLinks() {
         </Grid>
         <Grid item md="2"></Grid>
       </Grid>
-
-      <div
+<Grid container>
+  <Grid item md="12" sm="4">
+  <Box
         style={{
           marginTop: 40,
           display: "flex",
@@ -119,7 +124,13 @@ function CourseLinks() {
         <GroupButton onClick={() => setContent("Business")}>
           Business
         </GroupButton>
-      </div>
+        <GroupButton onClick={() => setContent("University")}>
+          High-Institutions
+        </GroupButton>
+      </Box>
+  </Grid>
+</Grid>
+     
 
       <div>{getContent(content)}</div>
     </Container>

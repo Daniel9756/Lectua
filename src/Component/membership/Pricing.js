@@ -1,22 +1,14 @@
 import React from "react";
 import {
   makeStyles,
-  Grid,
   Typography,
-  Container,
   CardContent,
   Card,
+  Box,
 } from "@material-ui/core";
 import MemberList from "../../controls/MemberList";
-import { FaHouseDamage, FaTachometerAlt } from "react-icons/fa";
-import {
-  GiHouse,
-  GiHomeGarage,
-  GiCheckMark,
-  GiCrossedBones,
-} from "react-icons/gi";
+import { GiCheckMark } from "react-icons/gi";
 import { CustomButton } from "../../controls/Button";
-import Service from "../service/Service";
 
 const useStyles = makeStyles((theme) => ({
   why: {
@@ -26,6 +18,12 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "capitalize",
     marginTop: theme.spacing(1),
     opacity: "0.5",
+  },
+  container: {
+    textAlign: "center",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   grid: {
@@ -53,13 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginRight: 8,
     fontWeight: "bold",
   },
-  membermarkx: {
-    textAlign: "center",
-    fontSize: 12,
-    color: "#e74c3c",
-    marginRight: 8,
-    fontWeight: "bold",
-  },
+
   paragraph: {
     fontFamily: "Helvetica Neue",
     textTransform: "capitalize",
@@ -69,11 +61,13 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     fontSize: 120,
     color: "#130f40",
-    marginTop: "16px",
+
     borderRadius: "50%",
     opacity: "0.8",
+    textAlign: "center",
   },
   card: {
+    width: "280px",
     height: "550px",
     margin: theme.spacing(1),
     elevation: "0",
@@ -88,224 +82,71 @@ const useStyles = makeStyles((theme) => ({
 
 function Membership(props) {
   const classes = useStyles();
+  const {
+    title,
+    price,
+    rootUser,
+    singleClass,
+    groupClass,
+    usersAccount,
+    sms,
+    onClick,
+    plan,
+    icon,
+  } = props;
+  const active = {
+    background: "#376e6f",
+    color: "white",
+  };
   return (
     <>
-      <Service />
-      <Container
-        style={{ paddingBottom: 20, paddingTop: 20, background: "#dcdde1", marginBottom: 40 }}
-      >
-        <Grid container>
-          <Grid item md="3">
-            <Card className={classes.card}>
-              <div style={{ textAlign: "center" }}>
-                <GiHouse className={classes.icon} />
-              </div>
-              <CardContent style={{ textAlign: "center" }}>
-                <div className={classes.title}>
-                  <Typography
-                    variant="h5"
-                    className={classes.why}
-                    component="div"
-                    color="secondary"
-                  >
-                    Basic
-                  </Typography>
-                  <Typography variant="h4" className={classes.status}>
-                    Free
-                  </Typography>
-                </div>
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="One root Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="One free Class"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="One group class"
-                />
-                <MemberList
-                  icon={<GiCrossedBones className={classes.membermarkx} />}
-                  text="No User Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free online messages"
-                />
-                <MemberList
-                  icon={<GiCrossedBones className={classes.membermarkx} />}
-                  text="Free SMS messages"
-                />
+   
+      <Card className={classes.card} style={plan === title ? active : {}}>
+        <Box className={classes.icon}>{icon}</Box>
+        <CardContent style={{}}>
+          <div className={classes.title}>
+            <Typography
+              variant="h5"
+              className={classes.why}
+              component="div"
+              color="secondary"
+            >
+              {title}
+            </Typography>
+            <Typography variant="h4" className={classes.status}>
+              <strong style={{ color: "#DA7B93" }}>$</strong> {price}
+            </Typography>
+          </div>
+          <MemberList
+            icon={<GiCheckMark className={classes.membermark} />}
+            text={rootUser}
+          />
+          <MemberList
+            icon={<GiCheckMark className={classes.membermark} />}
+            text={singleClass}
+          />
+          <MemberList
+            icon={<GiCheckMark className={classes.membermark} />}
+            text={groupClass}
+          />
+          <MemberList
+            icon={<GiCheckMark className={classes.membermark} />}
+            text={usersAccount}
+          />
 
-                <CustomButton
-                  style={{ marginTop: 20, opacity: "0.8", color: "#DA7B93" }}
-                >
-                  Choose Plan
-                </CustomButton>
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid item md="3">
-            <Card className={classes.card}>
-              <div style={{ textAlign: "center" }}>
-                <FaHouseDamage className={classes.icon} elevation="0" />
-              </div>
-              <CardContent style={{ textAlign: "center" }}>
-                <div className={classes.title}>
-                  <Typography
-                    variant="h5"
-                    className={classes.why}
-                    component="div"
-                    color="secondary"
-                  >
-                    Professional
-                  </Typography>
-                  <Typography variant="h4" className={classes.status}>
-                    <em style={{ fontWeight: "bold" }}> # </em> 5000
-                  </Typography>
-                </div>
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="One root Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited free Class"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited group class"
-                />
-                <MemberList
-                  icon={<GiCrossedBones className={classes.membermarkx} />}
-                  text="No User Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free online messages"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free SMS messages"
-                />
-                <CustomButton
-                  style={{ marginTop: 20, opacity: "0.8", color: "#DA7B93" }}
-                >
-                  Choose Plan
-                </CustomButton>
-              </CardContent>
-            </Card>
-          </Grid>{" "}
-          <Grid item md="3">
-            <Card className={classes.card}>
-              <div style={{ textAlign: "center" }}>
-                <GiHomeGarage className={classes.icon} />
-              </div>
-              <CardContent style={{ textAlign: "center" }}>
-                <div className={classes.title}>
-                  <Typography
-                    variant="h5"
-                    className={classes.why}
-                    component="div"
-                    color="secondary"
-                  >
-                    Institutional
-                  </Typography>
-                  <Typography variant="h4" className={classes.status}>
-                    <em style={{ fontWeight: "bold" }}> # </em> 5000
-                  </Typography>
-                </div>
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="One root Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited free Class"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited group class"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Billed User Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free online messages"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free SMS messages"
-                />
+          <MemberList
+            icon={<GiCheckMark className={classes.membermark} />}
+            text={sms}
+          />
 
-                <CustomButton
-                  style={{ marginTop: 20, opacity: "0.8", color: "#DA7B93" }}
-                >
-                  Choose Plan
-                </CustomButton>
-              </CardContent>
-            </Card>
-          </Grid>{" "}
-          <Grid item md="3">
-            <Card className={classes.card}>
-              <div style={{ textAlign: "center" }}>
-                <FaTachometerAlt className={classes.icon} />
-              </div>
-              <CardContent style={{ textAlign: "center" }}>
-                <div className={classes.title}>
-                  <Typography
-                    variant="h5"
-                    className={classes.why}
-                    component="div"
-                    color="secondary"
-                  >
-                    Business
-                  </Typography>
-                  <Typography variant="h4" className={classes.status}>
-                    <em style={{ fontWeight: "bold" }}> # </em> 20000
-                  </Typography>
-                </div>
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="One root Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited free Class"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited group class"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Unlimited User Account"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free online messages"
-                />
-                <MemberList
-                  icon={<GiCheckMark className={classes.membermark} />}
-                  text="Free SMS messages"
-                />
-
-                <CustomButton
-                  style={{ marginTop: 20, opacity: "0.8", color: "#DA7B93" }}
-                >
-                  Choose Plan
-                </CustomButton>
-              </CardContent>
-            </Card>
-          </Grid>
-        </Grid>
-      </Container>
-     
-      {/* <Footer /> */}
+          <CustomButton
+            onClick={onClick}
+            style={{ marginTop: 20, opacity: "0.8", color: "#DA7B93" }}
+          >
+            Choose Plan
+          </CustomButton>
+        </CardContent>
+      </Card>
     </>
   );
 }

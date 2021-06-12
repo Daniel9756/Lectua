@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import { Title } from "../../../controls/Input";
 // import { CustomSelect } from "../controls/Select";
-import { CustomDivRight, CustomDivLeft } from "../../../controls/Div";
 import LessonTable from "../Table";
 import CreateSession from "./CreateSession";
 import LessionDetail from "./LessonDetail";
 import CreateFinish from "./CreateFinish";
 import InviteStudent from "./InviteStudents";
-import { Stepper, Step, StepLabel } from "@material-ui/core";
+import { Stepper, Step, StepLabel, Container } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles({
   root: {
@@ -73,7 +72,7 @@ function Lesson() {
 
   return (
     <>
-      <div className="container-fluid">
+      <Container className="container-fluid">
         <div>
           <Stepper
             alternativeLabel
@@ -88,7 +87,7 @@ function Lesson() {
           </Stepper>
         </div>
         <div style={{ display: "flex", justifyContent: "center" }}></div>
-        <div style={{ marginLeft: 20 }}></div>
+        {/* <div style={{ marginLeft: 20 }}></div> */}
         <div class="row" style={{ marginTop: 40, marginBottom: 40 }}>
           <div style={{ marginLeft: 20 }}>
             <Title>create your classroom</Title>
@@ -120,15 +119,8 @@ function Lesson() {
             <LessonTable />
           </div>
         </div>
-        <div className="row" style={{ margin: 10 }}>
-          <div className="col-md-6 col-sm-12">
-            <CustomDivRight />
-          </div>
-          <div className="col-md-6 col-sm-12">
-            <CustomDivLeft />
-          </div>
-        </div>
-      </div>
+      
+      </Container>
     </>
   );
 }

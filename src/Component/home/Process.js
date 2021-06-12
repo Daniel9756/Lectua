@@ -9,11 +9,19 @@ import {
   AccordionSummary,
   AccordionDetails,
 } from "@material-ui/core";
-import { GiLaserSparks} from "react-icons/gi";
-import {  GroupButton } from "../../controls/Button";
+import { FaSchool } from "react-icons/fa";
+import { SiDatacamp } from "react-icons/si";
 
-import { 
-  MdExpandMore
+import { GroupButton } from "../../controls/Button";
+
+import {
+  MdExpandMore,
+  MdCreateNewFolder,
+  MdCreate,
+  MdDetails,
+  MdInsertInvitation,
+  MdBorderClear,
+  MdPersonPin,
 } from "react-icons/md";
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -119,7 +127,7 @@ function Process() {
         <Grid item md="6">
           <Box className={classes.box}>
             <Paper className={classes.papertop}>
-              <GiLaserSparks className={classes.icon} />
+              <FaSchool className={classes.icon} />
               <Typography variant="h5" className={classes.textTit}>
                 Institutions and Teachers
               </Typography>
@@ -131,7 +139,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <MdCreate className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Register
                   </Typography>
@@ -153,7 +161,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <MdCreateNewFolder className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Complete your Profile
                   </Typography>
@@ -174,7 +182,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <MdDetails className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Create your Courses with details
                   </Typography>
@@ -197,7 +205,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <MdInsertInvitation className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Invite Student
                   </Typography>
@@ -216,7 +224,7 @@ function Process() {
         <Grid item md="6">
           <Box className={classes.box}>
             <Paper className={classes.papertop}>
-              <GiLaserSparks className={classes.icon} />
+              <MdPersonPin className={classes.icon} />
               <Typography variant="h5" className={classes.textTit}>
                 Students
               </Typography>
@@ -229,7 +237,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <MdCreate className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Register
                   </Typography>
@@ -251,7 +259,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <FaSchool className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Choose Institution or Teacher
                   </Typography>
@@ -276,7 +284,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <MdBorderClear className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Hand-on Learning
                   </Typography>
@@ -284,7 +292,8 @@ function Process() {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography variant="body1" className={classes.text}>
-               Explore your world of online learning.  Take advantage of our free learning material to upgarde your skill. 
+                  Explore your world of online learning. Take advantage of our
+                  free learning material to upgarde your skill.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -296,7 +305,7 @@ function Process() {
                 id="panel1a-header"
               >
                 <Box className={classes.paperbox}>
-                  <GiLaserSparks className={classes.icon} />
+                  <SiDatacamp className={classes.icon} />
                   <Typography variant="h6" className={classes.text}>
                     Develop academically
                   </Typography>
@@ -304,7 +313,9 @@ function Process() {
               </AccordionSummary>
               <AccordionDetails>
                 <Typography variant="body1" className={classes.text}>
-                 Most thing you need to succed academically is here in lectua. Our community has helped thousands of students achieve their goals.
+                  Most thing you need to succed academically is here in lectua.
+                  Our community has helped thousands of students achieve their
+                  goals.
                 </Typography>
               </AccordionDetails>
             </Accordion>
@@ -312,21 +323,32 @@ function Process() {
         </Grid>
       </Grid>
       <Box
-          item
-          md="6"
+        item
+        md="6"
+        style={{
+          paddingLeft: "2px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 40,
+          color: "#DA7B93",
+        }}
+      >
+        <Typography variant="h2">Join us </Typography>{" "}
+        <GroupButton
           style={{
-            paddingLeft: "2px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            marginTop: 40,
+            width: 150,
             color: "#DA7B93",
+            background: "#2f4454",
+            height: 40,
+            fontSize: 20,
+            borderRadius: 8,
+            marginLeft: 20,
           }}
         >
-          <Typography variant="h2">Join us </Typography>{" "}
-          <GroupButton style={{width: 150, color: "#DA7B93", background: "#2f4454", height: 40, fontSize: 20, borderRadius: 8, marginLeft: 20}}>Now</GroupButton>
-        </Box>
-      
+          Now
+        </GroupButton>
+      </Box>
     </Box>
   );
 }

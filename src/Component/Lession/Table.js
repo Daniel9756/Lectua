@@ -9,7 +9,7 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Checkbox,
+ 
   TableFooter,
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
@@ -42,6 +42,10 @@ const useStyles = makeStyles({
   body: {
     overflowY: "scroll",
   },
+  headtxt:{
+    color: "#2f4454", width: "auto", fontFamily:"serif", fontWeight:"bold", padding: 2, borderRadius: 4 
+  }
+
 });
 
 export default function LessonTable() {
@@ -74,7 +78,7 @@ export default function LessonTable() {
   return (
     <div
       style={{
-        height: "100vh",
+        height: "100%",
         background: "#dcdde1",
         overflow: "scroll",
       }}
@@ -98,7 +102,7 @@ export default function LessonTable() {
 
           <hr />
           <div>
-            <Title>{data?.details.length} Attendees in waiting room</Title>
+            <Title>{data?.details.length} classes in your waiting room</Title>
             <hr />
            
           </div>
@@ -120,18 +124,16 @@ export default function LessonTable() {
                   borderRadius: "30px",
                 }}
               >
-                <StyledTableCell align="left" style={{ border: "none" }}>
+                <StyledTableCell align="left"  className={classes.headtxt}>
                   {" "}
-                  <Checkbox style={{ color: "white" }} />
+                 S/N
                 </StyledTableCell>
 
-                <StyledTableCell align="left">Course</StyledTableCell>
-                <StyledTableCell align="right">Host</StyledTableCell>
-                <StyledTableCell align="right">Price(#)</StyledTableCell>
-                <StyledTableCell align="right">Institution</StyledTableCell>
-                <StyledTableCell align="right">Type</StyledTableCell>
-                <StyledTableCell align="center">Start</StyledTableCell>
-                <StyledTableCell align="right">End</StyledTableCell>
+                <StyledTableCell align="left" className={classes.headtxt}>Subject</StyledTableCell>
+                <StyledTableCell align="right"  className={classes.headtxt}>Topic</StyledTableCell>
+                <StyledTableCell align="right"  className={classes.headtxt}>Price(#)</StyledTableCell>
+                <StyledTableCell align="center"  className={classes.headtxt}>Start</StyledTableCell>
+                <StyledTableCell align="right"  className={classes.headtxt}>End</StyledTableCell>
                 <StyledTableCell align="right">
                   <BiDotsVerticalRounded />
                 </StyledTableCell>

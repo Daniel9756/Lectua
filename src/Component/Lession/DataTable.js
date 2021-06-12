@@ -30,9 +30,7 @@ function DataTable({ id, item }) {
   const remove = () => {
     mutate(id);
   };
-  // const fetchById = () => {
-  //   fetchOne(id);
-  // };
+ 
 
   return (
     <>

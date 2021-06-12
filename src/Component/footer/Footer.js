@@ -1,25 +1,28 @@
 import React from "react";
-import { makeStyles, Grid, Typography } from "@material-ui/core";
+import { makeStyles, Grid, Typography, Avatar } from "@material-ui/core";
 
-import AccountBalanceIcon from "@material-ui/icons/AccountBalance";
-import RoomIcon from "@material-ui/icons/Room";
-import PhoneIphoneIcon from "@material-ui/icons/PhoneIphone";
-import EmailIcon from "@material-ui/icons/Email";
-import HomeIcon from "@material-ui/icons/Home";
-import LandscapeIcon from "@material-ui/icons/Landscape";
-import InfoIcon from "@material-ui/icons/Info";
-import ContactsIcon from "@material-ui/icons/Contacts";
-import ContactMailIcon from "@material-ui/icons/ContactMail";
-import StraightenIcon from "@material-ui/icons/Straighten";
-import {CustomButton} from "../../controls/Button"
+import {
+  MdAccountBalance,
+  MdLocationOn,
+  MdPhone,
+  MdEmail,
+  MdHome,
+  MdSlideshow,
+  MdCropRotate,
+  MdInfo,
+  MdDescription,
+  MdPerson,
+} from "react-icons/md";
+
+import { CustomButton } from "../../controls/Button";
 import { CustomInput } from "../../controls/Input";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
     justifyContent: "center",
-    backgroundColor: "#130f40",
+    backgroundColor: "#2f4454",
     color: "#fff",
-    paddingBottom: "15px"
+    paddingBottom: "15px",
   },
 
   imgdown: {
@@ -28,7 +31,10 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   logo: {
-    // paddingLeft: theme.spacing(1),
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingBottom:  theme.spacing(3),
   },
   box: {
     paddingLeft: theme.spacing(3),
@@ -37,21 +43,26 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "left",
   },
   steptitle: {
-   
     paddingBottom: theme.spacing(3),
-    fontFamily: "serif",    
+    fontFamily: "serif",
     color: "#dcdde1",
     textTransform: "uppercase",
     textAlign: "left",
   },
   stepsubtitle: {
     fontFamily: "serif",
-    // textTransform: "capitalize",
     paddingBottom: theme.spacing(1),
     display: "flex",
-    alignItems: "left",
+    // justifyContent: "center",
+    alignItems: "center",
     opacity: "0.5",
   },
+  icon:{
+    paddingRight: "10px", fontSize: 40, color: "#DA7B93"
+  },
+  lectuatxt:{
+    opacity: "0.5", letterSpacing:2, fontFamily: "serif", fontSize: 20, fontWeight: "bold"
+  }
 }));
 
 function Footer() {
@@ -59,28 +70,28 @@ function Footer() {
   return (
     <div className={classes.footer}>
       <Grid container className={classes.imgdown}>
-        <Grid item md="3" className={classes.box}>
+        <Grid item md="3">
           <div className={classes.logo}>
-            <CustomButton
-              icon={
-                <AccountBalanceIcon
-                  size="large"
-                  color="primary"
-                  style={{ fontSize: 80 }}
-                />
-              }
-              style={{ color: "#c23616" }}
-              label="LocalsEstate"
-              variant="h2"
-            />
+            <Avatar variant="rounded" style={{ fontSize: 40, background: "#2f4454",}}>
+              <MdAccountBalance
+                size="large"
+                style={{ fontSize: 40, color: "#DA7B93", }}
+              />
+            </Avatar>
+            <Typography
+              style={{ color: "#DA7B93", fontFamily: "serif" }}
+              variant="h5"
+            >
+              lactua
+            </Typography>
           </div>
 
-          <Typography variant="body2" component="p" style={{ opacity: "0.5" }}>
-            To become the leading real estate company in Africa, providing world
-            class real estate service that meet our clients needs at all times
+          <Typography variant="body2" component="p" className={classes.lectuatxt}>
+           To provide learning material to the world teaming population, making learning easy and less expensive.
           </Typography>
         </Grid>
         <Grid item md="3" className={classes.box}>
+
           <Typography variant="h5" className={classes.steptitle}>
             Enqiures
           </Typography>
@@ -89,7 +100,10 @@ function Footer() {
             component="p"
             className={classes.stepsubtitle}
           >
-            <RoomIcon style={{ paddingRight: "10px" }} /> No1 Ekemba Street,
+           
+            <MdLocationOn 
+            className={classes.icon}
+            /> No1 Ekemba Street,
             Suncity Layout, Alulu Road, Nike Enugu.
           </Typography>
           <Typography
@@ -97,7 +111,7 @@ function Footer() {
             component="p"
             className={classes.stepsubtitle}
           >
-            <PhoneIphoneIcon style={{ paddingRight: "10px" }} />
+            <MdPhone  className={classes.icon} />
             Call Us: 08074267828
           </Typography>{" "}
           <Typography
@@ -105,7 +119,7 @@ function Footer() {
             component="p"
             className={classes.stepsubtitle}
           >
-            <EmailIcon style={{ paddingRight: "10px" }} />
+            <MdEmail className={classes.icon} />
             corneliuseze30@gmail.com
           </Typography>
         </Grid>{" "}
@@ -118,22 +132,22 @@ function Footer() {
             component="p"
             className={classes.stepsubtitle}
           >
-            <HomeIcon style={{ paddingRight: "10px" }} /> Home.
+            <MdHome  className={classes.icon} /> Home.
           </Typography>
           <Typography
             variant="body2"
             component="p"
             className={classes.stepsubtitle}
           >
-            <LandscapeIcon style={{ paddingRight: "10px" }} />
-            Property
+            <MdCropRotate className={classes.icon} />
+           Academics
           </Typography>
           <Typography
             variant="body2"
             component="p"
             className={classes.stepsubtitle}
           >
-            <InfoIcon style={{ paddingRight: "10px" }} />
+            <MdInfo  className={classes.icon} />
             About Us
           </Typography>
           <Typography
@@ -141,24 +155,24 @@ function Footer() {
             component="p"
             className={classes.stepsubtitle}
           >
-            <ContactsIcon style={{ paddingRight: "10px" }} />
-            Our Design
+            <MdSlideshow  className={classes.icon} />
+          Create lecture
           </Typography>
           <Typography
             variant="body2"
             component="p"
             className={classes.stepsubtitle}
           >
-            <ContactMailIcon style={{ paddingRight: "10px" }} />
-            Agents
+            <MdPerson  className={classes.icon} />
+            Find courses 
           </Typography>
           <Typography
             variant="body2"
             component="p"
             className={classes.stepsubtitle}
           >
-            <StraightenIcon style={{ paddingRight: "10px" }} />
-            Design
+            <MdDescription  className={classes.icon} />
+           Register
           </Typography>
         </Grid>{" "}
         <Grid item md="3" className={classes.box}>
@@ -172,21 +186,35 @@ function Footer() {
           >
             Get latest information on real estate property news around you
           </Typography>
-          <div  >
-            <CustomInput label="Your Email" style={{backgroundColor: "#fff", borderRadius: "5px", width: "100%"}} />               
+          <div>
+            <CustomInput
+              label="Your Email"
+              style={{
+                backgroundColor: "#fff",
+                borderRadius: "5px",
+                width: "100%",
+              }}
+            />
           </div>
-          <div style={{ display: "flex", left:"0", marginTop: "8px" }}>
-            
-            <textarea placeholder="Your Message"  style={{ width: "100%", minHeight: "65px", fontFamily: "roboto" }}></textarea>                 
+          <div style={{ display: "flex", left: "0", marginTop: "8px" }}>
+            <textarea
+              placeholder="Your Message"
+              style={{ width: "100%", minHeight: "65px", fontFamily: "roboto" }}
+            ></textarea>
           </div>
           <div>
-            <CustomButton text="Send" style={{ marginTop: "8px", width:"100%" }}/>
+            <CustomButton
+              text="Send"
+              style={{ marginTop: "8px", width: "100%", color: "#fff", background:"#DA7B93" }}
+            >
+              send
+            </CustomButton>
           </div>
         </Grid>
       </Grid>
       <hr />
       <p style={{ textAlign: "center", opacity: "0.7" }}>
-        &#169; Copyright 2021 by LocalsEstate.com
+        &#169; copyright 2021 &#64; lactua.com
       </p>
     </div>
   );

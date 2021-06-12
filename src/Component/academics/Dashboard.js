@@ -14,6 +14,7 @@ import { GiKeyLock, GiLifeInTheBalance } from "react-icons/gi";
 import Why from "./Why";
 import How from "./How";
 import CourseLinks from "./CourseLinks";
+import Footer from "../footer/Footer";
 
 
 
@@ -131,6 +132,7 @@ function Dashboard() {
     <Why />
     <How />
     <CourseLinks />
+    <Footer />
     </>
   );
 }

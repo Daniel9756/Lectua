@@ -22,6 +22,8 @@ const useStyles = makeStyles((theme) => ({
    },
   },
 }));
+
+
 function Settings(props) {
   const classes = useStyles();
   const {onMouseEnter, onMouseLeave } = props
@@ -44,7 +46,7 @@ function Settings(props) {
       </Typography>
       <hr />
       <Typography component="div">
-        <Link to="/Property" className={classes.anchor}>
+        <Link to="/Pricing" className={classes.anchor}>
           Pricing
         </Link>
       </Typography>{" "}
