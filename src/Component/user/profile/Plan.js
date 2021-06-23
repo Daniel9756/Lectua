@@ -31,7 +31,7 @@ function Plan(props) {
       rootUser: "One root Account",
       singleClass: "One free Single Class",
       groupClass: "One free Group Class",
-      usersAccount: "No Users Account",
+     
       sms: "No Free SMS messages",
     },
     {
@@ -40,33 +40,23 @@ function Plan(props) {
       title: "Professional",
       price: "20",
       rootUser: "One root Account",
-      singleClass: "Unlimited Single Classes",
-      groupClass: "Unlimited group class",
-      usersAccount: "No Users Account",
+      singleClass: "Billed Single Classes",
+      groupClass: "Billed group class",
+    
       sms: "Free SMS messages",
     },
     {
       id: "3",
       icon: <FaSchool />,
       title: "Institutional",
-      price: "20",
-      rootUser: "One root Account",
-      singleClass: "Unlimited Single Classes",
-      groupClass: "Unlimited group class",
-      usersAccount: "Billed Users Account",
-      sms: "Free SMS messages",
-    },
-    {
-      id: "4",
-      icon: <FcBusiness />,
-      title: "Business",
       price: "50",
       rootUser: "One root Account",
       singleClass: "Unlimited Single Classes",
       groupClass: "Unlimited group class",
-      usersAccount: "Unlimited Users Account",
+     
       sms: "Free SMS messages",
     },
+  
   ];
   const [plan, setPlan] = useState("Professional");
   const history = useHistory();
@@ -108,7 +98,7 @@ function Plan(props) {
             rootUser={item.rootUser}
             singleClass={item.singleClass}
             groupClass={item.groupClass}
-            usersAccount={item.usersAccount}
+         
             sms={item.sms}
             onClick={() => handleSelected(item.title)}
             plan={plan}

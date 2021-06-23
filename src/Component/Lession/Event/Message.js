@@ -8,8 +8,8 @@ const { initSession } = require("@opentok/client");
 
 function Message(props) {
  
-  const { sessionId,} = props;
-  const session = initSession(process.env.API_KEY, sessionId);
+  const { sessionId, apiKey } = props;
+  const session = initSession(apiKey, sessionId);
   console.log(session, "initSession");
 
   const formik = useFormik({

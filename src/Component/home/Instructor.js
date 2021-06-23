@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     height: 120,
     padding: 10,
-    marginLeft: 20,
+    marginLeft: 0,
     marginTop: 10,
     width: "300px",
   },

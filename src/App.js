@@ -13,8 +13,10 @@ import Register from "./Component/user/Register";
 import Login from "./Component/user/Login";
 import Profile from "./Component/user/profile/Profile";
 import PaymentType from "./Component/user/profile/PaymentType";
-
 import Home from "./Component/home/Home";
+import UserProfile from "./Component/user/profile/UserProfile";
+import CreateProfile from "./Component/user/profile/CreateProfile";
+
 
 function App() {
   // const classes = useStyles();
@@ -37,7 +39,9 @@ function App() {
           <Route path="/joinAuth/:id" exact component={JoinAuth} />
           <Route path="/Pricing" exact component={Pricing} />
           <Route path="/LessonDetail/:id" exact component={CreateLesson} />
-          <Route path="/Profile" exact component={Profile} />
+          <Route path="/CreateProfile" exact component={CreateProfile} />
+          <Route path="/Profile" exact component={Profile} />         
+
           <Route path="/PaymentType" exact component={PaymentType} />
 
         </Switch>

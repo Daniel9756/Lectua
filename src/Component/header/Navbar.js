@@ -1,18 +1,10 @@
-import React, { useState } from "react";
-import {
-  Navbar,
-  NavbarBrand,
- 
-} from "reactstrap";
+import React, { useState, useContext } from "react";
+import { Navbar, NavbarBrand } from "reactstrap";
 import { Link, useLocation } from "react-router-dom";
-
-import {  makeStyles,  Box } from "@material-ui/core";
-import {
- 
-  MdExpandLess,
-  MdExpandMore,
- 
-} from "react-icons/md";
+import { GlobalContext } from "../../Context/Provider";
+import { Info } from "../../controls/Input";
+import { makeStyles, Box, Avatar, Badge } from "@material-ui/core";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import Settings from "./Settings";
 import Academics from "./Academics";
 
@@ -47,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 280,
+    marginTop: 275,
     zIndex: 100,
     position: "fixed",
   },
@@ -77,16 +69,25 @@ const useStyles = makeStyles((theme) => ({
       color: "#DA7B93",
       fontFamily: "serif",
       textDecoration: "none",
-      
     },
   },
 }));
 const NavgBar = (props) => {
   const classes = useStyles();
+  const {
+    authState: {
+      auth: { isAuthenticated, user },
+    },
+  } = useContext(GlobalContext);
+
   const location = useLocation();
   const active = {
     color: "#376e6f",
     borderBottom: "3px solid #DA7B93",
+  };
+  const badge = {
+    color: "#44bd32",
+  
   };
 
   const [isShown, setIsShown] = useState(false);
@@ -105,7 +106,6 @@ const NavgBar = (props) => {
     setIsSeen(false);
   };
 
-
   return (
     <div className={classes.root}>
       <Navbar
@@ -114,7 +114,7 @@ const NavgBar = (props) => {
           backgroundColor: "#2f4454",
           color: "#1C3334",
           padding: 10,
-          height: 120,
+          height: 135,
         }}
       >
         <div
@@ -153,12 +153,12 @@ const NavgBar = (props) => {
             Create Lession
           </Link>
           <Link
-            to="/CreateLesson"
+            to="/CreateProfile"
             style={location.pathname === "/Find Courses" ? active : {}}
             className={classes.links}
           >
             {" "}
-            Find Courses
+            Create Profile
           </Link>
 
           <Link
@@ -167,7 +167,7 @@ const NavgBar = (props) => {
             className={classes.links}
           >
             {" "}
-           Profile
+            Profile
           </Link>
         </div>
 
@@ -198,9 +198,13 @@ const NavgBar = (props) => {
             </Link>
 
             {isShown ? (
-              <MdExpandLess style={{ color: "#DA7B93", margin: 0, fontSize: 30 }} />
+              <MdExpandLess
+                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
+              />
             ) : (
-              <MdExpandMore style={{ color: "#DA7B93", margin: 0, fontSize: 30  }} />
+              <MdExpandMore
+                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
+              />
             )}
 
             <Box className={classes.btn}>
@@ -222,19 +226,59 @@ const NavgBar = (props) => {
             onMouseEnter={togleInAvaterDisplay}
             onMouseLeave={togleOutAvaterDisplay}
           >
-            <Link
-              to="/Settings"
-              style={location.pathname === "/Settings" ? active : {}}
-              className={classes.links}
+            <Box
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                marginBottom: 15,
+              }}
+              onMouseEnter={togleInAvaterDisplay}
+              onMouseLeave={togleOutAvaterDisplay}
             >
-              {" "}
-              Settings
-            </Link>
-
+              <Badge
+                overlap="circle"
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "right",
+                }}
+                variant="dot"
+              
+                style={isAuthenticated ? badge : {}}
+              >
+                <Avatar
+                  to="/Settings"
+                  style={location.pathname === "/Settings" ? active : {}}
+                  className={classes.links}
+                >
+                  {" "}
+                  N
+                </Avatar>
+              </Badge>
+              {isAuthenticated && (
+                <Info
+                  style={{
+                    fontSize: 10,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "#DA7B93",
+                    textTransform: "uppercase",
+                  }}
+                >
+                  USERID: {user.user.id}
+                </Info>
+              )}
+            </Box>
             {isSeen ? (
-              <MdExpandLess style={{ color: "#DA7B93", margin: 0,fontSize: 30  }} />
+              <MdExpandLess
+                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
+              />
             ) : (
-              <MdExpandMore style={{ color: "#DA7B93", margin: 0,fontSize: 30  }} />
+              <MdExpandMore
+                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
+              />
             )}
 
             <Box className={classes.btnSet}>

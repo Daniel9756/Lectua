@@ -32,10 +32,10 @@ export const StyledOption = styled.option`
 export function CustomSelect(props) {
   return (
     <DropdownWrapper>
-      <StyledSelect id="services" name={props.name} value={props.value} onChange={props.onChange}>
+      <StyledSelect name={props.name} value={props.title} onChange={props.onChange}>
         {props.options.map((data) => (
-          <StyledOption key={data.value} value={data.value}>
-            {data.label}
+          <StyledOption key={data.id} value={data.title}>
+            {data.title}
           </StyledOption>
         ))}
       </StyledSelect>

@@ -71,7 +71,7 @@ function CreateSession({ handleNext }) {
             value={formik.values.topic}
           />
           
-          <CustomButton text="Submit" type="submit" width={200} disabled={formik.isSubmitting} style={{ cursor: "pointer" }}>
+          <CustomButton text="Submit" type="submit" width={200} style={{ cursor: "pointer" }}>
            {isAddingUser ? <CircularProgress style={{ fontSize: 40, color: "#DA7B93" }} /> :  "Submit"}
           </CustomButton>
         </div>

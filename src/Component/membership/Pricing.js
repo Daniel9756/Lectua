@@ -67,7 +67,7 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
   },
   card: {
-    width: "280px",
+    width: "360px",
     height: "550px",
     margin: theme.spacing(1),
     elevation: "0",
@@ -88,7 +88,7 @@ function Membership(props) {
     rootUser,
     singleClass,
     groupClass,
-    usersAccount,
+   
     sms,
     onClick,
     plan,
@@ -103,7 +103,7 @@ function Membership(props) {
    
       <Card className={classes.card} style={plan === title ? active : {}}>
         <Box className={classes.icon}>{icon}</Box>
-        <CardContent style={{}}>
+        <CardContent>
           <div className={classes.title}>
             <Typography
               variant="h5"
@@ -129,10 +129,7 @@ function Membership(props) {
             icon={<GiCheckMark className={classes.membermark} />}
             text={groupClass}
           />
-          <MemberList
-            icon={<GiCheckMark className={classes.membermark} />}
-            text={usersAccount}
-          />
+        
 
           <MemberList
             icon={<GiCheckMark className={classes.membermark} />}

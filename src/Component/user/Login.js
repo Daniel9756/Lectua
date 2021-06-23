@@ -1,8 +1,9 @@
 import { Container, Grid, makeStyles, Box, Avatar } from "@material-ui/core";
-import React from "react";
+import React, { useContext } from "react";
 import { CustomButton } from "../../controls/Button";
-import { CustomInput, LabelText, Title } from "../../controls/Input";
+import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
 import { Link } from "react-router-dom";
+import { GlobalContext } from "../../Context/Provider";
 
 const useStyles = makeStyles((theme) => ({
   register: {
@@ -21,14 +22,23 @@ const useStyles = makeStyles((theme) => ({
     height: "100%",
     borderRadius: 12,
   },
- 
 }));
 function Login() {
   const classes = useStyles();
+
+  const {
+    authState: {
+      auth: { isCreatingUser, error, isAuthenticated, user },
+    },
+  } = useContext(GlobalContext);
+
   return (
-    <Box style={{ background: "#2f4454", paddingBottom: 100}}>
+    <Box style={{ background: "#2f4454", paddingBottom: 100 }}>
       <Container>
-        <Grid container style={{display:"flex", alignItems:"center", paddingTop: 40}}>
+        <Grid
+          container
+          style={{ display: "flex", alignItems: "center", paddingTop: 40 }}
+        >
           <Grid item md="8">
             <Avatar
               variant="rounded"
@@ -49,17 +59,30 @@ function Login() {
             >
               Welcome Back
             </Title>
+            {isAuthenticated && (
+                <Info
+                  style={{
+                    fontSize: 20,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    color: "#2f4454",
+                    textTransform: "uppercase",
+                  }}
+                >
+                 {user.user.firstName}
+                </Info>
+              )}
             <div
               style={{
-                marginTop: 10,
                 marginBottom: 10,
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
                 fontSize: 20,
                 color: "#DA7B93",
-                fontWeight:"bold",
-                fontFamily:"serif"
+                fontWeight: "bold",
+                fontFamily: "serif",
               }}
             >
               Don't have an account{" "}
