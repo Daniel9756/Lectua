@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles, Grid, Typography, Avatar } from "@material-ui/core";
+import { Link } from "react-router-dom";
 
 import {
   MdAccountBalance,
@@ -15,7 +16,7 @@ import {
 } from "react-icons/md";
 
 import { CustomButton } from "../../controls/Button";
-import { CustomInput } from "../../controls/Input";
+import { CustomInput, CustomTextarea } from "../../controls/Input";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -34,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
-    paddingBottom:  theme.spacing(3),
+    paddingBottom: theme.spacing(3),
   },
   box: {
     paddingLeft: theme.spacing(3),
@@ -57,12 +58,30 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
     opacity: "0.5",
   },
-  icon:{
-    paddingRight: "10px", fontSize: 40, color: "#DA7B93"
+  icon: {
+    paddingRight: "10px",
+    fontSize: 40,
+    color: "#DA7B93",
   },
-  lectuatxt:{
-    opacity: "0.5", letterSpacing:2, fontFamily: "serif", fontSize: 20, fontWeight: "bold"
-  }
+  lectuatxt: {
+    opacity: "0.5",
+    letterSpacing: 2,
+    fontFamily: "serif",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  links: {
+    color: "#DA7B93",
+    fontFamily: "serif",
+    textDecoration: "none",
+
+    "&:hover": {
+      color: "#fff",
+      fontFamily: "serif",
+      textDecoration: "none",
+      padding: "10px",
+    },
+  },
 }));
 
 function Footer() {
@@ -72,26 +91,36 @@ function Footer() {
       <Grid container className={classes.imgdown}>
         <Grid item md="3">
           <div className={classes.logo}>
-            <Avatar variant="rounded" style={{ fontSize: 40, background: "#2f4454",}}>
+            <Avatar
+              variant="rounded"
+              style={{ fontSize: 40, background: "#2f4454" }}
+            >
               <MdAccountBalance
                 size="large"
-                style={{ fontSize: 40, color: "#DA7B93", }}
+                style={{ fontSize: 40, color: "#DA7B93" }}
               />
             </Avatar>
-            <Typography
-              style={{ color: "#DA7B93", fontFamily: "serif" }}
-              variant="h5"
-            >
-              lactua
-            </Typography>
+            <Link to="/" className={classes.links}>
+              <Typography
+                variant="h5"
+                style={{ color: "#DA7B93", fontFamily: "serif" }}
+              >
+                {" "}
+                lactua
+              </Typography>
+            </Link>
           </div>
 
-          <Typography variant="body2" component="p" className={classes.lectuatxt}>
-           To provide learning material to the world teaming population, making learning easy and less expensive.
+          <Typography
+            variant="body2"
+            component="p"
+            className={classes.lectuatxt}
+          >
+            To provide learning material to the world teaming population, making
+            learning easy and less expensive.
           </Typography>
         </Grid>
         <Grid item md="3" className={classes.box}>
-
           <Typography variant="h5" className={classes.steptitle}>
             Enqiures
           </Typography>
@@ -100,19 +129,16 @@ function Footer() {
             component="p"
             className={classes.stepsubtitle}
           >
-           
-            <MdLocationOn 
-            className={classes.icon}
-            /> No1 Ekemba Street,
-            Suncity Layout, Alulu Road, Nike Enugu.
+            <MdLocationOn className={classes.icon} /> No1 Ekemba Street, Suncity
+            Layout, Alulu Road, Nike Enugu.
           </Typography>
           <Typography
             variant="body2"
             component="p"
             className={classes.stepsubtitle}
           >
-            <MdPhone  className={classes.icon} />
-            Call Us: 08074267828
+            <MdPhone className={classes.icon} />
+            Call Us: +234 807 426 7828
           </Typography>{" "}
           <Typography
             variant="body2"
@@ -127,53 +153,65 @@ function Footer() {
           <Typography variant="h5" className={classes.steptitle}>
             Company
           </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.stepsubtitle}
-          >
-            <MdHome  className={classes.icon} /> Home.
-          </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.stepsubtitle}
-          >
-            <MdCropRotate className={classes.icon} />
-           Academics
-          </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.stepsubtitle}
-          >
-            <MdInfo  className={classes.icon} />
-            About Us
-          </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.stepsubtitle}
-          >
-            <MdSlideshow  className={classes.icon} />
-          Create lecture
-          </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.stepsubtitle}
-          >
-            <MdPerson  className={classes.icon} />
-            Find courses 
-          </Typography>
-          <Typography
-            variant="body2"
-            component="p"
-            className={classes.stepsubtitle}
-          >
-            <MdDescription  className={classes.icon} />
-           Register
-          </Typography>
+          <Link to="/" className={classes.links}>
+            <Typography
+              variant="body2"
+              component="p"
+              className={classes.stepsubtitle}
+            >
+              <MdHome className={classes.icon} /> Home.
+            </Typography>
+          </Link>
+          <Link to="/dashboard" className={classes.links}>
+            <Typography
+              variant="body2"
+              component="p"
+              className={classes.stepsubtitle}
+            >
+              <MdCropRotate className={classes.icon} />
+              Academics
+            </Typography>
+          </Link>
+          <Link to="/About" className={classes.links}>
+            <Typography
+              variant="body2"
+              component="p"
+              className={classes.stepsubtitle}
+            >
+              <MdInfo className={classes.icon} />
+              About Us
+            </Typography>
+          </Link>
+          <Link to="/MyProfile/MyLectures" className={classes.links}>
+            <Typography
+              variant="body2"
+              component="p"
+              className={classes.stepsubtitle}
+            >
+              <MdSlideshow className={classes.icon} />
+              Create lecture
+            </Typography>
+          </Link>
+          <Link to="/dashboard" className={classes.links}>
+            <Typography
+              variant="body2"
+              component="p"
+              className={classes.stepsubtitle}
+            >
+              <MdPerson className={classes.icon} />
+              Find courses
+            </Typography>
+          </Link>
+          <Link to="/Register" className={classes.links}>
+            <Typography
+              variant="body2"
+              component="p"
+              className={classes.stepsubtitle}
+            >
+              <MdDescription className={classes.icon} />
+              Register
+            </Typography>
+          </Link>
         </Grid>{" "}
         <Grid item md="3" className={classes.box}>
           <Typography variant="h5" className={classes.steptitle}>
@@ -196,16 +234,21 @@ function Footer() {
               }}
             />
           </div>
-          <div style={{ display: "flex", left: "0", marginTop: "8px" }}>
-            <textarea
+          <div style={{ marginTop: "8px" }}>
+            <CustomTextarea
               placeholder="Your Message"
               style={{ width: "100%", minHeight: "65px", fontFamily: "roboto" }}
-            ></textarea>
+            ></CustomTextarea>
           </div>
           <div>
             <CustomButton
               text="Send"
-              style={{ marginTop: "8px", width: "100%", color: "#fff", background:"#DA7B93" }}
+              style={{
+                marginTop: "8px",
+                width: "100%",
+                color: "#fff",
+                background: "#DA7B93",
+              }}
             >
               send
             </CustomButton>

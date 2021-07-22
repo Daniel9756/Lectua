@@ -6,12 +6,16 @@ const useStyles = makeStyles((theme) => ({
   box:{
     width: 180,
     padding: 20,
+    background: "#dcdde1",
+    borderRadius: 8,
+
       },
   anchor: {
     textDecoration: "none",
     padding: "10px",
     color: "#DA7B93",
     textTransform: "capitalize",
+    borderRadius: 8,
 
     '&:hover': {
       color: "#DA7B93",
@@ -48,6 +52,12 @@ function Settings(props) {
       <Typography component="div">
         <Link to="/Pricing" className={classes.anchor}>
           Pricing
+        </Link>
+      </Typography>{" "}
+      <hr />
+      <Typography component="div">
+        <Link to="/PaymentType" className={classes.anchor}>
+        Payments
         </Link>
       </Typography>{" "}
       <hr />

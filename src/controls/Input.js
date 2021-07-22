@@ -4,7 +4,7 @@ export const CustomInput = styled.input.attrs((props) => ({
   type: props.type,
   placeholder: props.placeholder,
   onChange: props.onChange,
-  values: props.value,
+  value: props.value,
   name: props.name,
   id: props.id
 }))`
@@ -25,7 +25,7 @@ export const CustomTextarea = styled.textarea.attrs((props) => ({
   type: props.type,
   placeholder: props.placeholder,
   onChange: props.onChange,
-  values: props.value,
+  value: props.value,
   name: props.name,
  
 }))`
@@ -48,6 +48,7 @@ export const CustomDateInput = styled.input.attrs((props) => ({
   onChange: props.onChange,
   values: props.value,
   name: props.name
+  
 
 }))`
   padding: 6px;

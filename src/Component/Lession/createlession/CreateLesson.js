@@ -6,8 +6,9 @@ import CreateSession from "./CreateSession";
 import LessionDetail from "./LessonDetail";
 import CreateFinish from "./CreateFinish";
 import InviteStudent from "./InviteStudents";
-import { Stepper, Step, StepLabel, Container } from "@material-ui/core";
+import { Stepper, Step, StepLabel, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+
 const useStyles = makeStyles({
   root: {
     width: "90%",
@@ -71,8 +72,7 @@ function Lesson() {
   };
 
   return (
-    <>
-      <Container className="container-fluid">
+      <Box>
         <div>
           <Stepper
             alternativeLabel
@@ -89,39 +89,20 @@ function Lesson() {
         <div style={{ display: "flex", justifyContent: "center" }}></div>
         {/* <div style={{ marginLeft: 20 }}></div> */}
         <div class="row" style={{ marginTop: 40, marginBottom: 40 }}>
-          <div style={{ marginLeft: 20 }}>
-            <Title>create your classroom</Title>
-            <h4 className={classes.minutes}>in less than 5 minutes</h4>
-            {/* <data>{isSuccess ? <div>Lecture Fixed</div> : null}</data> */}
-          </div>
-          <div className="col-sm-12 col-md-4">
-            <div>
-              <div style={{ margin: 20 }}>{getStepContent(activeStep)}</div>
-              <div
-                className="row"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginLeft: 10,
-                  marginRight: 5,
-                  marginBottom: 20,
-                }}
-              ></div>
-              <div
-                className="row"
-                style={{ marginLeft: 10, marginRight: 5, marginBottom: 20 }}
-              ></div>
-            </div>
-          </div>
+        
+          <Box>
+          
+              {getStepContent(activeStep)}
+           
+          </Box>
 
-          <div className="col-sm-12 col-md-8">
+          <Box>
             {" "}
             <LessonTable />
-          </div>
+          </Box>
         </div>
       
-      </Container>
-    </>
+      </Box>
   );
 }
 

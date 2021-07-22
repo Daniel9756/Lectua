@@ -26,10 +26,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
 
-  grid: {
-    marginTop: theme.spacing(4),
-  },
-
   memberlist: {
     textAlign: "center",
     display: "flex",
@@ -37,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
     alignItems: "center",
   },
   title: {
-    marginBottom: theme.spacing(2),
+    marginBottom: theme.spacing(0.5),
   },
   status: {
     fontFamily: "Helvetica Neue",
@@ -61,7 +57,6 @@ const useStyles = makeStyles((theme) => ({
   icon: {
     fontSize: 120,
     color: "#130f40",
-
     borderRadius: "50%",
     opacity: "0.8",
     textAlign: "center",
@@ -69,13 +64,14 @@ const useStyles = makeStyles((theme) => ({
   card: {
     width: "360px",
     height: "550px",
-    margin: theme.spacing(1),
+    margin: theme.spacing(0.5),
     elevation: "0",
   },
 
-  "@media (max-width: 960px)": {
+  "@media (max-width: 1020px)": {
     card: {
-      width: "320px",
+      width: "360px",
+      height: "650px",
     },
   },
 }));
@@ -88,7 +84,7 @@ function Membership(props) {
     rootUser,
     singleClass,
     groupClass,
-   
+    jointUser,
     sms,
     onClick,
     plan,
@@ -123,13 +119,16 @@ function Membership(props) {
           />
           <MemberList
             icon={<GiCheckMark className={classes.membermark} />}
+            text={jointUser}
+          />
+          <MemberList
+            icon={<GiCheckMark className={classes.membermark} />}
             text={singleClass}
           />
           <MemberList
             icon={<GiCheckMark className={classes.membermark} />}
             text={groupClass}
-          />
-        
+          />      
 
           <MemberList
             icon={<GiCheckMark className={classes.membermark} />}
@@ -138,7 +137,7 @@ function Membership(props) {
 
           <CustomButton
             onClick={onClick}
-            style={{ marginTop: 20, opacity: "0.8", color: "#DA7B93" }}
+            style={{ marginTop: 10, opacity: "0.8", color: "#DA7B93" }}
           >
             Choose Plan
           </CustomButton>

@@ -17,6 +17,10 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     color: "#DA7B93",
   },
+  list: {
+    display: "flex",
+    alignItems: "center",
+  },
 });
 
 function Profiletext() {
@@ -32,33 +36,71 @@ function Profiletext() {
         analytic tools so you can continually change.{" "}
       </Typography>{" "}
       <Box>
-        <Box style={{ display: "flex", alignItems: "center" }}>
+        <Box className={classes.list}>
           <Subtitle>Registered By:</Subtitle>
-          <Info>Eze Cornelius</Info>
+          <LabelText>Eze Cornelius</LabelText>
         </Box>
-        <Box style={{ display: "flex", alignItems: "center" }}>
+        <Box className={classes.list}>
           <Subtitle>Email:</Subtitle>
-          <Info>corneliuseze30@gmail.com</Info>
+          <LabelText>corneliuseze30@gmail.com</LabelText>
         </Box>{" "}
-        <Box style={{ display: "flex", alignItems: "center" }}>
+        <Box className={classes.list}>
           <Subtitle>Name:</Subtitle>
-          <Info>Bluemoon Academy </Info>
+          <LabelText>Bluemoon Academy </LabelText>
         </Box>{" "}
-        <Box style={{ display: "flex", alignItems: "center" }}>
+        <Box className={classes.list}>
           <Subtitle>phone:</Subtitle>
-          <Info>07031019512</Info>
+          <LabelText>07031019512</LabelText>
         </Box>
-        <Box style={{ display: "flex", alignItems: "center" }}>
+        <Box className={classes.list}>
           <Subtitle>Location:</Subtitle>
-          <Info>Enugu, Nigeria </Info>
+          <LabelText>Enugu, Nigeria </LabelText>
         </Box>
-        <Box style={{ display: "flex", alignItems: "center" }}>
+        <Box className={classes.list}>
           <Subtitle>Plan:</Subtitle>
-          <Box style={{ display: "flex", alignItems: "center" }}>
+          <Box className={classes.list}>
             <Info>Basic </Info>
             <GroupButton style={{ color: "#376e6f", borderRadius: 8 }}>
               <em>Upgrade </em>
             </GroupButton>
+          </Box>
+        </Box>
+        <Box
+          style={{
+            display: "flex",
+            flexDirection: "column",
+          }}
+        >
+          <Subtitle>bANK DETAILS</Subtitle>
+          <Box className={classes.list}>
+            <Info>BANK:</Info>{" "}
+            <LabelText
+              style={{
+                color: "#DA7B93",
+              }}
+            >
+              Acess Bank
+            </LabelText>
+          </Box>
+          <Box className={classes.list}>
+            <Info>Name:</Info>{" "}
+            <LabelText
+              style={{
+                color: "#DA7B93",
+              }}
+            >
+              Eze Cornelius O
+            </LabelText>
+          </Box>
+          <Box className={classes.list}>
+            <Info>Number:</Info>{" "}
+            <LabelText
+              style={{
+                color: "#DA7B93",
+              }}
+            >
+              0020375275{" "}
+            </LabelText>
           </Box>
         </Box>
       </Box>

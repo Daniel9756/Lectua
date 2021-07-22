@@ -1,9 +1,13 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useState, useContext, useEffect } from "react";
 
-import { GroupButton } from "../../../controls/Button";
+import { CustomButton, GroupButton } from "../../../controls/Button";
 import * as lecturerData from "../../../utils/LecturerData";
+import { MultiFileInput } from "../../../controls/FileInput";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { Box, Container, Grid, makeStyles, CircularProgress, } from "@material-ui/core";
 
-import { Box, Container, Grid, makeStyles } from "@material-ui/core";
+
 import {
   CustomInput,
   LabelText,
@@ -13,14 +17,16 @@ import {
 } from "../../../controls/Input";
 import { CustomSelect } from "../../../controls/Select";
 import { BiBold } from "react-icons/bi";
-
+import ErrorMessage from "../../../utils/Error/ErrorMessage";
+import { GlobalContext } from "../../../Context/Provider";
+import { addAwards } from "../../../Context/actions/auth/Profile";
+import MessageBox from "../../../utils/Alert";
 const useStyles = makeStyles({
   inputbx: {},
 });
 
 const dynamicCertificateInitialState = [1];
 const dynamicCertificateReducer = (state, action) => {
-  console.log(action, state);
   switch (action.type) {
     case "REMOVE":
       return state.filter((_, index, arr) => index !== arr.length - 1);
@@ -31,175 +37,260 @@ const dynamicCertificateReducer = (state, action) => {
   }
 };
 function Awards(props) {
-  const { handleNext, handleBack } = props;
-  const classes = useStyles();
+  const { handleNext, handleBack, userID } = props;
+  const [awardFile, setAwardFile] = useState("");
 
+  const classes = useStyles();
   const [dynamicCertificate, dynamicCertificateDispatch] = useReducer(
     dynamicCertificateReducer,
     dynamicCertificateInitialState
   );
+  const handleAwardFile = (award) => {
+    console.log(award);
+    setAwardFile(award);
+  };
 
+
+  const {
+    awardDispatch,
+    awardState: {
+      award: { isCreatingAward, error, isCertified, certificates },
+    },
+  } = useContext(GlobalContext);
+
+  console.log(isCreatingAward, error, isCertified, certificates)
+
+  useEffect(() => {
+    if (isCertified) {
+      handleNext()
+    }
+  }, [isCertified]);
+
+  const formik = useFormik({
+    initialValues: {
+      specialty: "",
+      subjects: [],
+      certifications: [
+        {
+          awardTitle: "",
+          awardOrg: "",
+        }
+      ]
+
+    },
+    validationSchema: Yup.object({
+      specialty: Yup.string()
+        .required("This field is reqiured"),
+
+
+    }),
+    onSubmit: (values) => {
+
+      const data = {
+        values, awardFile, userID
+      }
+      addAwards(data)(awardDispatch);
+
+    },
+  });
+  // const formSubmit = () => {
+  //   console.log(formik.values, awardFile, "values")
+  // }
   return (
     <Box>
       <Container>
+
         <Grid container style={{ textAlign: "center", marginBottom: 22 }}>
-          <Grid item md="3"></Grid>
-          <Grid item md="6">
-            <Box style={{ textAlign: "center", marginBottom: 22 }}>
-              {" "}
-              <Title>Qualifications</Title>
-            </Box>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <Box style={{ width: "50%", marginRight: 4 }}>
-                <LabelText>Specialty</LabelText>
-                <CustomSelect
-                  type="text"
-                  name="specialty"
-                  options={lecturerData.lecturerSpecialty()}
-                ></CustomSelect>
-              </Box>
-              <Box style={{ width: "50%", marginLeft: 4 }}>
-                <LabelText>
-                  Subjects(<em>You can add up to 20 subjects</em>)
-                </LabelText>
-                <CustomSelect
-                  type="text"
-                  name="subject"
-                  options={lecturerData.lecturerSubject()}
-                ></CustomSelect>
-              </Box>
-            </Box>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "flex-start",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <Box>
+          <Grid item md={2}></Grid>
+          <Grid item md={8}>
+            <form onSubmit={formik.handleSubmit}>
+              <Box style={{ textAlign: "center", marginBottom: 22 }}>
                 {" "}
-                <Info>Certifications</Info>
+                <Title>Qualifications</Title>
+
+                {certificates && (<MessageBox message={certificates?.message} severity="success" />)}
+                {error || error==undefined  && (<MessageBox message="User was not created" severity="error" />)}
               </Box>
               <Box
                 style={{
                   display: "flex",
-                  justifyContent: "space-between",
+                  // justifyContent: "center","User was not created"
                   alignItems: "center",
-                  marginLeft: 40,
+                  marginTop: 20,
                 }}
               >
-                <GroupButton
-                  type="button"
-                  style={{
-                    borderBottomLeftRadius: 4,
-                    borderTopLeftRadius: 4,
-                    borderRadius: 4,
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    background: "#376e6f",
-                    color: "#fff",
-                    width: 30,
-                  }}
-                  onClick={() => dynamicCertificateDispatch({ type: "REMOVE" })}
-                >
-                  -
-                </GroupButton>
-                <LabelText style={{ width: 30, textAlign: "center" }}>
-                  {dynamicCertificate.length}
-                </LabelText>
-                <GroupButton
-                  type="button"
-                  style={{
-                    borderBottomLeftRadius: 4,
-                    borderTopLeftRadius: 4,
-                    borderRadius: 4,
-                    fontSize: 15,
-                    fontWeight: "bold",
-                    background: "#376e6f",
-                    color: "#fff",
-                    width: 30,
-                  }}
-                  onClick={() => dynamicCertificateDispatch({ type: "ADD" })}
-                >
-                  +
-                </GroupButton>
+                <Box style={{ width: "100%", marginRight: 4 }}>
+                  <LabelText>Specialty</LabelText>
+                  <CustomSelect
+                    type="text"
+                    name="specialty"
+                    options={lecturerData.lecturerSpecialty()}
+                    value={formik.values.specialty}
+                    onChange={formik.handleChange}
+                  ></CustomSelect>
+                </Box>
+
               </Box>
-            </Box>
-            {dynamicCertificate.map((item, index) => {
-              return (
+              <Box
+                style={{
+                  display: "flex",
+                  // justifyContent: "center",
+                  alignItems: "center",
+                  marginTop: 20,
+                }}
+              >
+
+                <Box style={{ width: "100%", marginLeft: 4 }}>
+                  <LabelText>
+                    Subjects(<em>You can add maximum of 5 subjects</em>)(<em>Press Ctrl key to select</em>)
+                  </LabelText>
+                  <CustomSelect
+                    multiple="multiple"
+                    size={10}
+                    type="text"
+                    name="subject"
+                    options={lecturerData.lecturerSubject()}
+                    value={formik.values.subject}
+                    onChange={formik.handleChange}
+                  ></CustomSelect>
+                </Box>
+              </Box>
+              <Box
+                style={{
+                  display: "flex",
+                  justifyContent: "flex-start",
+                  alignItems: "center",
+                  marginTop: 20,
+                }}
+              >
+                <Box>
+                  {" "}
+                  <Info>Certifications</Info>
+                </Box>
                 <Box
                   style={{
-                    background: "#2f4454",
-                    borderRadius: 8,
-                    padding: 25,
-                    marginTop: 10,
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                    marginLeft: 40,
                   }}
                 >
-                  <Box style={{ width: "100%" }}>
-                    <CustomInput
-                      placeholder="Certificate title"
-                      type="text"
-                      name={`certifications[${index}].awardTitle`}
-                    ></CustomInput>
-                  </Box>
-
-                  <Box style={{ width: "100%" }}>
-                    <CustomInput
-                      placeholder="Name of the Organisation"
-                      type="text"
-                      name={`certifications[${index}].awardOrg`}
-                    ></CustomInput>
-                  </Box>
+                  <GroupButton
+                    type="button"
+                    style={{
+                      borderBottomLeftRadius: 4,
+                      borderTopLeftRadius: 4,
+                      borderRadius: 4,
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      background: "#376e6f",
+                      color: "#fff",
+                      width: 30,
+                    }}
+                    onClick={() => dynamicCertificateDispatch({ type: "REMOVE" })}
+                  >
+                    -
+                  </GroupButton>
+                  <LabelText style={{ width: 30, textAlign: "center" }}>
+                    {dynamicCertificate.length}
+                  </LabelText>
+                  <GroupButton
+                    type="button"
+                    style={{
+                      borderBottomLeftRadius: 4,
+                      borderTopLeftRadius: 4,
+                      borderRadius: 4,
+                      fontSize: 15,
+                      fontWeight: "bold",
+                      background: "#376e6f",
+                      color: "#fff",
+                      width: 30,
+                    }}
+                    onClick={() => dynamicCertificateDispatch({ type: "ADD" })}
+                  >
+                    +
+                  </GroupButton>
                 </Box>
-              );
-            })}
-            <Box style={{ width: "30%", marginTop: 20 }}>
-              <LabelText>Profile image</LabelText>
-              <CustomInput type="file" name="avater"></CustomInput>
-            </Box>
-            <Box
-              style={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                marginTop: 20,
-              }}
-            >
-              <GroupButton
-                onClick={handleBack}
+              </Box>
+              {dynamicCertificate.length > 0 && dynamicCertificate.map((item, index) => {
+                return (
+                  <Box
+                    style={{
+                      background: "#2f4454",
+                      borderRadius: 8,
+                      padding: 25,
+                      marginTop: 10,
+                    }}
+
+                  >
+                    <Box style={{ width: "100%" }}
+                      key={`awardTitle ${item}`}
+                    >
+                      <CustomInput
+                        placeholder="Certificate title"
+                        text={`${item}`}
+                        name={`certifications[${index}].awardTitle`}
+                        value={formik.values.awardTitle}
+                        onChange={formik.handleChange}
+                      ></CustomInput>
+                    </Box>
+
+                    <Box style={{ width: "100%" }}
+                      key={`awardOrg ${item}`}
+                    >
+                      <CustomInput
+                        placeholder="Name of the Organisation"
+                        text={`${item}`}
+                        name={`certifications[${index}].awardOrg`}
+                        value={formik.values.awardOrg}
+                        onChange={formik.handleChange}
+                      ></CustomInput>
+                    </Box>
+                  </Box>
+                );
+              })}
+              <Box style={{ width: "30%", marginTop: 20 }}>
+                <LabelText for="file">
+                  Upload certificates
+                  <small
+                    style={{
+                      color: "#DA7B93",
+                    }}
+                  >
+                    {" "}
+                    {awardFile ? awardFile.name : ""}
+                  </small>
+                </LabelText>
+                <MultiFileInput
+                  onFileSelectSuccess={handleAwardFile}
+                  onFileSelectError={({ error }) => alert(error)}
+
+                />
+              </Box>
+              <CustomButton
+                type="Submit"
                 style={{
-                  width: 70,
+                  width: 120,
                   background: "#376e6f",
                   height: 40,
                   color: "#DA7B93",
                   borderRadius: 10,
+                  float: "right"
                 }}
               >
-                Back
-              </GroupButton>
-              <GroupButton
-                onClick={handleNext}
-                style={{
-                  width: 70,
-                  background: "#376e6f",
-                  height: 40,
-                  color: "#DA7B93",
-                  borderRadius: 10,
-                }}
-              >
-                Next
-              </GroupButton>
-            </Box>
+                {isCreatingAward ? (
+                  <CircularProgress
+                    style={{ fontSize: 40, color: "#DA7B93" }}
+                  />
+                ) : (
+                  "Next"
+                )}
+
+              </CustomButton>
+
+            </form>
           </Grid>
-          <Grid item md="3"></Grid>
+          <Grid item md={2}></Grid>
         </Grid>
       </Container>
     </Box>

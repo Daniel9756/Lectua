@@ -6,8 +6,8 @@ const useStyles = makeStyles((theme) => ({
   box: {
     width: "100%",
     padding: 20,
-    background:"#2f4454",
-    borderRadius: 8,
+    background: "#dcdde1",
+        borderRadius: 8,
   },
   list: {
     display: "flex", justifyContent: "center", alignItems:"center"

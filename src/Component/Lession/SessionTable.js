@@ -16,7 +16,7 @@ import { Link } from "react-router-dom";
 
 import { useQuery, useQueryClient, useMutation } from "react-query";
 import { fetchData, removeLecture } from "../../Async/lesson";
-import {  LabelText } from "../../controls/Input";
+import {  LabelText, Title } from "../../controls/Input";
 
 const useStyles = makeStyles({
   table: {
@@ -34,6 +34,7 @@ const useStyles = makeStyles({
     paddingBottom: 4,
     fontWeight: "bolder",
     letterSpacing: 2,
+   
   },
   body: {
     overflowY: "scroll",
@@ -77,8 +78,7 @@ export default function SessionTable({handleNext}) {
   return (
     <div
       style={{
-        background: "#dcdde1",
-        marginTop:40
+        borderTop: "1px solid #2f4454"
 
       }}
     >
@@ -112,15 +112,12 @@ export default function SessionTable({handleNext}) {
           >
             <TableHead>
               <StyledTableRow
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                }}
+               
               >
                 <StyledTableCell align="center">
-                  <LabelText style={{ color: "#DA7B93", fontFamily: "serif" }}>
-                    Your Email Address
-                  </LabelText>
+                  <Title style={{ color: "#DA7B93", fontFamily: "serif" }}>
+                    Your classroom subjects
+                  </Title>
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>

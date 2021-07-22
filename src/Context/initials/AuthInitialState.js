@@ -1,8 +1,13 @@
+
+
 export default {
     auth: {
         isCreatingUser: false,
         user: null,
-        error: false,
+        error: null,
+        isError: false,
+
         isAuthenticated: false
-    }
+    },
+    
 }

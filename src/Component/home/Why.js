@@ -63,7 +63,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#376e6f",
   },
   card: {
-    height: "500px",
+    height: "600px",
     margin: theme.spacing(1),
   },
 }));

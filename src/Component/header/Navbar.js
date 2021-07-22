@@ -9,9 +9,7 @@ import Settings from "./Settings";
 import Academics from "./Academics";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    position: "",
-  },
+ 
   anchor: {
     textDecoration: "none",
     padding: "10px",
@@ -39,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 275,
+    marginTop: 320,
     zIndex: 100,
     position: "fixed",
   },
@@ -77,6 +75,7 @@ const NavgBar = (props) => {
   const {
     authState: {
       auth: { isAuthenticated, user },
+     
     },
   } = useContext(GlobalContext);
 
@@ -87,7 +86,6 @@ const NavgBar = (props) => {
   };
   const badge = {
     color: "#44bd32",
-  
   };
 
   const [isShown, setIsShown] = useState(false);
@@ -113,8 +111,8 @@ const NavgBar = (props) => {
         style={{
           backgroundColor: "#2f4454",
           color: "#1C3334",
-          padding: 10,
-          height: 135,
+          padding: 5,
+          height: 151,
         }}
       >
         <div
@@ -145,7 +143,7 @@ const NavgBar = (props) => {
           </NavbarBrand>
 
           <Link
-            to="/CreateLesson"
+            to="/MyProfile/MyLectures"
             style={location.pathname === "/CreateLesson" ? active : {}}
             className={classes.links}
           >
@@ -162,12 +160,18 @@ const NavgBar = (props) => {
           </Link>
 
           <Link
-            to="/Profile"
-            style={location.pathname === "/Profile" ? active : {}}
+            to="/studentProfile"
+            style={
+              location.pathname === "/MyProfile/General" ||
+              location.pathname === "/MyProfile/MyLectures" ||
+              location.pathname === "/MyProfile/MyCalender"
+                ? active
+                : {}
+            }
             className={classes.links}
           >
             {" "}
-            Profile
+            studentProfile
           </Link>
         </div>
 
@@ -244,7 +248,6 @@ const NavgBar = (props) => {
                   horizontal: "right",
                 }}
                 variant="dot"
-              
                 style={isAuthenticated ? badge : {}}
               >
                 <Avatar
@@ -267,7 +270,7 @@ const NavgBar = (props) => {
                     textTransform: "uppercase",
                   }}
                 >
-                  USERID: {user.user.id}
+                  {user?.firstName}
                 </Info>
               )}
             </Box>

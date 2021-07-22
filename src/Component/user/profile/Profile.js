@@ -1,11 +1,10 @@
 import React,{ useState } from "react";
-import { Box, Container, Grid, makeStyles, Avatar } from "@material-ui/core";
-import { Info, Title, Subtitle } from "../../../controls/Input";
+import { Box, Container, Grid, makeStyles,  } from "@material-ui/core";
 import UserProfile from "./UserProfile";
-import MyTable from "./MyTable";
 import Appointments from "./Appointments";
 import Sidebar from "./Sidebar";
-
+import CreateLesson from "../../Lession/createlession/CreateLesson"
+import Footer from "../../footer/Footer"
 
 
 const useStyles = makeStyles({
@@ -27,20 +26,20 @@ function Profile() {
   const classes = useStyles();
   function getContent(page) {
     switch (page) {
-      case "General":
-        return <UserProfile />;
       case "MyTable":
-        return <MyTable />;
+        return <CreateLesson />;
+        case "General":
+          return <UserProfile />;
         case "Calendary":
             return <Appointments />;
       default:
         return "UNKNOWN STEP";
     }
   }
-  const [content, setContent] = useState("General");
+  const [content, setContent] = useState("MyTable");
 
   return (
-    <Box  style={{ marginBottom: 50 }}>
+    <Box  style={{ marginBottom:11,marginTop:125}}>
       <Container>
         <Grid container>
           <Grid md="2" >
@@ -53,6 +52,10 @@ function Profile() {
           </Grid>
         </Grid>
       </Container>
+      <Box  style={{ marginTop: 60 }}>
+
+      <Footer />
+      </Box>
     </Box>
   );
 }

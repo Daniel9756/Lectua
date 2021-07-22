@@ -1,13 +1,15 @@
-import { Container, makeStyles, Box } from "@material-ui/core";
-import React, { useState } from "react";
+import {
+  Container, makeStyles, Box, CircularProgress,
+} from "@material-ui/core";
+import React, { useState, useContext, useEffect } from "react";
 import Pricing from "../../membership/Pricing";
 import { FaSchool } from "react-icons/fa";
-import { FcBusiness } from "react-icons/fc";
 import { useHistory } from "react-router-dom";
 import { ImProfile } from "react-icons/im";
 import { Title } from "../../../controls/Input";
-
-import { MdCropFree } from "react-icons/md";
+import { addProfile } from "../../../Context/actions/auth/Profile";
+import { GlobalContext } from "../../../Context/Provider";
+import { MdCropFree, MdAccountBalance } from "react-icons/md";
 import { GroupButton } from "../../../controls/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -17,11 +19,41 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  
+  "@media (max-width: 960px)": {
+    pics: {
+      display: "none",
+      top: 4,
+    },
+    container: {
+      textAlign: "center",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    
+  
+  },
+  "@media (max-width: 640px)": {
+    container: {
+      textAlign: "center",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "space-between",
+      alignItems: "center",
+    },
+    
+   
+  },
 }));
 
 function Plan(props) {
   const classes = useStyles();
-  const { handleNext, handleBack } = props;
+  const [plan, setPlan] = useState("Professional");
+  const history = useHistory();
+
+  const { handleNext, handleBack, biography, selectedFile, userID } = props;
   const plans = [
     {
       id: "1",
@@ -29,48 +61,74 @@ function Plan(props) {
       title: "Basic",
       price: "Free",
       rootUser: "One root Account",
+      jointUser: "No joint Account",
       singleClass: "One free Single Class",
       groupClass: "One free Group Class",
-     
       sms: "No Free SMS messages",
     },
     {
       id: "2",
       icon: <ImProfile />,
       title: "Professional",
-      price: "20",
+      price: 2000,
       rootUser: "One root Account",
+      jointUser: "No joint Account",
       singleClass: "Billed Single Classes",
       groupClass: "Billed group class",
-    
       sms: "Free SMS messages",
     },
     {
       id: "3",
-      icon: <FaSchool />,
-      title: "Institutional",
-      price: "50",
+      icon: <MdAccountBalance />,
+      title: "Cooperate",
+      price: 5000,
       rootUser: "One root Account",
-      singleClass: "Unlimited Single Classes",
-      groupClass: "Unlimited group class",
-     
+      jointUser: "Up to 5 joint Accounts",
+      singleClass: "Billed Single Classes",
+      groupClass: "Billed group class",
       sms: "Free SMS messages",
     },
-  
+    {
+      id: "4",
+      icon: <FaSchool />,
+      title: "Institutional",
+      price: 15000,
+      rootUser: "One root Account",
+      jointUser: "Unlimited joint Account",
+      singleClass: "Unlimited Single Classes",
+      groupClass: "Unlimited group class",
+      sms: "Free SMS messages",
+    },
+
   ];
-  const [plan, setPlan] = useState("Professional");
-  const history = useHistory();
-  const handleSelected = (selected) => {
+
+  const {
+    profileDispatch,
+    profileState: {
+      profile: { isCreatingProfile, error, isProfiled, folder },
+    },
+  } = useContext(GlobalContext);
+
+  console.log(isCreatingProfile, error, isProfiled, folder)
+
+ 
+  useEffect(() => {
+    if (isProfiled) {
+      handleNext()
+    }
+  }, [isProfiled]);
+  const handlePlan = (selected) => {
     setPlan(selected);
   };
-  const handlePayment = () => {
-    if (plan !== "Basic") {
-      history.push("/PaymentType");
-    } else {
-      handleNext();
+  const submitBio = (e) => {
+    e.preventDefault();
+    const values = {
+      plan, biography, selectedFile, userID
     }
-  };
-  console.log(plan, "Plan");
+    addProfile(values)(profileDispatch);
+
+  }
+  // console.log(formik.values)
   return (
     <Container
       style={{
@@ -80,14 +138,14 @@ function Plan(props) {
         background: "#dcdde1",
       }}
     >
-        <Box  style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          margin: 10,
-        }}>
-            <Title>Choose Plan</Title>
-        </Box>
+      <Box style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: 10,
+      }}>
+        <Title>Choose Plan</Title>
+      </Box>
       <Box container className={classes.container}>
         {plans.map((item) => (
           <Pricing
@@ -96,11 +154,11 @@ function Plan(props) {
             title={item.title}
             price={item.price}
             rootUser={item.rootUser}
+            jointUser={item.jointUser}
             singleClass={item.singleClass}
             groupClass={item.groupClass}
-         
             sms={item.sms}
-            onClick={() => handleSelected(item.title)}
+            onClick={() => handlePlan(item.title)}
             plan={plan}
           />
         ))}
@@ -118,30 +176,35 @@ function Plan(props) {
           style={{
             width: 70,
             background: "#376e6f",
-
             height: 40,
             color: "#DA7B93",
-
             borderRadius: 10,
           }}
         >
           Back
         </GroupButton>
         <GroupButton
-          onClick={handlePayment}
+          type="submit"
+          onClick={submitBio}
           style={{
             width: 70,
             background: "#376e6f",
-
             height: 40,
             color: "#DA7B93",
-
             borderRadius: 10,
           }}
         >
-          Next
+          {isCreatingProfile ? (
+            <CircularProgress
+              style={{ fontSize: 40, color: "#DA7B93" }}
+            />
+          ) : (
+            "Submit"
+          )}
+
         </GroupButton>
       </Box>
+
     </Container>
   );
 }

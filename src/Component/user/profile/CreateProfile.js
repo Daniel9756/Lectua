@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Service from "../../service/Service"
 import Plan from "./Plan";
 import Biography from "./Biography";
 import Awards from "./Awards";
 import Congrates from "./Congrates";
+import Footer from "../../footer/Footer"
+import { GlobalContext } from "../../../Context/Provider";
 
 import { Stepper, Step, StepLabel, Container, Box } from "@material-ui/core";
 
@@ -20,15 +22,7 @@ const useStyles = makeStyles({
       color: "#2f4454",
     },
   },
-  minutes: {
-    fontFamily: "serif",
-    fontWeight: "bold",
-    letterSpacing: 1.5,
-    color: "#DA7B93",
-    textTransform: "capitalize",
-    marginLeft: 8,
-    justifyContent: "center",
-  },
+
 });
 
 function getSteps() {
@@ -36,16 +30,39 @@ function getSteps() {
 }
 
 function CreateProfile() {
+  const {
+    authState: {
+      auth: { user },
+    },
+  } = useContext(GlobalContext);
+
+  const [biography, setBiography] = useState("");
+  const [selectedFile, setSelectedFile] = useState("");
+
+  const handleBio=(values)=>{
+    setBiography(values)
+  } 
+  const handlePayment = (avater) => {  
+    setSelectedFile(avater);
+  };
+  
+
+  const handleFile = (avater) => {  
+    setSelectedFile(avater);
+  };
+
+  const message = "You have successfully completed your profile"
+  const highlight = "Congrates"
   function getStepContent(index) {
     switch (index) {
       case 0:
-        return <Biography handleNext={handleNext}  />;
+        return <Biography handleNext={handleNext}  handleBio={handleBio} handleFile={handleFile} selectedFile={selectedFile} />;
       case 1:
-        return <Plan handleNext={handleNext} handleBack={handleBack} />;
+        return <Plan handleNext={handleNext} handleBack={handleBack}  selectedFile={selectedFile}  biography={biography} userID={user?.user.id} />;
       case 2:
-        return <Awards handleNext={handleNext} handleBack={handleBack} />;
+        return <Awards handleNext={handleNext} handleBack={handleBack}  handleFile={handleFile} userID={user?.user.id} />;
       case 3:
-        return <Congrates handleNext={handleNext} handleBack={handleBack} />;
+        return <Congrates handleNext={handleNext} handleBack={handleBack} message={message} highlight={highlight} />;
 
       default:
         return "UNKNOWN STEP";
@@ -66,14 +83,14 @@ function CreateProfile() {
 
   return (
     <>
-      <Container className="container-fluid">
+      <Container>
       <Box  style={{
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
           margin: 10,
         }}>
-           <Service />
+           {/* <Service /> */}
         </Box>
         <Box>
           <Stepper
@@ -89,8 +106,14 @@ function CreateProfile() {
           </Stepper>
         </Box>
 
-        <Box>{getStepContent(activeStep)}</Box>
       </Container>
+        <Box>
+        <Container>
+          {getStepContent(activeStep)}
+        </Container>
+          </Box>
+      <Footer />
+
     </>
   );
 }

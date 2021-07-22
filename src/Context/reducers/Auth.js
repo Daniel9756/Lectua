@@ -10,6 +10,7 @@ const auth = (state, action) => {
           isCreatingUser: true,
           error: false,
           isAuthenticated: false,
+          isError: false,
           user: null
         },
       };
@@ -22,6 +23,7 @@ const auth = (state, action) => {
             error: false,
             isAuthenticated: true,
             user: action.payload,
+            isError: false,
           },
         }; 
       case REGISTER_ERROR:
@@ -32,6 +34,7 @@ const auth = (state, action) => {
             isCreatingUser: false,
             isAuthenticated: false,
             error: action.payload,
+            isError: true,
             user: null
 
           },

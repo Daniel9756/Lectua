@@ -28,28 +28,19 @@ const useStyles = makeStyles({
     background: "#dcdde1",
   },
 });
-function Congrates(props) {
+function Thanku(props) {
   const classes = useStyles();
   const history = useHistory();
 
-  const { handleBack, message, handleNext, highlight } = props;
-  // const [confirmDialog, setConfirmDialog] = useState({
-  //   isOpen: false,
-  //   title: "",
-  //   subtitle: "",
-  // });
-  const moveToPay=()=>{
-    history.push("/PaymentType")
-  }
-  const moveToFree=()=>{
+  const handlePopUp = () => {
     history.push("/")
-  }
-  
+}
+
   return (
     <Container className={classes.container}>
       <Paper className={classes.paper}>
         <Title>
-          <em>{highlight} </em>
+          <em>Thank You</em>
         </Title>
         <MdConfirmationNumber
           fontSize={150}
@@ -62,20 +53,20 @@ function Congrates(props) {
           }}
         />
         <Title style={{ textAlign: "center" }}>
-          {message}        </Title>
+        You have successfully made your payment       </Title>
         <Title style={{ textAlign: "center", color: "#DA7B93", marginTop: 30 }}>
           <em>Lectua</em>
         </Title>
         <Box
           style={{
             display: "flex",
-            justifyContent: "space-between",
+            justifyContent: "center",
             alignItems: "center",
             marginTop: 100,
           }}
         >
           <GroupButton
-            onClick={moveToPay}
+            onClick={handlePopUp}
             style={{
               width: 100,
               background: "#376e6f",
@@ -85,20 +76,7 @@ function Congrates(props) {
               borderRadius: 10,
             }}
           >
-          Make Payment
-          </GroupButton>
-          <GroupButton
-            onClick={moveToFree}
-            style={{
-              width: 100,
-              background: "#376e6f",
-              height: 50,
-              color: "#DA7B93",
-              margin: 10,
-              borderRadius: 10,
-            }}
-          >
-            I'm a free member
+            FINISH
           </GroupButton>
         </Box>
       </Paper>
@@ -106,4 +84,4 @@ function Congrates(props) {
   );
 }
 
-export default Congrates;
+export default Thanku;

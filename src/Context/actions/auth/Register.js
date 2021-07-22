@@ -23,9 +23,9 @@ export const addUser = (values)=> (dispatch) => {
         type: REGISTER_SUCCESS,
         payload: res.data
     }))
-    .catch((err) =>dispatch({
+    .catch((err) => dispatch({
         type: REGISTER_ERROR,
-        error: err,
+        error: err.message
         
 
     }))

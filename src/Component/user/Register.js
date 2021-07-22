@@ -8,6 +8,7 @@ import {
 } from "@material-ui/core";
 import React, { useContext, useEffect } from "react";
 import { CustomButton } from "../../controls/Button";
+import { CustomSelect } from "../../controls/Select";
 import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
 import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
@@ -15,12 +16,15 @@ import * as Yup from "yup";
 import ErrorMessage from "../../utils/Error/ErrorMessage";
 import { addUser } from "../../Context/actions/auth/Register";
 import { GlobalContext } from "../../Context/Provider";
- const useStyles = makeStyles((theme) => ({
+import * as lecturerData from "../../utils/LecturerData";
+import MessageBox from "../../utils/Alert";
+import Footer from "../footer/Footer"
+
+const useStyles = makeStyles((theme) => ({
   register: {
     marginTop: 10,
     marginBottom: 40,
     background: "#fff",
-    // color: "#fff",
     width: "100%",
     height: "auto",
     padding: 20,
@@ -33,23 +37,44 @@ import { GlobalContext } from "../../Context/Provider";
     height: "100%",
     borderRadius: 12,
   },
+  pics: {
+    marginRight: -100
+  },
+
+  "@media (max-width: 960px)": {
+    pics: {
+      display: "none",
+      top: 4,
+    },
+  
+  },
+  "@media (max-width: 440px)": {
+   
+  },
 }));
 function Register() {
   const classes = useStyles();
   const history = useHistory();
-  
+
   const {
     authDispatch,
     authState: {
-      auth: { isCreatingUser, error, isAuthenticated, user },
+      auth: { isCreatingUser, error, isAuthenticated, user, isError },
     },
   } = useContext(GlobalContext);
 
+  console.log(isCreatingUser, error, isAuthenticated, user)
 
-  const errMassage = "Your account was not  created";
-  if(user){
-    history.push("/Login")
+  const errMassage = "Your account was not created!!!";
+  console.log(user?.user)
+ 
+  if (user?.registerAs == "Teacher") {
+    history.push("/CreateProfile")
   }
+  if (user?.registerAs == "Student") {
+    history.push("/StudentProfile")
+  }
+
 
   const formik = useFormik({
     initialValues: {
@@ -57,6 +82,7 @@ function Register() {
       lastName: "",
       email: "",
       password: "",
+      registerAs: "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -71,16 +97,21 @@ function Register() {
       password: Yup.string()
         .min(6, "Your password must be more than 6 characters long")
         .required("This field is reqiured"),
+      registerAs: Yup.string()
+        .required("This field is reqiured")
+
     }),
     onSubmit: (values) => {
+      // console.log(values)
       addUser(values)(authDispatch);
     },
   });
+  // console.log(formik.values)
   return (
     <Box style={{ background: "#2f4454", paddingBottom: 40 }}>
       <Container>
         <Grid container style={{ display: "flex", alignItems: "center" }}>
-          <Grid item md="8" style={{ marginRight: -100 }}>
+          <Grid item md="7" style={{}} className={classes.pics}>
             <Avatar
               variant="rounded"
               src="/images/carol6.jpg"
@@ -89,7 +120,7 @@ function Register() {
             ></Avatar>
           </Grid>
 
-          <Grid item md="4" className={classes.register}>
+          <Grid item md="5" className={classes.register}>
             <Title
               style={{
                 marginTop: 20,
@@ -98,30 +129,10 @@ function Register() {
                 alignItems: "center",
               }}
             >
-              Thanks for Choosing Us
+              Thanks for Choosen Us
             </Title>
-            <Info style={{ fontSize: 10 }}>
-              {error ||
-                (error == undefined && (
-                  <ErrorMessage errorValue={errMassage} />
-                ))}
-            </Info>
-            <Info
-              style={{
-                fontSize: 10,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                color: "green",
-              }}
-            >
-              {user && (
-                <ErrorMessage
-                  errorValue={user.message}
-                 
-                />
-              )}
-            </Info>
+            {isAuthenticated && (<MessageBox message={user?.message} severity="success" />)}
+            {isError &&  (<MessageBox message={errMassage} severity="error" />)}
             <form onSubmit={formik.handleSubmit}>
               <div
                 style={{
@@ -149,8 +160,8 @@ function Register() {
                   type="text"
                   placeholder="Your first Name"
                   label="firstName"
-                  onChange={formik.handleChange}
                   value={formik.values.firstName}
+                  onChange={formik.handleChange}
                 />
                 <div style={{ marginLeft: 4 }}>
                   {formik.touched && formik.errors && (
@@ -207,6 +218,22 @@ function Register() {
                 </div>
               </div>{" "}
               <div>
+                <LabelText>Register As:</LabelText>
+                <CustomSelect
+                  type="text"
+                  name="registerAs"
+                  options={lecturerData.signupAs()}
+                  onChange={formik.handleChange}
+                  value={formik.values.registerAs}
+                />
+                <div style={{ marginLeft: 4 }}>
+                  {formik.touched && formik.errors && (
+                    <ErrorMessage errorValue={formik.errors.registerAs} />
+                  )}
+                </div>
+
+              </div>{" "}
+              <div>
                 <CustomButton
                   style={{
                     color: "#DA7B93",
@@ -229,6 +256,8 @@ function Register() {
           </Grid>
         </Grid>
       </Container>
+      <Footer />
+
     </Box>
   );
 }

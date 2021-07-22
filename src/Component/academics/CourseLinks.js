@@ -3,7 +3,7 @@ import { GroupButton } from "../../controls/Button";
 
 import {  Grid, Typography, Container, Box } from "@material-ui/core";
 
-import Arts from "../courses/Arts";
+import Arts from "../courses/Arts/Index";
 import All from "../courses/All";
 import Business from "../courses/Business";
 import Design from "../courses/Design";

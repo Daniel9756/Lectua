@@ -10,9 +10,9 @@ export function CustomeFileInput(props) {
   };
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
-    if (fileUploaded.size > 25600) {
+    if (fileUploaded.size > 55600) {
       props.onFileSelectError({
-        error: "File size cannot exceed more than 25MB",
+        error: "File size cannot exceed more than 56MB",
       });
     } else {
       props.onFileSelectSuccess(fileUploaded);
@@ -20,7 +20,7 @@ export function CustomeFileInput(props) {
   };
   return (
     <div>
-      <GroupButton
+      <div
         onClick={handleClick}
         style={{
           display: "flex",
@@ -29,17 +29,60 @@ export function CustomeFileInput(props) {
           marginTop: 10,
           background: "#DA7B93",
           borderRadius: 12,
+          cursor: "pointer"
         }}
       >
         {" "}
         <MdFileUpload fontSize={41} />
         <Info>Upload</Info>
-      </GroupButton>
+      </div>
       <input
         type="file"
         ref={hiddenFileInput}
         onChange={handleChange}
         style={{ display: "none" }}
+        
+      />
+    </div>
+  );
+}
+
+
+export function MultiFileInput(props) {
+  const hiddenFileInput = React.useRef(null);
+  const handleClick = () => {
+    hiddenFileInput.current.click();
+  };
+  const handleChange = (event) => {
+    const fileUploaded = event.target.files;
+
+    props.onFileSelectSuccess(fileUploaded);
+
+  };
+  return (
+    <div>
+      <div
+        onClick={handleClick}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          marginTop: 10,
+          background: "#DA7B93",
+          borderRadius: 12,
+          cursor: "pointer"
+        }}
+      >
+        {" "}
+        <MdFileUpload fontSize={41} />
+        <Info>Upload</Info>
+      </div>
+      <input
+        type="file"
+        ref={hiddenFileInput}
+        onChange={handleChange}
+        style={{ display: "none" }}
+        multiple
       />
     </div>
   );

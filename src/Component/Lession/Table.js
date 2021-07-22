@@ -81,18 +81,19 @@ export default function LessonTable() {
         height: "100%",
         background: "#dcdde1",
         overflow: "scroll",
+        marginTop: 61,
       }}
     >
       <TableContainer
         component={Paper}
-        style={{ margin: 10, width: "97%", zIndex: -1 }}
+        style={{ margin: 10, width: "98%", zIndex: -1 }}
       >
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            margin: 8,
+           
             paddingRight: 16,
           }}
         >
