@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-function GetRegInfo() {
+function GetRegInfo({ id, item }) {
 
   const classes = useStyles();
 
@@ -30,7 +30,7 @@ function GetRegInfo() {
     <div>
       <Box className={classes.list}>
         <Subtitle>Registered By:</Subtitle>
-        <LabelText>Eze Cornelius</LabelText>
+        <LabelText>{item.firstName}{" "}{item.lastName}</LabelText>
       </Box>
       <Box className={classes.list}>
         <Subtitle>Email:</Subtitle>
