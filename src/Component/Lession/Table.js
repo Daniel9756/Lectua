@@ -74,6 +74,7 @@ export default function LessonTable() {
   const { data, status } = useQuery("details", fetchDetails, {
     onSuccess: () => console.log("All details successfully fetched"),
   });
+  
   console.log(data, status);
   return (
     <div

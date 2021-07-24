@@ -34,7 +34,7 @@ function Sidebar(props) {
       style={{
         marginRight: 20,
         padding: 10,
-        marginTop: 40,
+      
       }}
     >
       <Box

@@ -1,5 +1,5 @@
-import React,{ useState } from "react";
-import { Box, Container, Grid, makeStyles,  } from "@material-ui/core";
+import React, { useState } from "react";
+import { Box, Container, Grid, makeStyles, } from "@material-ui/core";
 import UserProfile from "./UserProfile";
 import Appointments from "./Appointments";
 import Sidebar from "./Sidebar";
@@ -20,6 +20,28 @@ const useStyles = makeStyles({
     fontWeight: "bold",
     color: "#DA7B93",
   },
+
+
+  "@media (max-width: 960px)": {
+    sidebar: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+
+    },
+    grid: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+
+    },
+  },
+  "@media (max-width: 440px)": {
+
+  },
 });
 
 function Profile() {
@@ -28,10 +50,10 @@ function Profile() {
     switch (page) {
       case "MyTable":
         return <CreateLesson />;
-        case "General":
-          return <UserProfile />;
-        case "Calendary":
-            return <Appointments />;
+      case "General":
+        return <UserProfile />;
+      case "Calendary":
+        return <Appointments />;
       default:
         return "UNKNOWN STEP";
     }
@@ -39,22 +61,22 @@ function Profile() {
   const [content, setContent] = useState("MyTable");
 
   return (
-    <Box  style={{ marginBottom:11,marginTop:125}}>
+    <Box style={{ marginBottom: 11, marginTop: 8 }}>
       <Container>
-        <Grid container>
-          <Grid md="2" >
-         <Sidebar setContent={setContent} />
+        <Grid container  className={classes.grid}>
+          <Grid md="2" className={classes.sidebar}>
+            <Sidebar setContent={setContent} />
           </Grid>
 
           <Grid md="10">
-            
-          <Box>{getContent(content)}</Box>
+
+            <Box>{getContent(content)}</Box>
           </Grid>
         </Grid>
       </Container>
-      <Box  style={{ marginTop: 60 }}>
+      <Box style={{ marginTop: 60 }}>
 
-      <Footer />
+        <Footer />
       </Box>
     </Box>
   );

@@ -55,7 +55,6 @@ export function MultiFileInput(props) {
   };
   const handleChange = (event) => {
     const fileUploaded = event.target.files;
-
     props.onFileSelectSuccess(fileUploaded);
 
   };

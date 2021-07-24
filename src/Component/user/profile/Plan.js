@@ -196,7 +196,7 @@ function Plan(props) {
         >
           {isCreatingProfile ? (
             <CircularProgress
-              style={{ fontSize: 40, color: "#DA7B93" }}
+              style={{ fontSize: 10, color: "#DA7B93" }}
             />
           ) : (
             "Submit"

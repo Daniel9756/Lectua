@@ -37,8 +37,8 @@ const dynamicCertificateReducer = (state, action) => {
   }
 };
 function Awards(props) {
-  const { handleNext, handleBack, userID } = props;
-  const [awardFile, setAwardFile] = useState("");
+  const { handleNext, handleBack } = props;
+  const [awardFile, setAwardFile] = useState([]);
 
   const classes = useStyles();
   const [dynamicCertificate, dynamicCertificateDispatch] = useReducer(
@@ -54,18 +54,23 @@ function Awards(props) {
   const {
     awardDispatch,
     awardState: {
-      award: { isCreatingAward, error, isCertified, certificates },
+      award: { isCreatingAward, error, isCertified, certificates, isError },
     },
   } = useContext(GlobalContext);
+  const {
+    loginState: {
+      login: { logger, isPemmitted },
+    },
+  } = useContext(GlobalContext);
+  const userID = logger?.userID
 
   console.log(isCreatingAward, error, isCertified, certificates)
 
-  useEffect(() => {
+ 
     if (isCertified) {
       handleNext()
     }
-  }, [isCertified]);
-
+ 
   const formik = useFormik({
     initialValues: {
       specialty: "",
@@ -82,20 +87,17 @@ function Awards(props) {
       specialty: Yup.string()
         .required("This field is reqiured"),
 
-
     }),
     onSubmit: (values) => {
-
       const data = {
         values, awardFile, userID
       }
       addAwards(data)(awardDispatch);
-
     },
   });
   // const formSubmit = () => {
-  //   console.log(formik.values, awardFile, "values")
   // }
+  console.log(formik.values, awardFile, userID, "values")
   return (
     <Box>
       <Container>
@@ -109,12 +111,11 @@ function Awards(props) {
                 <Title>Qualifications</Title>
 
                 {certificates && (<MessageBox message={certificates?.message} severity="success" />)}
-                {error || error==undefined  && (<MessageBox message="User was not created" severity="error" />)}
+                {isError && (<MessageBox message="User was not created" severity="error" />)}
               </Box>
               <Box
                 style={{
                   display: "flex",
-                  // justifyContent: "center","User was not created"
                   alignItems: "center",
                   marginTop: 20,
                 }}
@@ -134,7 +135,6 @@ function Awards(props) {
               <Box
                 style={{
                   display: "flex",
-                  // justifyContent: "center",
                   alignItems: "center",
                   marginTop: 20,
                 }}
@@ -148,9 +148,9 @@ function Awards(props) {
                     multiple="multiple"
                     size={10}
                     type="text"
-                    name="subject"
+                    name="subjects"
                     options={lecturerData.lecturerSubject()}
-                    value={formik.values.subject}
+                    value={formik.values.subjects}
                     onChange={formik.handleChange}
                   ></CustomSelect>
                 </Box>
@@ -221,7 +221,7 @@ function Awards(props) {
                       padding: 25,
                       marginTop: 10,
                     }}
-
+                    key={index}
                   >
                     <Box style={{ width: "100%" }}
                       key={`awardTitle ${item}`}
@@ -258,13 +258,12 @@ function Awards(props) {
                     }}
                   >
                     {" "}
-                    {awardFile ? awardFile.name : ""}
+               
                   </small>
                 </LabelText>
                 <MultiFileInput
                   onFileSelectSuccess={handleAwardFile}
                   onFileSelectError={({ error }) => alert(error)}
-
                 />
               </Box>
               <CustomButton

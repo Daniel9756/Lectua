@@ -16,19 +16,14 @@ const studentUrl = "http://localhost:5500/profile/students";
 
 export const addProfile = (values) => (dispatch) => {
     const token = localStorage.getItem("token");
-  
-
     const { biography: { orgName,
         phone,
         city,
         orgAddress,
         orgCountry,
         orgState,
-        bio,
-      
+        bio,      
         ourPolicy }, plan, userID, selectedFile } = values
-
-
     const formData = new FormData();
     formData.append("orgName", orgName);
     formData.append("phone", phone);
@@ -36,8 +31,7 @@ export const addProfile = (values) => (dispatch) => {
     formData.append("orgAddress", orgAddress);
     formData.append("orgCountry", orgCountry);
     formData.append("orgState", orgState);
-    formData.append("bio", bio);
-   
+    formData.append("bio", bio);   
     formData.append("ourPolicy", ourPolicy);
     formData.append("plan", plan);
     formData.append("userID", userID);
@@ -67,16 +61,12 @@ export const addProfile = (values) => (dispatch) => {
 
 
 export const addAwards = (data) => (dispatch) => {
-    console.log(data, "values from specialty")
-
+    const token = localStorage.getItem("token");
     const { values: { certifications, specialty, subjects }, awardFile, userID } = data
-
     // console.log(certifications, specialty, subject, awardFile, "values from profile")
-    console.log(specialty, "values from specialty")
-
+    console.log(awardFile, "values from awardFile")
     const formData = new FormData();
     formData.append("userID", userID);
-
     formData.append("specialty", specialty);
     formData.append('certifications', JSON.stringify(certifications))
     formData.append('subjects', JSON.stringify(subjects))
@@ -89,7 +79,7 @@ export const addAwards = (data) => (dispatch) => {
     axios
         .post(awardUrl, formData, {
             headers: {
-                //   Authorization: `Bearer ${token}`,
+                Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",
             },
         })

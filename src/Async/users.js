@@ -1,20 +1,10 @@
 const baseUrl = "http://localhost:5500/users";
 
 
-export const Register = async (user) => {
-    console.log(user);
-    try {
-     return await (await fetch(baseUrl, {
-       method: "POST",
-       body: JSON.stringify({
-        user: user,
-       }),
-       headers: {
-         "Content-Type": "application/json",
-       },
-     })).json();
-   } catch (err) {
-     throw new Error(err);
-   }
- };
- 
+export const fetchOneUser = async (id) => { 
+  try {
+    return await (await fetch(`http://localhost:5500/users/${id}`)).json()    
+  } catch (err) {
+    throw new Error(err);
+  }
+};

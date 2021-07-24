@@ -31,6 +31,14 @@ function getSteps() {
 
 function CreateProfile() {
   const {
+   
+    loginState: {
+        login: { logger, isPemmitted },
+    },
+} = useContext(GlobalContext);
+const userID = logger?.userID
+
+  const {
     authState: {
       auth: { user },
     },
@@ -58,9 +66,9 @@ function CreateProfile() {
       case 0:
         return <Biography handleNext={handleNext}  handleBio={handleBio} handleFile={handleFile} selectedFile={selectedFile} />;
       case 1:
-        return <Plan handleNext={handleNext} handleBack={handleBack}  selectedFile={selectedFile}  biography={biography} userID={user?.user.id} />;
+        return <Plan handleNext={handleNext} handleBack={handleBack}  selectedFile={selectedFile}  biography={biography} userID={userID} />;
       case 2:
-        return <Awards handleNext={handleNext} handleBack={handleBack}  handleFile={handleFile} userID={user?.user.id} />;
+        return <Awards handleNext={handleNext} handleBack={handleBack}  handleFile={handleFile} userID={userID} />;
       case 3:
         return <Congrates handleNext={handleNext} handleBack={handleBack} message={message} highlight={highlight} />;
 

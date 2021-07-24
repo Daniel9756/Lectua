@@ -66,16 +66,16 @@ function Login() {
       login: { isLoggin, logger, isPemmitted },
     },
   } = useContext(GlobalContext);
-console.log(isLoggin, logger, isPemmitted,logger?.token ) 
+console.log(isLoggin, logger, isPemmitted, logger?.userID ) 
 localStorage.setItem("token", logger?.token);
-
-console.log("Ken")
-
-if (isLoggin) {
-  history.push("/StudentProfile") 
-}
+localStorage.setItem("isPemmitted", isPemmitted);
+localStorage.setItem("userID", logger?.userID);
 
 
+
+// if (isLoggin) {
+//   history.push("/StudentProfile") 
+// }
   const formik = useFormik({
     initialValues: {
       email: "",

@@ -72,12 +72,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 const NavgBar = (props) => {
   const classes = useStyles();
-  const {
-    authState: {
-      auth: { isAuthenticated, user },
-     
+  const {   
+    loginState: {
+        login: { logger, isPemmitted },
     },
-  } = useContext(GlobalContext);
+} = useContext(GlobalContext);
+const userID = logger?.userID
+
 
   const location = useLocation();
   const active = {
@@ -160,7 +161,7 @@ const NavgBar = (props) => {
           </Link>
 
           <Link
-            to="/studentProfile"
+            to="/awards"
             style={
               location.pathname === "/MyProfile/General" ||
               location.pathname === "/MyProfile/MyLectures" ||
@@ -171,7 +172,7 @@ const NavgBar = (props) => {
             className={classes.links}
           >
             {" "}
-            studentProfile
+          Awards
           </Link>
         </div>
 
@@ -248,7 +249,7 @@ const NavgBar = (props) => {
                   horizontal: "right",
                 }}
                 variant="dot"
-                style={isAuthenticated ? badge : {}}
+                style={isPemmitted ? badge : {}}
               >
                 <Avatar
                   to="/Settings"
@@ -259,7 +260,7 @@ const NavgBar = (props) => {
                   N
                 </Avatar>
               </Badge>
-              {isAuthenticated && (
+              {isPemmitted && (
                 <Info
                   style={{
                     fontSize: 10,
@@ -270,7 +271,7 @@ const NavgBar = (props) => {
                     textTransform: "uppercase",
                   }}
                 >
-                  {user?.firstName}
+                  {userID}
                 </Info>
               )}
             </Box>

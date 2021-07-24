@@ -111,7 +111,7 @@ function Register() {
     <Box style={{ background: "#2f4454", paddingBottom: 40 }}>
       <Container>
         <Grid container style={{ display: "flex", alignItems: "center" }}>
-          <Grid item md="7" style={{}} className={classes.pics}>
+          <Grid item md="7" className={classes.pics}>
             <Avatar
               variant="rounded"
               src="/images/carol6.jpg"

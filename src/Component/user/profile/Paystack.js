@@ -56,12 +56,12 @@ function Paystack() {
         text: "Pay Now",
         onSuccess: (response) => {
             console.log(response);
-            if (response.status === "success") {
-                history.push("/Thanku")
-            } else {
+            // if (response.status === "success") {
+            //     history.push("/Thanku")
+            // } else {
 
-                history.goBack()
-            }
+            //     history.goBack()
+            // }
         },
         onClose: () => alert("Are you sure you want to quit this process"),
     }

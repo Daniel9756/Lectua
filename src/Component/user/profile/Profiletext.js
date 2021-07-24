@@ -1,8 +1,12 @@
 import React from "react";
 import { Info, LabelText, Title, Subtitle } from "../../../controls/Input";
 import { GroupButton } from "../../../controls/Button";
-
+import { fetchOneUser } from "../../../Async/users"
 import { Box, makeStyles, Typography } from "@material-ui/core";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import LinearLoading from "../../../utils/Progress/Linear";
+import MessageBox from "../../../utils/Alert";
+import GetRegInfo from "../info/GetRegInfo";
 
 const useStyles = makeStyles({
   service: {
@@ -25,9 +29,28 @@ const useStyles = makeStyles({
 
 function Profiletext() {
   const classes = useStyles();
+  const userID = localStorage.getItem("userID");
+
+  // function Todos({ todoId }) {
+  //   const result = useQuery(['todos', todoId], () => fetchTodoById(todoId))
+  // }
+
+  const {  data, isLoading, isError, isSuccess, error, isFetching    } = useQuery(["user", userID], () => fetchOneUser(userID), {
+    onSuccess: (data) => console.log(data),
+  });
+  console.log(data,isLoading, isError, isSuccess, error, isFetching )
 
   return (
     <Box>
+       {isLoading && (<LinearLoading />)}
+       {isError &&  (<MessageBox message="Your is not available at the moment " severity="error" />)}          
+              {isSuccess && (
+                <div>
+                  {data.data.map((item) => (
+                    <GetRegInfo key={item.id} item={item} id={item.id} />
+                  ))}
+                </div>
+              )}
       <Typography variant="subtitle1" className={classes.title1}>
         We’ve designed a culture that allows our stewards to assimilate with our
         clients and bring the best of who we are to your business. Our culture
@@ -36,22 +59,7 @@ function Profiletext() {
         analytic tools so you can continually change.{" "}
       </Typography>{" "}
       <Box>
-        <Box className={classes.list}>
-          <Subtitle>Registered By:</Subtitle>
-          <LabelText>Eze Cornelius</LabelText>
-        </Box>
-        <Box className={classes.list}>
-          <Subtitle>Email:</Subtitle>
-          <LabelText>corneliuseze30@gmail.com</LabelText>
-        </Box>{" "}
-        <Box className={classes.list}>
-          <Subtitle>Name:</Subtitle>
-          <LabelText>Bluemoon Academy </LabelText>
-        </Box>{" "}
-        <Box className={classes.list}>
-          <Subtitle>phone:</Subtitle>
-          <LabelText>07031019512</LabelText>
-        </Box>
+        
         <Box className={classes.list}>
           <Subtitle>Location:</Subtitle>
           <LabelText>Enugu, Nigeria </LabelText>
