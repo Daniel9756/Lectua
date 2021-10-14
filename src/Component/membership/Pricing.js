@@ -18,6 +18,7 @@ const useStyles = makeStyles((theme) => ({
     textTransform: "capitalize",
     marginTop: theme.spacing(1),
     opacity: "0.5",
+    color: "#6ab04c",
   },
   container: {
     textAlign: "center",
@@ -63,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   },
   card: {
     width: "360px",
-    height: "550px",
+    height: "650px",
     margin: theme.spacing(0.5),
     elevation: "0",
   },
@@ -76,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Membership(props) {
+function Pricing(props) {
   const classes = useStyles();
   const {
     title,
@@ -89,11 +90,9 @@ function Membership(props) {
     onClick,
     plan,
     icon,
+    active,
   } = props;
-  const active = {
-    background: "#376e6f",
-    color: "white",
-  };
+ 
   return (
     <>
    
@@ -105,7 +104,6 @@ function Membership(props) {
               variant="h5"
               className={classes.why}
               component="div"
-              color="secondary"
             >
               {title}
             </Typography>
@@ -147,4 +145,4 @@ function Membership(props) {
   );
 }
 
-export default Membership;
+export default Pricing;

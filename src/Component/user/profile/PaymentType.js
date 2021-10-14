@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
-// import { GroupButton } from "../../../controls/Button";
-import Footer from "../../footer/Footer"
-import { Container, Grid, makeStyles, Box, Avatar } from "@material-ui/core";
+import { Container, Grid, makeStyles, Box } from "@material-ui/core";
 import { CustomeFileInput } from "../../../controls/FileInput";
-// import { GroupButton } from "../../../controls/Button";
-
 import { CustomButton } from "../../../controls/Button";
 import { LabelText, Title, Info } from "../../../controls/Input";
 
@@ -41,10 +37,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PaymentType(props) {
+function PaymentType() {
   const classes = useStyles();
   const history = useHistory();
-  const { handleNext, handleBack } = props;
 
   const [selectedFile, setSelectedFile] = useState(null);
   const handleFile = (avater) => {
@@ -58,7 +53,6 @@ function PaymentType(props) {
   const goBack = () => {
     history.goBack()
   }
-  console.log(props);
   return (
     <>
       <Box style={{ background: "#dcdde1" }}>
@@ -185,7 +179,6 @@ function PaymentType(props) {
           </Grid>
         </Container>
       </Box>
-      <Footer />
     </>
   );
 }

@@ -1,15 +1,13 @@
 import React, { useState, useContext } from "react";
 import { Navbar, NavbarBrand } from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useHistory } from "react-router-dom";
 import { GlobalContext } from "../../Context/Provider";
-import { Info } from "../../controls/Input";
-import { makeStyles, Box, Avatar, Badge } from "@material-ui/core";
+import { makeStyles, Box } from "@material-ui/core";
 import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import Settings from "./Settings";
-import Academics from "./Academics";
 
 const useStyles = makeStyles((theme) => ({
- 
+
   anchor: {
     textDecoration: "none",
     padding: "10px",
@@ -58,10 +56,11 @@ const useStyles = makeStyles((theme) => ({
     color: "#376e6f",
     fontFamily: "serif",
     textDecoration: "none",
-    width: "auto",
+    width: 200,
     height: "auto",
-    padding: 4,
+    padding: 8,
     marginLeft: 8,
+    borderRadius: 4,
     "&:hover": {
       background: "#fff",
       color: "#DA7B93",
@@ -69,57 +68,87 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: "none",
     },
   },
+
+  reg1: {
+    background: "#DA7B93",
+    color: "#376e6f",
+    fontFamily: "serif",
+    textDecoration: "none",
+    width: 70,
+    height: "auto",
+    padding: 8,
+    marginLeft: 8,
+    borderRadius: 4,
+    "&:hover": {
+      background: "#fff",
+      color: "#DA7B93",
+      fontFamily: "serif",
+      textDecoration: "none",
+    },
+  },
+  "@media (min-width: 960px)": {
+    reg: {
+      display: "none"
+    },
+
+  },
+  "@media (max-width: 960px)": {
+
+
+  },
+  "@media (max-width: 440px)": {
+    reg: {
+      display: "none"
+    },
+
+  },
 }));
 const NavgBar = (props) => {
   const classes = useStyles();
-  const {   
-    loginState: {
-        login: { logger, isPemmitted },
-    },
-} = useContext(GlobalContext);
-const userID = logger?.userID
 
+  const registerAs = localStorage.getItem("registerAs");
+  const {
+    loginState: {
+      login: { isPemmitted, logger },
+    },
+  } = useContext(GlobalContext);
+  const history = useHistory()
 
   const location = useLocation();
   const active = {
     color: "#376e6f",
     borderBottom: "3px solid #DA7B93",
   };
-  const badge = {
-    color: "#44bd32",
-  };
 
-  const [isShown, setIsShown] = useState(false);
   const [isSeen, setIsSeen] = useState(false);
 
-  const togleInDisplay = () => {
-    setIsShown(true);
-  };
-  const togleOutDisplay = () => {
-    setIsShown(false);
-  };
   const togleInAvaterDisplay = () => {
     setIsSeen(true);
   };
   const togleOutAvaterDisplay = () => {
     setIsSeen(false);
   };
+  const logout = () => {
+    localStorage.clear();
+    history.push('/')
+  }
 
   return (
-    <div className={classes.root}>
+    <Box className={classes.root}>
       <Navbar
         light
         style={{
           backgroundColor: "#2f4454",
           color: "#1C3334",
-          padding: 5,
+          paddingBottom: 5,
+          paddingTop: 2,
           height: 151,
         }}
       >
-        <div
+        <Box
           style={{
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
@@ -142,41 +171,46 @@ const userID = logger?.userID
               LECTUA
             </Link>
           </NavbarBrand>
-
-          <Link
+          {logger?.registerAs === "Teacher" ? <Link
             to="/MyProfile/MyLectures"
-            style={location.pathname === "/CreateLesson" ? active : {}}
+            style={location.pathname === "/MyProfile/MyLectures" ? active : {}}
             className={classes.links}
           >
             {" "}
             Create Lession
-          </Link>
+          </Link> : ''}
+
           <Link
-            to="/CreateProfile"
-            style={location.pathname === "/Find Courses" ? active : {}}
+            to="/Messanger"
+            style={location.pathname === "/Messanger" ? active : {}}
             className={classes.links}
           >
             {" "}
-            Create Profile
+            Messages
           </Link>
 
           <Link
-            to="/awards"
-            style={
-              location.pathname === "/MyProfile/General" ||
-              location.pathname === "/MyProfile/MyLectures" ||
-              location.pathname === "/MyProfile/MyCalender"
-                ? active
-                : {}
-            }
-            className={classes.links}
+            to="/Register"
+            style={location.pathname === "/register" ? active : {}}
+            className={classes.reg}
           >
-            {" "}
-          Awards
+            Register
           </Link>
-        </div>
+        </Box>
 
-        <div
+        <Box>
+          <Link
+            to="/Register"
+            style={location.pathname === "/register" ? active : {}}
+            className={classes.reg1}
+          >
+            Register
+          </Link>
+        </Box>
+
+
+
+        <Box
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -184,43 +218,18 @@ const userID = logger?.userID
             marginRight: 10,
           }}
         >
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onMouseEnter={togleInDisplay}
-            onMouseLeave={togleOutDisplay}
+
+          <Link
+            to="/courses"
+            style={location.pathname === "/courses" ? active : {}}
+            className={classes.links}
           >
-            <Link
-              to="/dashboard"
-              style={location.pathname === "/dashboard" ? active : {}}
-              className={classes.links}
-            >
-              {" "}
-              Academics
-            </Link>
+            {" "}
+            Find courses
+          </Link>
 
-            {isShown ? (
-              <MdExpandLess
-                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
-              />
-            ) : (
-              <MdExpandMore
-                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
-              />
-            )}
 
-            <Box className={classes.btn}>
-              {isShown && (
-                <Academics
-                  onMouseEnter={togleInDisplay}
-                  onMouseLeave={togleOutDisplay}
-                />
-              )}
-            </Box>
-          </Box>
+
 
           <Box
             style={{
@@ -231,50 +240,17 @@ const userID = logger?.userID
             onMouseEnter={togleInAvaterDisplay}
             onMouseLeave={togleOutAvaterDisplay}
           >
-            <Box
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                marginBottom: 15,
-              }}
+            <Link
+              to={registerAs === "Teacher" ? "/MyProfile/MyLectures" : "/Student/MyProfile"}
+              className={classes.links}
               onMouseEnter={togleInAvaterDisplay}
               onMouseLeave={togleOutAvaterDisplay}
             >
-              <Badge
-                overlap="circle"
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "right",
-                }}
-                variant="dot"
-                style={isPemmitted ? badge : {}}
-              >
-                <Avatar
-                  to="/Settings"
-                  style={location.pathname === "/Settings" ? active : {}}
-                  className={classes.links}
-                >
-                  {" "}
-                  N
-                </Avatar>
-              </Badge>
-              {isPemmitted && (
-                <Info
-                  style={{
-                    fontSize: 10,
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    color: "#DA7B93",
-                    textTransform: "uppercase",
-                  }}
-                >
-                  {userID}
-                </Info>
-              )}
-            </Box>
+              {" "}
+              Setting
+            </Link>
+
+
             {isSeen ? (
               <MdExpandLess
                 style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
@@ -294,16 +270,20 @@ const userID = logger?.userID
               )}
             </Box>
           </Box>
-          <Link
-            to="/Register"
-            style={location.pathname === "/register" ? active : {}}
-            className={classes.reg}
+
+          {isPemmitted ? <Link className={classes.anchor} onClick={logout} >
+            Log Off
+          </Link> : <Link
+            to="/login"
+            className={classes.links}
           >
-            Register
-          </Link>
-        </div>
+
+            Log In
+          </Link>}
+
+        </Box>
       </Navbar>
-    </div>
+    </Box>
   );
 };
 

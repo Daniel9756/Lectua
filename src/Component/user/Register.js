@@ -6,10 +6,10 @@ import {
   Container,
   CircularProgress,
 } from "@material-ui/core";
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { CustomButton } from "../../controls/Button";
 import { CustomSelect } from "../../controls/Select";
-import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
+import { CustomInput, LabelText, Title,  } from "../../controls/Input";
 import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -18,7 +18,6 @@ import { addUser } from "../../Context/actions/auth/Register";
 import { GlobalContext } from "../../Context/Provider";
 import * as lecturerData from "../../utils/LecturerData";
 import MessageBox from "../../utils/Alert";
-import Footer from "../footer/Footer"
 
 const useStyles = makeStyles((theme) => ({
   register: {
@@ -46,10 +45,10 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
       top: 4,
     },
-  
+
   },
   "@media (max-width: 440px)": {
-   
+
   },
 }));
 function Register() {
@@ -59,19 +58,18 @@ function Register() {
   const {
     authDispatch,
     authState: {
-      auth: { isCreatingUser, error, isAuthenticated, user, isError },
+      auth: { isCreatingUser,  isAuthenticated, user, isError },
     },
   } = useContext(GlobalContext);
 
-  console.log(isCreatingUser, error, isAuthenticated, user)
+  localStorage.setItem("userID", user?.userID);
 
-  const errMassage = "Your account was not created!!!";
-  console.log(user?.user)
- 
-  if (user?.registerAs == "Teacher") {
+  
+
+  if (user?.registerAs === "Teacher") {
     history.push("/CreateProfile")
   }
-  if (user?.registerAs == "Student") {
+  if (user?.registerAs === "Student") {
     history.push("/StudentProfile")
   }
 
@@ -83,6 +81,7 @@ function Register() {
       email: "",
       password: "",
       registerAs: "",
+      phone: "",
     },
     validationSchema: Yup.object({
       firstName: Yup.string()
@@ -97,13 +96,17 @@ function Register() {
       password: Yup.string()
         .min(6, "Your password must be more than 6 characters long")
         .required("This field is reqiured"),
+      phone: Yup.string()
+        .min(10, "Your phone must be more than 10 characters long")
+        .required("This field is reqiured"),
       registerAs: Yup.string()
         .required("This field is reqiured")
 
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, action) => {
       // console.log(values)
       addUser(values)(authDispatch);
+      action.resetForm()
     },
   });
   // console.log(formik.values)
@@ -132,7 +135,7 @@ function Register() {
               Thanks for Choosen Us
             </Title>
             {isAuthenticated && (<MessageBox message={user?.message} severity="success" />)}
-            {isError &&  (<MessageBox message={errMassage} severity="error" />)}
+            {isError && (<MessageBox message={user?.message} severity="error" />)}
             <form onSubmit={formik.handleSubmit}>
               <div
                 style={{
@@ -202,6 +205,22 @@ function Register() {
                 </div>
               </div>
               <div>
+                <LabelText>Phone Number</LabelText>
+                <CustomInput
+                  name="phone"
+                  type="text"
+                  placeholder="Your phone number"
+                  label="label"
+                  onChange={formik.handleChange}
+                  value={formik.values.phone}
+                />
+                <div style={{ marginLeft: 4 }}>
+                  {formik.touched && formik.errors && (
+                    <ErrorMessage errorValue={formik.errors.phone} />
+                  )}
+                </div>
+              </div>
+              <div>
                 <LabelText>Password</LabelText>
                 <CustomInput
                   name="password"
@@ -256,9 +275,7 @@ function Register() {
           </Grid>
         </Grid>
       </Container>
-      <Footer />
-
-    </Box>
+       </Box>
   );
 }
 

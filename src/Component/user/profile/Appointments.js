@@ -1,9 +1,11 @@
 import React from 'react'
+import TeacherTimeTable from '../../Lession/calender/TeacherTimeTable'
+
 
 function Appiontments() {
     return (
         <div>
-            My Appintments here
+          <TeacherTimeTable />
         </div>
     )
 }

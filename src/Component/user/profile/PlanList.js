@@ -1,5 +1,5 @@
 import { Container, makeStyles, Box } from "@material-ui/core";
-import React, { useState } from "react";
+import React from "react";
 import Pricing from "../../membership/Pricing";
 import { FaSchool } from "react-icons/fa";
 import { useHistory } from "react-router-dom";

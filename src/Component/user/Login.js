@@ -6,8 +6,8 @@ import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
 import { GlobalContext } from "../../Context/Provider";
 import { useFormik } from "formik";
 import { loginUser } from "../../Context/actions/auth/Login";
-import { Link, useHistory } from "react-router-dom";
-import Footer from "../footer/Footer"
+import { Link, useHistory, Redirect } from "react-router-dom";
+import MessageBox from "../../utils/Alert";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     height: "auto",
     padding: 11,
-   
+
     borderRadius: 12,
     zIndex: 5,
     marginTop: 30,
@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 12,
   },
 
-  "@media (max-width: 960px)": {   
+  "@media (max-width: 960px)": {
     pics: {
       display: "none",
     },
@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme) => ({
       justifyContent: "center",
       alignItems: "center",
       padding: 5,
-      paddingBottom: 15,      
+      paddingBottom: 15,
     },
   },
   "@media (max-width: 440px)": {
@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-      
+
     },
   },
 }));
@@ -58,41 +58,67 @@ function Login() {
 
   const {
     loginDispatch,
-    loginState,
     authState: {
-      auth: { isCreatingUser, error, isAuthenticated, user },
+      auth: { isAuthenticated, user },
     },
     loginState: {
       login: { isLoggin, logger, isPemmitted },
     },
   } = useContext(GlobalContext);
-console.log(isLoggin, logger, isPemmitted, logger?.userID ) 
-localStorage.setItem("token", logger?.token);
-localStorage.setItem("isPemmitted", isPemmitted);
-localStorage.setItem("userID", logger?.userID);
+  console.log(isLoggin, logger, isPemmitted, logger?.userID)
+  localStorage.setItem("token", logger?.token);
+  localStorage.setItem("userID", logger?.userID);
+  localStorage.setItem("firstName", logger?.firstName);
+  localStorage.setItem("registerAs", logger?.registerAs);
 
 
 
-// if (isLoggin) {
-//   history.push("/StudentProfile") 
-// }
+  if (logger?.registerAs === "Teacher") {
+
+    // <Redirect
+    //   to={{
+    //     pathname: "/MyProfile/MyLectures",
+    //     state: { id: logger?.userID, }
+    //   }}
+    // />
+
+
+    history.push({
+      pathname: '/MyProfile/MyLectures',
+      state: {
+        id: logger?.userID,
+        fname: logger?.firstName,
+      }
+    })
+  }
+  if (logger?.registerAs === "Student") {
+    history.push({
+      pathname: '/Student/MyProfile',
+      state: {
+        id: logger?.userID,
+        fname: logger?.firstName,
+      }
+    })
+  }
+
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
     },
 
-    onSubmit: (values) => {
+    onSubmit: (values, action) => {
       loginUser(values)(loginDispatch);
+      action.resetForm()
     },
   });
   return (
 
-    <Box style={{ background: "#2f4454",}}>
+    <Box style={{ background: "#2f4454", }}>
       <Container>
         <Grid
           container
-          style={{ display: "flex",justifyContent: "center", alignItems: "center", paddingTop: 20 }}
+          style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingTop: 20 }}
         >
           <Grid item md={8} className={classes.pics}>
             <Avatar
@@ -145,6 +171,8 @@ localStorage.setItem("userID", logger?.userID);
                 Register
               </Link>{" "}
             </div>
+            {logger && (<MessageBox message={logger?.message} severity="error" />)}
+
             <form onSubmit={formik.handleSubmit}>
 
               <Box>
@@ -153,7 +181,7 @@ localStorage.setItem("userID", logger?.userID);
 
                   name="email"
                   type="text"
-                  placeholder={user?.user?.email}
+                  placeholder="Your Email"
                   label="label"
                   onChange={formik.handleChange}
                   value={formik.values.email}
@@ -171,9 +199,11 @@ localStorage.setItem("userID", logger?.userID);
 
                 />
               </Box>{" "}
+
+
               <Box>
                 <CustomButton
-                type="Submit"
+                  type="Submit"
                   style={{
                     color: "#DA7B93",
                     background: "#2f4454",
@@ -185,10 +215,18 @@ localStorage.setItem("userID", logger?.userID);
                 </CustomButton>
               </Box>
             </form>
+            <Box style={{
+              marginTop: 10,
+              paddingLeft: 11
+            }}>
+
+              <Link >
+                Forget password
+              </Link>{" "}
+            </Box>{" "}
           </Grid>
         </Grid>
       </Container>{" "}
-      <Footer />
     </Box>
   );
 }

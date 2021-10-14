@@ -9,5 +9,11 @@ export default {
 
         isEnrolled: false
     },
-   
+    editstudent: {
+        isEditingStudent: false,
+        editscholar: null,
+        error: null,
+        isError: false,
+        isEditEnrolled: false
+    },
 }

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 import { Box, Container, Paper, makeStyles } from "@material-ui/core";
@@ -32,7 +32,7 @@ function Congrates(props) {
   const classes = useStyles();
   const history = useHistory();
 
-  const { handleBack, message, handleNext, highlight } = props;
+  const {  message,  highlight } = props;
   // const [confirmDialog, setConfirmDialog] = useState({
   //   isOpen: false,
   //   title: "",
@@ -42,7 +42,7 @@ function Congrates(props) {
     history.push("/PaymentType")
   }
   const moveToFree=()=>{
-    history.push("/")
+    history.push("/login")
   }
   
   return (

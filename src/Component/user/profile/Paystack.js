@@ -6,7 +6,6 @@ import { CustomInput, LabelText, Title, Info } from "../../../controls/Input";
 import { Link } from "react-router-dom";
 // import { GlobalContext } from "../../../Context/Provider";
 import { PaystackButton } from 'react-paystack';
-import Congrates from "./Congrates";
 
 
 const useStyles = makeStyles((theme) => ({
@@ -56,12 +55,9 @@ function Paystack() {
         text: "Pay Now",
         onSuccess: (response) => {
             console.log(response);
-            // if (response.status === "success") {
-            //     history.push("/Thanku")
-            // } else {
-
-            //     history.goBack()
-            // }
+            if (response.status === "success") {
+                history.push("/login")
+            } 
         },
         onClose: () => alert("Are you sure you want to quit this process"),
     }

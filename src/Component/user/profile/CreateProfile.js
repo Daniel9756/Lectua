@@ -1,12 +1,8 @@
-import React, { useState, useContext } from "react";
-import Service from "../../service/Service"
+import React, { useState } from "react";
 import Plan from "./Plan";
 import Biography from "./Biography";
 import Awards from "./Awards";
 import Congrates from "./Congrates";
-import Footer from "../../footer/Footer"
-import { GlobalContext } from "../../../Context/Provider";
-
 import { Stepper, Step, StepLabel, Container, Box } from "@material-ui/core";
 
 import { makeStyles } from "@material-ui/core/styles";
@@ -30,19 +26,9 @@ function getSteps() {
 }
 
 function CreateProfile() {
-  const {
-   
-    loginState: {
-        login: { logger, isPemmitted },
-    },
-} = useContext(GlobalContext);
-const userID = logger?.userID
-
-  const {
-    authState: {
-      auth: { user },
-    },
-  } = useContext(GlobalContext);
+ 
+const userID = localStorage.getItem("userID");
+ 
 
   const [biography, setBiography] = useState("");
   const [selectedFile, setSelectedFile] = useState("");
@@ -50,9 +36,6 @@ const userID = logger?.userID
   const handleBio=(values)=>{
     setBiography(values)
   } 
-  const handlePayment = (avater) => {  
-    setSelectedFile(avater);
-  };
   
 
   const handleFile = (avater) => {  
@@ -98,7 +81,6 @@ const userID = logger?.userID
           alignItems: "center",
           margin: 10,
         }}>
-           {/* <Service /> */}
         </Box>
         <Box>
           <Stepper
@@ -120,8 +102,7 @@ const userID = logger?.userID
           {getStepContent(activeStep)}
         </Container>
           </Box>
-      <Footer />
-
+    
     </>
   );
 }

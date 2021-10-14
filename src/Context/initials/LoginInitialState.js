@@ -5,7 +5,6 @@ export default {
         logger: null,
         error: null,
         isError: false,
-
         isPemmitted: false
     },
     

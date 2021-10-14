@@ -1,14 +1,21 @@
 import React, { useContext } from 'react'
 import { Redirect, Route } from "react-router-dom";
+import { GlobalContext } from '../Context/Provider';
 
-function Protected({ component: Component, ...restOfProps }) {
-
-    const isPemmitted = localStorage.getItem("isPemmitted");
+function Protected({ component: Component, ...rest }) {
+    const {
+        loginState: {
+            login: { isPemmitted },
+        },
+        authState: {
+            auth: { isAuthenticated },
+        },
+    } = useContext(GlobalContext);
     return (
         <Route
-            {...restOfProps}
+            {...rest}
             render={(props) =>
-                isPemmitted ? <Component {...props} /> : <Redirect to="/login" />
+               (isPemmitted || isAuthenticated) ? <Component {...props} /> : <Redirect to="/login" />
             }
         />
     )

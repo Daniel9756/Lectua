@@ -1,17 +1,22 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import { useFormik } from "formik";
 import { CustomInput, LabelText, Title } from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
-import { useMutation, useQueryClient } from "react-query";
-import { addLecture } from "../../../Async/lesson";
-import Notify from "../../../utils/Notify";
 import SessionTable from "../SessionTable";
 import ErrorMessage from "../../../utils/Error/ErrorMessage";
 import * as Yup from "yup";
+import { addLecture } from "../../../Context/actions/lesson/lesson";
+import { GlobalContext } from "../../../Context/Provider";
+import MessageBox from "../../../utils/Alert";
+import { getOneProfile } from "../../../Context/actions/profile/getProfile";
+import * as lecturerData from "../../../utils/LecturerData";
+import { CustomSelect } from "../../../controls/Select";
+import { getLecturesByATeacher } from "../../../Context/actions/lesson/lesson";
 
 import { CircularProgress, Grid, Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
+
   minutes: {
     fontFamily: "serif",
     fontWeight: "bold",
@@ -21,71 +26,96 @@ const useStyles = makeStyles({
     marginLeft: 8,
     justifyContent: "center",
   },
+  "@media (max-width: 960px)": {
+
+  },
+  "@media (max-width: 440px)": {
+
+  },
 });
 
 function CreateSession({ handleNext }) {
   const classes = useStyles();
+  // const history = useHistory();
 
-  const queryClient = useQueryClient();
   const {
-    mutate,
-    isLoading: isAddingUser,
-    isSuccess,
-    isError,
-  } = useMutation(addLecture, {
-    onSuccess: () => queryClient.invalidateQueries("lectures"),
-    // onSuccess: (data) => console.log(data, "user created succesfully")
-  });
+    teacherLectureDispatch,
+    lectureDispatch,
+    lectureState: {
+      lecture: { isAddingLesson, lesson, isFixed },
+    },
+    getprofileDispatch,
+    editSubjectState: {
+      editsubject: {  isEdited,  isError },
+    },
+    loginpartnerState: {
+      login: { isLoggin, logger: partner, isPemmitted },
+  },
+  } = useContext(GlobalContext);
+  const userID = localStorage.getItem("userID");
+ 
+  useEffect(() => {
+    getOneProfile(userID)(getprofileDispatch);
+    getLecturesByATeacher(userID)(teacherLectureDispatch);
+  }, [isFixed, isEdited]);
 
   const formik = useFormik({
     initialValues: {
-      email: "",
-      topic: "",
+      subject: "",
+      target: "",
+      price: "",
+      per: "",
     },
     validationSchema: Yup.object({
-      email: Yup.string()
-        .required("Please your email address is reqiured")
-        .email("Invalid email address"),
-      topic: Yup.string()
-        .min(2, "Topic must be more than two characters long")
+      subject: Yup.string()
+        .min(2, "subject must be more than two characters long")
+        .required("This field is reqiured"),
+      price: Yup.string().required("How much to pay for this lesson"),
+      per: Yup.string().required("How long will the price cover"),
+      target: Yup.string()
         .required("This field is reqiured"),
     }),
-    onSubmit: (values) => {
-      mutate({ values: values });
+    onSubmit: (values, actions) => {
+      const { subject, target, price, per } = values
+     let creator;
+     let owner;
+
+      if(isPemmitted){
+        owner = partner?.response?.orgid
+        creator = partner?.response?.partnerid
+        const data = {
+          subject, target, userID, price, per, owner, creator
+        }
+        addLecture(data)(lectureDispatch);
+        actions.resetForm()
+        
+      }else{
+        owner = userID
+        creator = userID
+        const data = {
+          subject, target, userID, price, per, creator, owner
+        }
+        addLecture(data)(lectureDispatch);
+        actions.resetForm()
+      }
     },
   });
+  
   return (
     <Grid container>
       <Grid item md="4">
-        <Box style={{ margin: 4, height: "auto" }}>
+        <Box>
           <div>
             <Title>create your classroom</Title>
             <h4 className={classes.minutes}>in less than 5 minutes</h4>
-            {/* <data>{isSuccess ? <div>Lecture Fixed</div> : null}</data> */}
-          </div>
-          {isSuccess && <Notify />}
-          {isError && <div>Something went wrong, try again</div>}
-          <form onSubmit={formik.handleSubmit}>
-            <LabelText>Teacher Email</LabelText>
-            <div
-              style={{
-                marginTop: 8,
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <CustomInput
-                name="email"
-                type="text"
-                placeholder="Your Email address"
-                label="label"
-                onChange={formik.handleChange}
-                value={formik.values.email}
-              />
-            </div>
 
-            <LabelText>Lecture Topic</LabelText>
+          </div>
+          {isFixed && lesson?.message ===  "Your subject has been added" && (<MessageBox message={lesson?.message} severity="success" />)}
+          {lesson?.message === "Upgrade your membership to create more courses" && (<MessageBox message={lesson?.message} severity="error" />)}
+          {isError && (<MessageBox message="Error creating subject" severity="error" />)}
+
+          <form onSubmit={formik.handleSubmit}>
+            <LabelText>Enter Your Subject</LabelText>
             <div
               style={{
                 marginTop: 8,
@@ -95,18 +125,77 @@ function CreateSession({ handleNext }) {
               }}
             >
               <CustomInput
-                name="topic"
+                name="subject"
                 type="text"
-                placeholder="Topic of the day"
+                placeholder="Your Course"
                 label="label"
                 onChange={formik.handleChange}
-                value={formik.values.topic}
+                value={formik.values.subject}
               />
             </div>
             <div style={{ marginLeft: 4 }}>
               {formik.touched && formik.errors && (
-                <ErrorMessage errorValue={formik.errors.topic} />
+                <ErrorMessage errorValue={formik.errors.subject} />
               )}
+            </div>
+            <LabelText>Target Student</LabelText>
+            <div
+              style={{
+                marginTop: 8,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <CustomSelect
+                type="text"
+                name="target"
+                options={lecturerData.lecturerTarget()}
+                value={formik.values.target}
+                onChange={formik.handleChange}
+              />
+            </div>
+            <div style={{ marginLeft: 4 }}>
+              {formik.touched && formik.errors && (
+                <ErrorMessage errorValue={formik.errors.target} />
+              )}
+            </div>
+            <div class="row">
+              <div class="col-md-6 col-sm-12">
+                <div style={{ marginTop: 8 }}>
+                  <LabelText>Price</LabelText>
+                  <CustomInput
+                    placeholder="eg. Free or #1000"
+                    name="price"
+                    label="label"
+                    onChange={formik.handleChange}
+                    value={formik.values.price}
+                    type="text"
+                  />
+                </div>{" "}
+                <div style={{ marginLeft: 4 }}>
+                  {formik.touched && formik.errors && (
+                    <ErrorMessage errorValue={formik.errors.price} />
+                  )}
+                </div>
+              </div>
+              <div class="col-md-6 col-sm-12">
+                <div style={{ marginTop: 8 }}>
+                  <LabelText>Per</LabelText>
+                  <CustomSelect
+                    name="per"
+                    type="text"
+                    options={lecturerData.duration()}
+                    onChange={formik.handleChange}
+                    value={formik.values.per}
+                  />
+                </div>{" "}
+                <div style={{ marginLeft: 4 }}>
+                  {formik.touched && formik.errors && (
+                    <ErrorMessage errorValue={formik.errors.per} />
+                  )}
+                </div>
+              </div>
             </div>
             <CustomButton
               text="Submit"
@@ -116,9 +205,10 @@ function CreateSession({ handleNext }) {
                 width: "100%",
                 borderRadius: 12,
                 color: "#DA7B93",
+                marginTop: 12,
               }}
             >
-              {isAddingUser ? (
+              {isAddingLesson ? (
                 <CircularProgress style={{ fontSize: 40, color: "#DA7B93" }} />
               ) : (
                 "Create subject"

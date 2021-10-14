@@ -8,6 +8,9 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { CustomButton } from "../../../controls/Button";
+import { useQuery, useQueryClient, useMutation } from "react-query";
+import { fetchOneCategory } from "../../../Async/lesson";
+
 const useStyles = makeStyles((theme) => ({
   card: {
     width: "25%",
@@ -42,27 +45,30 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Arts(props) {
   const classes = useStyles();
+  const { content } = props
+  console.log(content)
 
-  console.log(props);
-  const { id, banner, subject, institution, price, teacher } = props;
+  const { data: category, isLoading, isError, isSuccess } = useQuery(["category", content], () => fetchOneCategory(content), {
+    onSuccess: (category) => console.log(category),
+  });
   return (
       <>
     <Card className={classes.card}>
       <Box className={classes.icon}>
-        <Avatar alt="person" src={banner} square className={classes.icon} />
+        <Avatar alt="person" square className={classes.icon} />
       </Box>
       <CardContent>
       <div className={classes.title}>
             <Typography
               variant="h5"
               className={classes.why}
-              component="div"
-              color="secondary"
+           
+            
             >
-              {subject}
+          
             </Typography>
             <Typography variant="h4" className={classes.status}>
-              <strong style={{ color: "#DA7B93" }}>$</strong> {price}
+              <strong style={{ color: "#DA7B93" }}>$</strong>
             </Typography>
           </div>
         <CustomButton

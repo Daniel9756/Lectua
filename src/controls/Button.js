@@ -46,7 +46,7 @@ export const GroupButton = styled.button.attrs((props) => ({
     border-radius: 12px;
   };
   &:active {
-    background: #2f4454;
+    background: gray;
     color: #fff;
     border-radius: 12px;
   }

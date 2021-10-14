@@ -16,11 +16,13 @@ import { BiDotsVerticalRounded } from "react-icons/bi";
 // import LinearLoading from "../"
 import Avatar from "@material-ui/core/Avatar";
 import { useQuery } from "react-query";
-import { fetchDetails } from "../../Async/lessonDetail";
+// import { fetchDetails } from "../../Async/lessonDetail";
 import { Title, LabelText } from "../../controls/Input";
 import DataTable from "./DataTable";
 import { CustomButton } from "../../controls/Button";
 import LinearLoading from "../../utils/Progress/Linear";
+import MessageBox from "../../utils/Alert"
+
 const useStyles = makeStyles({
   table: {
     minHeigth: 860,
@@ -143,7 +145,7 @@ export default function LessonTable() {
             </TableHead>
             <TableBody className={classes.body}>
             {status === "loading" && (<LinearLoading />)}
-            {status === "error" && <div>Error fetching data</div>}
+            {status === "error" && (<MessageBox message="Error fetching data" severity="error" />)}
               {status === "success" && (
                 <div>
                   {data.details.map((item) => (

@@ -1,20 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { Box, makeStyles } from "@material-ui/core";
-import { Info, LabelText, Title, Subtitle } from "../../../controls/Input";
-
+import {  LabelText,  Protitle } from "../../../controls/Input";
 const useStyles = makeStyles({
-  service: {
-    width: "100%",
-    height: "400px",
-    borderRadius: 12,
-    color: "#fff",
-  },
-  title1: {
-    padding: 10,
-    fontFamily: "serif",
-    fontWeight: "bold",
-    color: "#DA7B93",
-  },
+ 
   list: {
     display: "flex",
     alignItems: "center",
@@ -24,25 +12,26 @@ const useStyles = makeStyles({
 function GetRegInfo({ id, item }) {
 
   const classes = useStyles();
+const regdate = new Date(parseInt(item?.createdAt)).toDateString()
 
 
   return (
     <div>
       <Box className={classes.list}>
-        <Subtitle>Registered By:</Subtitle>
-        <LabelText>{item.firstName}{" "}{item.lastName}</LabelText>
+        <Protitle>Registered By:</Protitle>
+        <LabelText>{item?.firstName}{" "}{item?.lastName}</LabelText>
       </Box>
       <Box className={classes.list}>
-        <Subtitle>Email:</Subtitle>
-        <LabelText>corneliuseze30@gmail.com</LabelText>
+        <Protitle>Email:</Protitle>
+        <LabelText>{item?.email}</LabelText>
       </Box>{" "}
       <Box className={classes.list}>
-        <Subtitle>Name:</Subtitle>
-        <LabelText>Bluemoon Academy </LabelText>
+        <Protitle>Status</Protitle>
+        <LabelText>{item?.registerAs}</LabelText>
       </Box>{" "}
       <Box className={classes.list}>
-        <Subtitle>phone:</Subtitle>
-        <LabelText>07031019512</LabelText>
+        <Protitle>Member Since</Protitle>
+        <LabelText>{regdate}</LabelText>
       </Box>
     </div>
   )

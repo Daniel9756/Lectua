@@ -10,7 +10,7 @@ import {  withStyles } from "@material-ui/core/styles";
 import { MdCancel } from "react-icons/md";
 import { useMutation, useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
-import { removeDetail } from "../../Async/lessonDetail";
+import { removeDetail } from "../../Async/timeTable";
 
 function Chart({ id, item }) {
   const CustomTableRow = withStyles((theme) => ({

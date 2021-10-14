@@ -1,5 +1,4 @@
 import React from "react";
-import { GroupButton } from "./Button";
 import { MdFileUpload } from "react-icons/md";
 import { Info } from "./Input";
 
@@ -10,9 +9,9 @@ export function CustomeFileInput(props) {
   };
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
-    if (fileUploaded.size > 55600) {
+    if (fileUploaded.size > 100100) {
       props.onFileSelectError({
-        error: "File size cannot exceed more than 56MB",
+        error: "File size cannot exceed more than 66MB",
       });
     } else {
       props.onFileSelectSuccess(fileUploaded);

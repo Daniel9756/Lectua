@@ -1,116 +1,21 @@
-import { Box, makeStyles } from "@material-ui/core";
-import React from "react";
-import Art from "./Art";
+import React from 'react'
+import Index from "../Index"
 
-const useStyles = makeStyles((theme) => ({
-  container: {
-    textAlign: "center",
-    display: "flex",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-}));
-function Arts() {
-  const classes = useStyles();
+import { useQuery} from "react-query";
+import { fetchOneCategory } from "../../../Async/lesson";
+function Arts(props) {
+    const { content } = props
 
-  const arts = [
-    {
-      id: "1",
-      banner: `/images/whero.jpg`,
-      subject: "History of Nigeria",
-      institution: "Cornelius Academy",
-      price: "Free",
-      teacher: "Eze Kennedy",
-    },
-    {
-      id: "2",
-      banner: `/images/whero5.jpg`,
-      subject: "Government",
-      institution: "Peace school",
-      price: "5000",
-      teacher: "Eze Chukwunonso",
-    },
-    {
-      id: "3",
-      banner: `/images/whero5.jpg`,
-      subject: "Food and Nutrition",
-      institution: "Cornelius Academy",
-      price: "500",
-      teacher: "Eze Chukwunonso",
-    },
-    {
-      id: "4",
-      banner: `/images/whero5.jpg`,
-      subject: "Public Speaking",
-      institution: "Cornelius Academy",
-      price: "500",
-      teacher: "Eze Chukwunonso",
-    },
-    {
-      id: "5",
-      banner: `/images/whero5.jpg`,
-      subject: "Agriculture",
-      institution: "Success Institute",
-      price: "3000",
-      teacher: "Nnaji Ngozika",
-    },
-    {
-      id: "6",
-      banner: `/images/whero.jpg`,
-      subject: "History of Nigeria",
-      institution: "Cornelius Academy",
-      price: "Free",
-      teacher: "Eze Kennedy",
-    },
-    {
-      id: "7",
+    console.log(content)
+    const { data, isLoading, isError, isSuccess } = useQuery(["category", content], () => fetchOneCategory(content), {
+        onSuccess: (category) => console.log(category),
+    });
+    return (
+        <div>
 
-      banner: `/images/whero5.jpg`,
-      subject: "Government",
-      institution: "Peace school",
-      price: "5000",
-      teacher: "Eze Chukwunonso",
-    },
-    {
-      id: "8",
-      banner: `/images/whero5.jpg`,
-      subject: "Food and Nutrition",
-      institution: "Cornelius Academy",
-      price: "500",
-      teacher: "Eze Chukwunonso",
-    },
-    {
-      id: "9",
-      banner: `/images/whero.jpg`,
-      subject: "Public Speaking",
-      institution: "Cornelius Academy",
-      price: "500",
-      teacher: "Eze Chukwunonso",
-    },
-    {
-      id: "10",
-      banner: `/images/whero.jpg`,
-      subject: "Agriculture",
-      institution: "Success Institute",
-      price: "3000",
-      teacher: "Nnaji Ngozika",
-    },
-  ];
-  return (
-    <Box container className={classes.container}>
-      {arts.map((art) => (
-        <Art
-          id={art.id}
-          key={art.id}
-          banner={art.banner}
-          subject={art.subject}
-          institution={art.institution}
-          price={art.price}
-          teacher={art.teacher}
-        />
-      ))}
-    </Box>
-  );
+            <Index data={data} isLoading={isLoading} isError={isError} isSuccess={isSuccess} />
+        </div>
+    )
 }
 
-export default Arts;
+export default Arts

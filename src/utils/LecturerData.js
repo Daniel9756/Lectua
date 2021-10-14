@@ -115,3 +115,47 @@ export const signupAs = () => [
   { id: "2", title: "Student" },
   { id: "3", title: "Teacher" },
 ];
+
+
+
+export const lecturerTarget = () => [
+  { id: "0", title: "Target Student" },
+  { id: "1", title: "Arts" },
+  { id: "2", title: "Science" },
+  { id: "3", title: "Business" },
+  { id: "4", title: "Design" },
+  { id: "5", title: "Development" },
+  { id: "6", title: "Holidays" },
+  { id: "7", title: "Jamb" },
+  { id: "8", title: "Marketing" },
+  { id: "9", title: "Postume" },
+  { id: "10", title: "Software" },
+  { id: "11", title: "SSCE" },
+  { id: "12", title: "University" },
+  { id: "13", title: "WAEC" },
+  { id: "14", title: "Primary" },
+  { id: "15", title: "Collage" },
+  
+ 
+];
+
+export const eventType = ()  => [
+  { id: "0", title: "What is your event type"},
+  { id: "1", title: "tutorial" },
+  { id: "2", title: "annoucement" },
+  { id: "3", title: "lecture" },
+  { id: "4", title: "fixed lecture" },
+  { id: "5", title: "prayer" },
+];
+
+export const duration = ()  => [
+  { id: "0", title: "For how long will the price run"},
+  { id: "1", title: "hour" },
+  { id: "2", title: "event" },
+  { id: "3", title: "week" },
+  { id: "4", title: "month" },
+  { id: "5", title: "session" }, 
+  { id: "6", title: "semester" },
+  { id: "7", title: "year" },
+  { id: "8", title: "day" },
+];

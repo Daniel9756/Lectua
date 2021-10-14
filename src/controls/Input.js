@@ -31,8 +31,8 @@ export const CustomTextarea = styled.textarea.attrs((props) => ({
 }))`
   padding: 6px;
   border: 2px solid palevioletred;
-  width: 100%;
-  height: 50px;
+  
+ 
   border-radius: 6px;
   outline: none;
   margin: 2px;
@@ -76,7 +76,6 @@ export const LabelText = styled.h6.attrs((props) => ({
   }))`
     color: #2f4454;
     margin: 5px;
-
     margin-bottom: 2px;
     font-family: fantasy;
     letter-spacing: 2px;
@@ -100,11 +99,24 @@ export const LabelText = styled.h6.attrs((props) => ({
       text: props.text,
     }))`
       color: #1c3334;
-      margin: 5px;
-  
+      margin: 5px;  
       margin-bottom: 2px;
       font-family: serif;
       letter-spacing: 2px;
      
       text-transform: uppercase
+      `;
+
+
+      
+    export const Protitle = styled.h6.attrs((props) => ({
+      text: props.text,
+    }))`
+      color: #2f4454;
+      margin: 3px;  
+      margin-bottom: 2px;
+      fontFamily: Helvetica Neue;
+      letter-spacing: 1px;     
+      text-transform: uppercase;
+      fontWeight: bold;
       `;

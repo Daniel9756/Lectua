@@ -2,28 +2,26 @@ import React, { useReducer, useState, useContext, useEffect } from "react";
 
 import { CustomButton, GroupButton } from "../../../controls/Button";
 import * as lecturerData from "../../../utils/LecturerData";
+import { CustomSelect } from "../../../controls/Select";
+
 import { MultiFileInput } from "../../../controls/FileInput";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Container, Grid, makeStyles, CircularProgress, } from "@material-ui/core";
+import { Box, Container, Grid,  CircularProgress, } from "@material-ui/core";
 
 
 import {
   CustomInput,
   LabelText,
   Title,
-  CustomTextarea,
+ 
   Info,
 } from "../../../controls/Input";
-import { CustomSelect } from "../../../controls/Select";
-import { BiBold } from "react-icons/bi";
-import ErrorMessage from "../../../utils/Error/ErrorMessage";
+
 import { GlobalContext } from "../../../Context/Provider";
-import { addAwards } from "../../../Context/actions/auth/Profile";
+import { addAwards } from "../../../Context/actions/profile/Profile";
 import MessageBox from "../../../utils/Alert";
-const useStyles = makeStyles({
-  inputbx: {},
-});
+
 
 const dynamicCertificateInitialState = [1];
 const dynamicCertificateReducer = (state, action) => {
@@ -37,10 +35,10 @@ const dynamicCertificateReducer = (state, action) => {
   }
 };
 function Awards(props) {
-  const { handleNext, handleBack } = props;
+  const { handleNext,  userID } = props;
   const [awardFile, setAwardFile] = useState([]);
+  // const userID = localStorage.getItem("userID");
 
-  const classes = useStyles();
   const [dynamicCertificate, dynamicCertificateDispatch] = useReducer(
     dynamicCertificateReducer,
     dynamicCertificateInitialState
@@ -57,42 +55,35 @@ function Awards(props) {
       award: { isCreatingAward, error, isCertified, certificates, isError },
     },
   } = useContext(GlobalContext);
-  const {
-    loginState: {
-      login: { logger, isPemmitted },
-    },
-  } = useContext(GlobalContext);
-  const userID = logger?.userID
-
+  
   console.log(isCreatingAward, error, isCertified, certificates)
 
- 
+
+  useEffect(() => {
     if (isCertified) {
       handleNext()
     }
- 
+  }, [isCertified]);
+
+
   const formik = useFormik({
     initialValues: {
       specialty: "",
       subjects: [],
-      certifications: [
-        {
-          awardTitle: "",
-          awardOrg: "",
-        }
-      ]
-
+      certifications: [],
+     
     },
     validationSchema: Yup.object({
       specialty: Yup.string()
         .required("This field is reqiured"),
 
     }),
-    onSubmit: (values) => {
+    onSubmit: (values, action) => {
       const data = {
         values, awardFile, userID
       }
       addAwards(data)(awardDispatch);
+      action.resetForm()
     },
   });
   // const formSubmit = () => {
@@ -103,8 +94,8 @@ function Awards(props) {
       <Container>
 
         <Grid container style={{ textAlign: "center", marginBottom: 22 }}>
-          <Grid item md={2}></Grid>
-          <Grid item md={8}>
+          <Grid item md="2"></Grid>
+          <Grid item md="8">
             <form onSubmit={formik.handleSubmit}>
               <Box style={{ textAlign: "center", marginBottom: 22 }}>
                 {" "}
@@ -258,7 +249,7 @@ function Awards(props) {
                     }}
                   >
                     {" "}
-               
+
                   </small>
                 </LabelText>
                 <MultiFileInput
@@ -267,7 +258,7 @@ function Awards(props) {
                 />
               </Box>
               <CustomButton
-                type="Submit"
+                type="submit"
                 style={{
                   width: 120,
                   background: "#376e6f",
@@ -289,7 +280,7 @@ function Awards(props) {
 
             </form>
           </Grid>
-          <Grid item md={2}></Grid>
+          <Grid item md="2"></Grid>
         </Grid>
       </Container>
     </Box>

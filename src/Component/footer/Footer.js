@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles, Grid, Typography, Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -12,11 +12,11 @@ import {
   MdCropRotate,
   MdInfo,
   MdDescription,
-  MdPerson,
 } from "react-icons/md";
 
 import { CustomButton } from "../../controls/Button";
 import { CustomInput, CustomTextarea } from "../../controls/Input";
+import { GlobalContext } from "../../Context/Provider";
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "#2f4454",
     color: "#fff",
     paddingBottom: "15px",
+    zIndex: 210,
   },
 
   imgdown: {
@@ -86,6 +87,11 @@ const useStyles = makeStyles((theme) => ({
 
 function Footer() {
   const classes = useStyles();
+  const {
+    loginState: {
+      login: { isPemmitted, logger },
+    },
+  } = useContext(GlobalContext);
   return (
     <div className={classes.footer}>
       <Grid container className={classes.imgdown}>
@@ -162,17 +168,17 @@ function Footer() {
               <MdHome className={classes.icon} /> Home.
             </Typography>
           </Link>
-          <Link to="/dashboard" className={classes.links}>
+          <Link to="/courses" className={classes.links}>
             <Typography
               variant="body2"
               component="p"
               className={classes.stepsubtitle}
             >
               <MdCropRotate className={classes.icon} />
-              Academics
+              Find Courses
             </Typography>
           </Link>
-          <Link to="/About" className={classes.links}>
+          <Link to="/contact" className={classes.links}>
             <Typography
               variant="body2"
               component="p"
@@ -182,7 +188,7 @@ function Footer() {
               About Us
             </Typography>
           </Link>
-          <Link to="/MyProfile/MyLectures" className={classes.links}>
+          {logger?.registerAs === "Teacher" ? <Link to="/MyProfile/MyLectures" className={classes.links}>
             <Typography
               variant="body2"
               component="p"
@@ -191,17 +197,9 @@ function Footer() {
               <MdSlideshow className={classes.icon} />
               Create lecture
             </Typography>
-          </Link>
-          <Link to="/dashboard" className={classes.links}>
-            <Typography
-              variant="body2"
-              component="p"
-              className={classes.stepsubtitle}
-            >
-              <MdPerson className={classes.icon} />
-              Find courses
-            </Typography>
-          </Link>
+          </Link> : ''}
+
+
           <Link to="/Register" className={classes.links}>
             <Typography
               variant="body2"

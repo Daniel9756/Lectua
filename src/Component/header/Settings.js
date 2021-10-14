@@ -1,15 +1,16 @@
-import React from "react";
-import {  makeStyles, Typography,  Box } from "@material-ui/core";
-import { Link } from "react-router-dom";
+import React, { useContext } from "react";
+import { makeStyles, Typography, Box } from "@material-ui/core";
+import { Link, } from "react-router-dom";
+import { GlobalContext } from "../../Context/Provider";
 
-const useStyles = makeStyles((theme) => ({
-  box:{
+const useStyles = makeStyles(() => ({
+  box: {
     width: 180,
     padding: 20,
     background: "#dcdde1",
     borderRadius: 8,
 
-      },
+  },
   anchor: {
     textDecoration: "none",
     padding: "10px",
@@ -19,18 +20,24 @@ const useStyles = makeStyles((theme) => ({
 
     '&:hover': {
       color: "#DA7B93",
-    fontFamily: "serif",
-    textDecoration: "none",
-    padding: "10px",
-    background: "#376e6f"
-   },
+      fontFamily: "serif",
+      textDecoration: "none",
+      padding: "10px",
+      background: "#376e6f"
+    },
   },
 }));
 
 
 function Settings(props) {
   const classes = useStyles();
-  const {onMouseEnter, onMouseLeave } = props
+  const { onMouseEnter, onMouseLeave } = props
+  const registerAs = localStorage.getItem("registerAs");
+  const {
+    loginState: {
+      login: { isPemmitted, logger },
+    },
+  } = useContext(GlobalContext);
   return (
     <Box
       onMouseEnter={onMouseEnter}
@@ -38,35 +45,47 @@ function Settings(props) {
       className={classes.box}
     >
       <Typography component="div">
-        <Link to="/Property" className={classes.anchor}>
+        <Link to={registerAs === "Teacher" ? "/MyProfile/MyLectures" : "/Student/MyProfile"} className={classes.anchor}>
           Profile
         </Link>
       </Typography>{" "}
       <hr />
       <Typography component="div">
-        <Link to="/Property" className={classes.anchor}>
-          My Courses
-        </Link>
+        {logger?.registerAs === "Teacher" ? <Link
+          to="/CreateProfile"
+          className={classes.anchor}
+        >
+          {" "}
+          Create Profile
+        </Link> :
+
+          <Link to="/studentProfile" className={classes.anchor}>
+            Create Profile
+          </Link>}
+
       </Typography>
       <hr />
       <Typography component="div">
-        <Link to="/Pricing" className={classes.anchor}>
-          Pricing
+        <Link to="/Membership" className={classes.anchor}>
+          Membership
         </Link>
       </Typography>{" "}
       <hr />
       <Typography component="div">
         <Link to="/PaymentType" className={classes.anchor}>
-        Payments
+          Payments
         </Link>
       </Typography>{" "}
       <hr />
       <Typography component="div">
-        <Link to="/Login" className={classes.anchor}>
-          Log In
+
+        <Link
+          to="/Contact"
+          className={classes.anchor}>
+          Contact
         </Link>
       </Typography>{" "}
-     
+
     </Box>
   );
 }
