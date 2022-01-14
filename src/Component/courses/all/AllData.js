@@ -79,7 +79,7 @@ const useStyles = makeStyles((theme) => ({
 
 function AllData(props) {
     const classes = useStyles();
-    const { item: { orgname, orgstate, orgcountry, per, price, picsurl, subject, target, userid, id } } = props
+    const { item: { orgName, orgState, orgCountry, per, price, picsUrl, subject, target, owner, id } } = props
     const history = useHistory()
    
 
@@ -98,7 +98,7 @@ function AllData(props) {
         />
         <hr />
         <Box className={classes.icon}>
-            <Avatar alt="banner" src={picsurl} square className={classes.icon} />
+            <Avatar alt="banner" src={picsUrl} square className={classes.icon} />
         </Box>
         <CardContent>
             <div className={classes.title}>
@@ -106,13 +106,13 @@ function AllData(props) {
                     {subject}
                 </Typography>
                 <Link
-                    to={`/institution/${orgname}/${userid}`}
+                    to={`/institution/${orgName}/${owner}`}
                     className={classes.links}
                 >
-                    {orgname}
+                    {orgName}
                 </Link>
                 <Typography variant="subtitle2" className={classes.status}>
-                    {orgstate}, {orgcountry}
+                    {orgState}, {orgCountry}
                 </Typography>
             </div>
             <hr />

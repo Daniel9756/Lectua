@@ -205,15 +205,9 @@ function CourseLinks() {
                 Science
 
               </Link>
-              <Link
-                to="/courses/arts"
-                style={location.pathname === "/courses/arts" ? active : {}}
-                className={classes.anchor}
-                onClick={() => setContent("Arts")}
-              >
-                Arts
-              </Link>
+
             </Box>
+
             <Box className={classes.list}>
 
               <Link
@@ -251,14 +245,7 @@ function CourseLinks() {
               >
                 Design
               </Link>
-              <Link
-                to="/courses/marketing"
-                style={location.pathname === "/courses/marketing" ? active : {}}
-                className={classes.anchor}
-                onClick={() => setContent("Marketing")}
-              >
-                Marketing
-              </Link>
+
             </Box>
 
             <Box className={classes.list}>
@@ -295,6 +282,25 @@ function CourseLinks() {
               >
                 Collage
               </Link>
+
+            </Box>
+            <Box className={classes.list}>
+              <Link
+                to="/courses/arts"
+                style={location.pathname === "/courses/arts" ? active : {}}
+                className={classes.anchor}
+                onClick={() => setContent("Arts")}
+              >
+                Arts
+              </Link>
+              <Link
+                to="/courses/marketing"
+                style={location.pathname === "/courses/marketing" ? active : {}}
+                className={classes.anchor}
+                onClick={() => setContent("Marketing")}
+              >
+                Marketing
+              </Link>
               <Link
                 to="/courses/university"
                 style={location.pathname === "/courses/university" ? active : {}}
@@ -304,16 +310,15 @@ function CourseLinks() {
                 University
               </Link>
             </Box>
-
           </Box>
         </Grid>
       </Grid>
       <Box style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            
-        }}>
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+
+      }}>
         <Search />
       </Box>
       <div>{getContent(content)}</div>

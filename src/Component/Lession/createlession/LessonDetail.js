@@ -40,8 +40,7 @@ const useStyles = makeStyles({
 function LessionDetail({ handleBack }) {
   const classes = useStyles();
   const { id } = useParams();
-  const userID = localStorage.getItem("userID");
-  console.log(id);
+  const userId = localStorage.getItem("userId");
 
   const {
     topicDispatch,
@@ -52,6 +51,7 @@ function LessionDetail({ handleBack }) {
       login: { isLoggin, logger: partner, isPemmitted },
   },
   } = useContext(GlobalContext);
+  console.log(timetable);
 
   const formik = useFormik({
     initialValues: {
@@ -73,8 +73,8 @@ function LessionDetail({ handleBack }) {
       let creator;
       let owner;
       if(isPemmitted){
-        owner = partner?.response?.orgid
-        creator = partner?.response?.partnerid
+        owner = partner?.response?.orgId
+        creator = partner?.response?.partnerId
         const data = {
           topic, eventtype, startdate, starttime, enddate, endtime, id, owner, creator
         }
@@ -83,8 +83,8 @@ function LessionDetail({ handleBack }) {
       
       
       }else{
-        owner = userID
-        creator = userID
+        owner = userId
+        creator = userId
         const data = {
           topic, eventtype, startdate, starttime, enddate, endtime, id, owner, creator
         }
@@ -105,7 +105,9 @@ function LessionDetail({ handleBack }) {
          
           <Grid item md="8">
             <Title style={{ marginBottom: 4 }}>set your first event</Title>
-            {isScheduled && (timetable?.message === "Your topic was successfully created") && (<MessageBox message={timetable?.message} severity="success" />)}
+            {isScheduled && (timetable?.message === "Your Lectures  has been Fixed") && (<MessageBox message={timetable?.message} severity="success" />)}
+            {isScheduled && (timetable?.message === "Upgrade Your membership to fix Multiple Classes") && (<MessageBox message={timetable?.message} severity="success" />)}
+            
             {isScheduled && (timetable?.message ===  "User or Course does not Exist") && (<MessageBox message={timetable?.message} severity="error" />)}
             {isError && (<MessageBox message="Error creating subject" severity="error" />)}
             <form onSubmit={formik.handleSubmit}>

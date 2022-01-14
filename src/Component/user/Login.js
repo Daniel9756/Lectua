@@ -65,38 +65,28 @@ function Login() {
       login: { isLoggin, logger, isPemmitted },
     },
   } = useContext(GlobalContext);
-  console.log(isLoggin, logger, isPemmitted, logger?.userID)
+  console.log(isLoggin, logger, isPemmitted, logger?.user?.id)
   localStorage.setItem("token", logger?.token);
-  localStorage.setItem("userID", logger?.userID);
-  localStorage.setItem("firstName", logger?.firstName);
-  localStorage.setItem("registerAs", logger?.registerAs);
+  localStorage.setItem("userId", logger?.user?.id);
+  localStorage.setItem("firstName", logger?.user?.firstName);
+  localStorage.setItem("registerAs", logger?.user?.registerAs);
 
 
-
-  if (logger?.registerAs === "Teacher") {
-
-    // <Redirect
-    //   to={{
-    //     pathname: "/MyProfile/MyLectures",
-    //     state: { id: logger?.userID, }
-    //   }}
-    // />
-
-
+  if (logger?.user?.registerAs === "Teacher") {
     history.push({
       pathname: '/MyProfile/MyLectures',
       state: {
-        id: logger?.userID,
-        fname: logger?.firstName,
+        id: logger?.user?.id,
+        fname: logger?.user?.firstName,
       }
     })
   }
-  if (logger?.registerAs === "Student") {
+  if (logger?.user?.registerAs === "Student") {
     history.push({
       pathname: '/Student/MyProfile',
       state: {
-        id: logger?.userID,
-        fname: logger?.firstName,
+        id: logger?.user?.userId,
+        fname: logger?.user?.firstName,
       }
     })
   }
@@ -189,15 +179,16 @@ function Login() {
               </Box>
               <Box>
                 <LabelText>Password</LabelText>
+
                 <CustomInput
                   name="password"
                   type="text"
                   placeholder="Your Password"
-                  label="label"
                   onChange={formik.handleChange}
                   value={formik.values.password}
 
                 />
+
               </Box>{" "}
 
 

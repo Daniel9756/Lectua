@@ -62,7 +62,7 @@ const useStyles = makeStyles({
 
 export default function TeacherTimeTable() {
     const classes = useStyles();
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
 
     const StyledTableCell = withStyles((theme) => ({
         head: {
@@ -108,7 +108,7 @@ export default function TeacherTimeTable() {
     } = useContext(GlobalContext);
     console.log(lists, "timetane")
     useEffect(() => {
-        getTimetable(userID)(timetableDispatch);
+        getTimetable(userId)(timetableDispatch);
     }, [isScheduled, isTopDeleted]);
 
     return (
@@ -135,7 +135,7 @@ export default function TeacherTimeTable() {
                    
                     <hr />
                     <div>
-                        <Title>{lists?.data.length} Topics Created</Title>
+                        <Title>{lists?.response.length} Topics Created</Title>
                         <hr />
                         {isTopDeleted && (<MessageBox message={deletedTopic?.message} severity="success" />)}
                         {isEditedTopic && (<MessageBox message={editedTopic?.message} severity="success" />)}
@@ -184,7 +184,7 @@ export default function TeacherTimeTable() {
                             {isError && (<MessageBox message="Your user is not available at the moment " severity="error" />)}
                             {isListed && (
                                 <div>
-                                    {lists.data.map((item) => (
+                                    {lists?.response.map((item) => (
                                         <TimeTable item={item} id={item.id} />
                                     ))}
                                 </div>

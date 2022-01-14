@@ -1,12 +1,11 @@
 import React from 'react'
 import { Box, Grid, Avatar, makeStyles } from "@material-ui/core";
 
-const useStyles = makeStyles((theme) => ({
-  
+const useStyles = makeStyles((theme) => ({ 
 
     image: {
-        width: theme.spacing(22),
-        height: theme.spacing(28),
+        width: theme.spacing(20),
+        height: theme.spacing(24),
     },
 
 

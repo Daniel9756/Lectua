@@ -1,3 +1,4 @@
+
 import React, { createContext, useReducer } from "react";
 import AuthInitialState from "./initials/AuthInitialState";
 import ProfileInitialState from "./initials/ProfileInitialState";
@@ -8,17 +9,12 @@ import EnrolInitialState from "./initials/EnrolInitialState";
 import { auth, partner, getpartners, deletepartner } from "./reducers/Auth";
 import { profile, awards, students, editors, editedFiles, editedStudent } from "./reducers/Profile";
 import { fetchProfile } from "./reducers/Getprofile";
-
 import { login, loginpartner } from "./reducers/Login";
 import { lectures, teacherLectures, deleteSubject, editSubject, getlectures, getAlecture } from "./reducers/Lecture";
 import { enrollAlecture, myEnrolledlectures } from "./reducers/Enroll";
-
-import { tables, timetable, deleteTopic, editedTopic } from "./reducers/TimeTable";
+import { tables, timetable, deleteTopic, editedTopic, studenttimetable } from "./reducers/TimeTable";
 import { friend, getFriends } from "./reducers/Messenger";
 import MessageInitialState from "./initials/MessageInitialState";
-
-
-
 
 
 export const GlobalContext = createContext({});
@@ -27,7 +23,6 @@ export const GlobalProvider = ({ children }) => {
   const [partnerState, partnerDispatch] = useReducer(partner, AuthInitialState);
   const [getpartnerState, getpartnerDispatch] = useReducer(getpartners, AuthInitialState);
   const [deletepartnerState, deletepartnerDispatch] = useReducer(deletepartner, AuthInitialState);
-
   const [profileState, profileDispatch] = useReducer(profile, ProfileInitialState);
   const [awardState, awardDispatch] = useReducer(awards, ProfileInitialState)
   const [loginState, loginDispatch] = useReducer(login, LoginInitialState)
@@ -51,10 +46,7 @@ export const GlobalProvider = ({ children }) => {
   const [getprofileState, getprofileDispatch] = useReducer(fetchProfile, ProfileInitialState);
   const [addfriendState, addfriendDispatch] = useReducer(friend, MessageInitialState);
   const [getFriendsState, getFriendsDispatch] = useReducer(getFriends, MessageInitialState);
-
-
-
-
+  const [getStudentTableState, getStudentTableDispatch] = useReducer(studenttimetable, EnrolInitialState);
 
   return (
     <GlobalContext.Provider
@@ -112,7 +104,9 @@ export const GlobalProvider = ({ children }) => {
         deletepartnerState,
         deletepartnerDispatch,
         getFriendsState,
-        getFriendsDispatch
+        getFriendsDispatch,
+        getStudentTableState,
+        getStudentTableDispatch
       }}
     >
       {children}

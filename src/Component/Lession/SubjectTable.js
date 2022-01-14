@@ -119,7 +119,7 @@ export default function SubjectTable() {
 
                     <hr />
                     <div>
-                        <Title>{FetchedLectures?.data.length} Subjects Created</Title>
+                        <Title>{FetchedLectures?.response.length} Subjects Created</Title>
                         <hr />
                         {isDeleted && (<MessageBox message={deleted?.message} severity="success" />)}
                         {isEdited && (<MessageBox message={edited?.message} severity="success" />)}
@@ -164,7 +164,7 @@ export default function SubjectTable() {
                             {isError && (<MessageBox message="Your subjects is not available at the moment " severity="error" />)}
                             {isFetched && (
                                 <div>
-                                    {FetchedLectures.data.map((item) => (
+                                    {FetchedLectures?.response.map((item) => (
                                         <SubjectDataTable item={item} id={item.id} />
 
                                     ))}

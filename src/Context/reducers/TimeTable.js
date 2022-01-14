@@ -6,6 +6,51 @@ import {
 } from "../actions/ActionTypes";
 
 
+
+export const studenttimetable = (state, action) => {
+    switch (action.type) {
+        case GETTIMETABLE_LOADING:
+            return {
+                ...state,
+                mytimetable: {
+                    ...state.mytimetable,
+                    isEnrolling: true,
+                    error: false,
+                    isFetched: false,
+                    isError: false,
+                    data: null
+                },
+            };
+        case GETTIMETABLE_SUCCESS:
+            return {
+                ...state,
+                mytimetable: {
+                    ...state.mytimetable,
+                    isEnrolling: false,
+                    error: false,
+                    isFetched: true,
+                    isError: false,
+                    data: action.payload,
+                },
+            };
+        case GETTIMETABLE_ERROR:
+            return {
+                ...state,
+                mytimetable: {
+                    ...state.mytimetable,
+                    isEnrolling: false,
+                    isFetched: false,
+                    error: action.payload,
+                    isError: true,
+                    data: null
+
+                },
+            };
+        default:
+            return state;
+    }
+};
+
 export const tables = (state, action) => {
     switch (action.type) {
         case TIMETABLE_LOADING:

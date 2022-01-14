@@ -23,7 +23,7 @@ export const addProfile = (values) => (dispatch) => {
         orgCountry,
         orgState,
         bio,
-        ourPolicy }, plan, userID, selectedFile } = values
+        ourPolicy }, plan, userId, selectedFile } = values
     const formData = new FormData();
     formData.append("orgName", orgName);
     formData.append("phone", phone);
@@ -34,7 +34,7 @@ export const addProfile = (values) => (dispatch) => {
     formData.append("bio", bio);
     formData.append("ourPolicy", ourPolicy);
     formData.append("plan", plan);
-    formData.append("userID", userID);
+    formData.append("userId", userId);
     formData.append("pics", selectedFile);
 
     dispatch({
@@ -61,10 +61,10 @@ export const addProfile = (values) => (dispatch) => {
 
 
 export const addAwards = (data) => (dispatch) => {
-    const { values: { certifications, specialty, subjects }, awardFile, userID } = data
+    const { values: { certifications, specialty, subjects }, awardFile, userId } = data
     console.log(certifications, specialty, subjects, awardFile, "values from profile")
     const formData = new FormData();
-    formData.append("userID", userID);
+    formData.append("userId", userId);
     formData.append("specialty", specialty);
     formData.append('certifications', JSON.stringify(certifications))
     formData.append('subjects', JSON.stringify(subjects))
@@ -77,7 +77,6 @@ export const addAwards = (data) => (dispatch) => {
     axios
         .post(baseUrl + 'awards/', formData, {
             headers: {
-
                 "Content-Type": "multipart/form-data",
             },
         })
@@ -96,15 +95,13 @@ export const addAwards = (data) => (dispatch) => {
 
 export const studentBio = (data) => (dispatch) => {
     const token = localStorage.getItem("token");
-    console.log(data, token, "values from studentBio")
-    const { values: { specialty, studentCountry, studentState }, selectedFile, userID } = data
+    const { values: { specialty, studentCountry, studentState }, selectedFile, userId } = data
     const formData = new FormData();
-    formData.append("userID", userID)
+    formData.append("userId", userId)
     formData.append("specialty", specialty);
     formData.append('studentCountry', studentCountry)
     formData.append('studentState', studentState)
     formData.append('selectedFile', selectedFile)
-    console.log(specialty, studentCountry, studentState,selectedFile, userID,   "values from studentBio")
     dispatch({
         type: STUDENT_LOADING,
     });
@@ -136,7 +133,7 @@ export const editProfile = (data) => (dispatch) => {
         orgCountry,
         orgState,
         bio,
-    }, userID: id, selectedFile } = data
+    }, userId: id, selectedFile } = data
     const formData = new FormData();
     formData.append("orgName", orgName);
     formData.append("phone", phone);
@@ -171,13 +168,13 @@ export const editProfile = (data) => (dispatch) => {
 
 export const editAwards = (data) => (dispatch) => {
     const token = localStorage.getItem("token");
-    const { values: { certifications, specialty, subjects }, awardFile, userID: id } = data
+    const { values: { certifications, specialty, subjects }, awardFile, userId } = data
     // console.log(certifications, specialty, subject, awardFile, "values from profile")
     console.log(data, "values from awardFile")
     const formData = new FormData();
     formData.append("specialty", specialty);
-    formData.append('certifications', certifications)
-    formData.append('subjects', subjects)
+    formData.append('certifications', JSON.stringify(certifications))
+    formData.append('subjects', JSON.stringify(subjects))
     for (let i = 0; i < awardFile.length; i++) {
         formData.append("awardFile", awardFile[i])
     }
@@ -185,7 +182,7 @@ export const editAwards = (data) => (dispatch) => {
         type: EDITAWARD_LOADING,
     });
     axios
-        .put(baseUrl + `awards/${id}`, formData, {
+        .put(baseUrl + `awards/${userId}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",

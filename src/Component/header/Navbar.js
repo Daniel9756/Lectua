@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 320,
+    marginTop: 270,
     zIndex: 100,
     position: "fixed",
   },
@@ -93,6 +93,9 @@ const useStyles = makeStyles((theme) => ({
 
   },
   "@media (max-width: 960px)": {
+    reg: {
+      display: "none"
+    },
 
 
   },
@@ -134,7 +137,7 @@ const NavgBar = (props) => {
   }
 
   return (
-    <Box className={classes.root}>
+    <Box>
       <Navbar
         light
         style={{
@@ -189,15 +192,7 @@ const NavgBar = (props) => {
             Messages
           </Link>
 
-          <Link
-            to="/Register"
-            style={location.pathname === "/register" ? active : {}}
-            className={classes.reg}
-          >
-            Register
-          </Link>
-        </Box>
-
+          
         <Box>
           <Link
             to="/Register"
@@ -207,6 +202,8 @@ const NavgBar = (props) => {
             Register
           </Link>
         </Box>
+        </Box>
+
 
 
 

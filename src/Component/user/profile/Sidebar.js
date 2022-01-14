@@ -59,7 +59,6 @@ const useStyles = makeStyles({
 function Sidebar(props) {
   const location = useLocation();
   const classes = useStyles();
-
   const { setContent } = props;
 
   const active = {

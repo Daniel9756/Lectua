@@ -65,7 +65,8 @@ function Award({ item }) {
                     gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
                     gap: "44px",
                 }}>
-                    {item?.awardFiles.map((image) => (
+                    {
+                    JSON.parse(item?.awardFiles).map((image) => (
                         <ImageBox image={image} key={image} />
                     ))}
                 </Box>

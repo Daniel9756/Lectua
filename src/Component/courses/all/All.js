@@ -58,7 +58,7 @@ function All() {
             {isError && (<MessageBox message="Your subjects is not available at the moment " severity="error" />)}
             {isFetched && (
                 <div className={classes.lists}>
-                    {lessons.data.map((item) => (
+                    {lessons.response.map((item) => (
                         <AllData item={item} id={item.id} key={item.id} />
 
                     ))}

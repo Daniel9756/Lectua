@@ -29,7 +29,7 @@ function PaymentDetail(props) {
     const history = useHistory()
 
     const params = useParams()
-    const { item: { firstName, email, id: userid, phone }, subject, id, price: amount } = props
+    const { item: { firstName, email, id: userId, phone }, subject, courseId, price: amount } = props
     const publicKey = process.env.REACT_APP_PAYSTACK_API
     const {
         enrollAlectureDispatch,
@@ -51,7 +51,7 @@ function PaymentDetail(props) {
         onSuccess: (response) => {
             const { reference, trans } = response
             const values = {
-                email, userid, id, subject, reference, trans, amount
+                email, userId, courseId, subject, reference, trans, amount
             }
             if (response.status === "success") {
                 enrolLecture(values)(enrollAlectureDispatch)

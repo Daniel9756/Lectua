@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useRef, useContext, useState } from "react";
 import { makeStyles, Grid, Typography, Avatar } from "@material-ui/core";
 import { Link } from "react-router-dom";
 
@@ -14,8 +14,8 @@ import {
   MdDescription,
 } from "react-icons/md";
 
-import { CustomButton } from "../../controls/Button";
-import { CustomInput, CustomTextarea } from "../../controls/Input";
+import emailjs from 'emailjs-com';
+import { FiLoader } from 'react-icons/fi';
 import { GlobalContext } from "../../Context/Provider";
 
 const useStyles = makeStyles((theme) => ({
@@ -64,6 +64,12 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 40,
     color: "#DA7B93",
   },
+  input: {
+    width: "100%",
+    padding: "6px",
+    borderRadius: "4px",
+    border: "1px solid #A3333D"
+},
   lectuatxt: {
     opacity: "0.5",
     letterSpacing: 2,
@@ -92,6 +98,24 @@ function Footer() {
       login: { isPemmitted, logger },
     },
   } = useContext(GlobalContext);
+  const [message, setMessage] = useState('')
+  const [loading, setLoading] = useState(false)
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+    setLoading(true)
+    emailjs.sendForm(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID, form.current, process.env.REACT_APP_EMAIL_USER_ID)
+      .then((result) => {
+        if (result.status === 200) {
+          setMessage("Thanks for your Message. We will get intouch soon")
+          setLoading(false)
+        }
+      }, (error) => {
+        console.log(error.text);
+      });
+  };
+
   return (
     <div className={classes.footer}>
       <Grid container className={classes.imgdown}>
@@ -222,35 +246,30 @@ function Footer() {
           >
             Get latest information on real estate property news around you
           </Typography>
-          <div>
-            <CustomInput
-              label="Your Email"
-              style={{
-                backgroundColor: "#fff",
-                borderRadius: "5px",
-                width: "100%",
-              }}
-            />
-          </div>
-          <div style={{ marginTop: "8px" }}>
-            <CustomTextarea
-              placeholder="Your Message"
-              style={{ width: "100%", minHeight: "65px", fontFamily: "roboto" }}
-            ></CustomTextarea>
-          </div>
-          <div>
-            <CustomButton
-              text="Send"
-              style={{
-                marginTop: "8px",
-                width: "100%",
-                color: "#fff",
-                background: "#DA7B93",
-              }}
-            >
-              send
-            </CustomButton>
-          </div>
+          <form ref={form} onSubmit={sendEmail} className="form">
+
+                   <div className="formelement" style={{ marginTop: 16 }}>
+              <input type="text" name="user_name" className={classes.input} placeholder="Your Full Name"
+              
+              
+              />
+
+            </div>
+            <div className="formelement" style={{ marginTop: 16 }}>
+              <input type="email" name="user_email" className={classes.input} placeholder="Your Email Address" />
+
+
+            </div>
+            <div className="formelement" style={{ marginTop: 16 }}>
+              <textarea name="message" className={classes.input} placeholder="Your Message" />
+
+            </div>
+            <h5 style={{ color: "#60993E", fontFamily: "cursive", marginLeft: 6, marginRight: 6 }}>{message}</h5>
+            <div className="formelement">
+              <button type="submit" className="emailbtn" style={{ marginTop: 6, backgroundColor: "#DA7B93", borderRadius: 6, width: 80 }}>{loading ? <FiLoader /> : 'SEND'}</button>
+            </div>
+          </form>
+
         </Grid>
       </Grid>
       <hr />

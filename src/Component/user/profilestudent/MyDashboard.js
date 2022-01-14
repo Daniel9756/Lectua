@@ -111,7 +111,7 @@ function MyDashboard() {
                                 style={{ color: "#DA7B93", fontFamily: "serif", marginLeft: 10, }}
                             >
                                 {" "}
-                                {myenrolled?.data?.length}
+                                {myenrolled?.response?.length}
                             </Typography>
 
                             <Typography
@@ -179,7 +179,7 @@ function MyDashboard() {
                                 style={{ color: "#DA7B93", fontFamily: "serif", marginLeft: 10, }}
                             >
                                 {" "}
-                                2
+                             {myenrolled?.response.length}
                             </Typography>
 
                             <Typography

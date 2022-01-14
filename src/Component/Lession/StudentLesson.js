@@ -9,7 +9,6 @@ import {
   TableHead,
   TableRow,
   Paper,
-
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 // import LinearLoading from "../"
@@ -41,13 +40,11 @@ const useStyles = makeStyles({
   body: {
     overflowY: "scroll",
   },
-
-
 });
 
 export default function StudentLesson(props) {
   const classes = useStyles();
-  const userID = localStorage.getItem("userID");
+  const userId = localStorage.getItem("userId");
   const StyledTableCell = withStyles((theme) => ({
     head: {
       color: theme.palette.common.white,
@@ -68,24 +65,21 @@ export default function StudentLesson(props) {
     },
   }))(TableRow);
 
-
   const {
     myEnrolledlecturesDispatch,
     myEnrolledlecturesState: {
-      myenrollecture: { isEnrolling, myenrolled, isFetched,  isError },
+      myenrollecture: { isEnrolling, myenrolled, isFetched, isError },
     },
-
-} = useContext(GlobalContext);
+  } = useContext(GlobalContext);
+  console.log(myenrolled, "myenrolled");
 
   // const { data: subjects, isSuccess, isError, isLoading } = useQuery(["myenrolled", userID], () => fetchMySubjects(userID), {
   //   onSuccess: () => handleSubject(subjects, id),
   // });
 
   useEffect(() => {
-    getMyEnrolled(userID)(myEnrolledlecturesDispatch)
-  
-}, [myEnrolledlecturesDispatch,userID]);
-
+    getMyEnrolled(userId)(myEnrolledlecturesDispatch);
+  }, [myEnrolledlecturesDispatch, userId]);
 
   return (
     <div
@@ -117,7 +111,6 @@ export default function StudentLesson(props) {
           <div>
             <Title>YOUR ENROLLED COURSES</Title>
             <hr />
-
           </div>
           <Avatar alt="person" src="/images/person.jpg" />
         </div>{" "}
@@ -134,32 +127,43 @@ export default function StudentLesson(props) {
                   display: "flex",
                   alignItems: "center",
                   justifyContent: "space-between",
-                  borderRadius: "30px",
+                  // borderRadius: "30px",
                 }}
               >
-
-                <StyledTableCell align="left"> <LabelText>Subject</LabelText></StyledTableCell>
-                <StyledTableCell align="left"><LabelText>SubjectId</LabelText></StyledTableCell>
-                <StyledTableCell align="right"><LabelText>Price</LabelText></StyledTableCell>
-                <StyledTableCell align="center"><LabelText>Organisation</LabelText></StyledTableCell>
-                <StyledTableCell align="left"><LabelText>Registeration Date</LabelText></StyledTableCell>
-                <StyledTableCell align="left">
+                <StyledTableCell align="center">
+                  {" "}
+                  <LabelText>Subject</LabelText>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <LabelText>SubjectId</LabelText>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <LabelText>Price</LabelText>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <LabelText>Organisation</LabelText>
+                </StyledTableCell>
+                <StyledTableCell align="center">
+                  <LabelText>Date</LabelText>
+                </StyledTableCell>
+                <StyledTableCell align="center">
                   <BiDotsVerticalRounded />
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody className={classes.body}>
-              {isEnrolling && (<LinearLoading />)}
-              {isError && (<MessageBox message="Error fetching data" severity="error" />)}
+              {isEnrolling && <LinearLoading />}
+              {isError && (
+                <MessageBox message="Error fetching data" severity="error" />
+              )}
               {isFetched && (
                 <div>
-                  {myenrolled.data.map((item) => (
+                  {myenrolled.response.map((item) => (
                     <EnrollData key={item.id} item={item} id={item.id}  />
                   ))}
                 </div>
               )}
             </TableBody>
-
           </Table>
         </div>
       </TableContainer>

@@ -37,7 +37,7 @@ const useStyles = makeStyles({
 function Topic(props) {
     const classes = useStyles();
     const { item, setOpenPopUp } = props
-    const { courseid, topic, eventtype, startdate, starttime, enddate, endtime, id } = item
+    const { courseId, topic, eventtype, startdate, starttime, enddate, endtime, id } = item
     const {
         timetableDispatch,
         editedTopicDispatch,
@@ -47,7 +47,7 @@ function Topic(props) {
         },
     } = useContext(GlobalContext);
     console.log(isEditingTopic, editedTopic, isErr, isEditedTopic);
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
 
 
 
@@ -64,12 +64,12 @@ function Topic(props) {
 
         onSubmit: (values) => {
             const data = {
-                values, id, courseid
+                values, id, courseId
             }
             editATopic(data)(editedTopicDispatch)
             if (isEditedTopic) {
                 setOpenPopUp(false)
-                getTimetable(userID)(timetableDispatch);
+                getTimetable(userId)(timetableDispatch);
 
             }
         },

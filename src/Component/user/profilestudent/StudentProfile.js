@@ -72,7 +72,7 @@ function StudentProfile(props) {
             login: { logger },
         },
     } = useContext(GlobalContext);
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
     console.log(isCreatingStudent, scholar, isEnrolled, error)
 
     if (isEnrolled && scholar?.message === "Your Profile has been submitted") {
@@ -96,14 +96,13 @@ function StudentProfile(props) {
         }),
         onSubmit: (values, action) => {
             const data = {
-                values, selectedFile, userID
+                values, selectedFile, userId
             }
             studentBio(data)(studentDispatch);
             action.resetForm()
         },
     });
 
-    console.log(formik.values, "values")
 
     return (
         <Box>

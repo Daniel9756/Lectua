@@ -51,17 +51,13 @@ function Settings(props) {
       </Typography>{" "}
       <hr />
       <Typography component="div">
-        {logger?.registerAs === "Teacher" ? <Link
-          to="/CreateProfile"
+         <Link         
+          to={registerAs === "Teacher" ? "/CreateProfile" : "/studentProfile"}
           className={classes.anchor}
         >
           {" "}
           Create Profile
-        </Link> :
-
-          <Link to="/studentProfile" className={classes.anchor}>
-            Create Profile
-          </Link>}
+        </Link> 
 
       </Typography>
       <hr />

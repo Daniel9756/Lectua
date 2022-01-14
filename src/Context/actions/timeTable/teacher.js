@@ -54,6 +54,24 @@ export const getTimetable = (id) => (dispatch) => {
 }
 
 
+export const getAStudentTable = (id) => (dispatch) => {
+    dispatch({
+        type: GETTIMETABLE_LOADING,
+    });
+    axios
+        .get(baseUrl + `topics/${id}`)
+        .then((res) =>
+            dispatch({
+                type: GETTIMETABLE_SUCCESS,
+                payload: res.data
+            }))
+        .catch((err) => dispatch({
+            type: GETTIMETABLE_ERROR,
+            error: err.payload,
+        }))
+}
+
+
 export const deleteATopic = (id) => (dispatch) => {
     const token = localStorage.getItem("token");
     dispatch({

@@ -30,16 +30,16 @@ import { Contact } from "./Component/contact/Contact";
 import Footer from "./Component/footer/Footer";
 import  Messanger from "./Component/Messanger/Index";
 import InitChat from "./Component/Messanger/Conversations/InitChat";
+
 function App() {
 
   return (
-    <>
+    
       <Router>
         <Header />
         <Switch>
           <Route path="/" exact component={Home} />
           <Protected path="/Awards" exact component={Awards} />
-
           <Protected path="/CreateLesson" exact component={CreateLesson} />
           <Route path="/Register" exact component={Register} />
           <Route path="/login" exact component={Login} />
@@ -86,12 +86,9 @@ function App() {
           <Protected path="/Contact" exact component={Contact} />
           <Protected path="/Messanger" exact component={Messanger} />
           <Protected path="/initConversation/:name/:id" exact component={InitChat} />
-
-
         </Switch>
         <Footer />
       </Router>
-    </>
   );
 }
 

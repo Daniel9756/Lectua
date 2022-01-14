@@ -10,7 +10,7 @@ import { Link, useHistory, useParams, Redirect } from "react-router-dom";
 import MessageBox from "../../utils/Alert";
 
 export const PartnerLogin = (props) => {
-    const { orgid, userID } = props
+    const { orgId, userId } = props
     const history = useHistory();
 
     const {
@@ -23,21 +23,17 @@ export const PartnerLogin = (props) => {
                 isLoading, data, isSuccess, isError, error },
         },
     } = useContext(GlobalContext);
-
-
-
-    console.log(isLoggin, partner, isPemmitted)
+        console.log(isLoggin, partner, isPemmitted)
 
 
     const formik = useFormik({
         initialValues: {
-
             email: "",
             password: "",
         },
         onSubmit: (values, action) => {
             const { email, password } = values
-            const data = { email, password, orgid, userID }
+            const data = { email, password, orgId, userId }
             loginPartner(data)(loginpartnerDispatch)
             action.resetForm()
         },

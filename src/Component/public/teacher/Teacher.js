@@ -69,7 +69,11 @@ function TeacherIndex() {
   console.log(id)
   const { data: awards, isLoading, isError, isSuccess } = useQuery(["teacheraward", id], () => fetchOneAward(id), {
     onSuccess: (awards) => console.log(awards),
-  });
+
+      });
+      const award = awards?.data
+      const profile = folder?.data
+
   return (
 <>
     <Box className={classes.root}>
@@ -82,10 +86,8 @@ function TeacherIndex() {
           {isGettingprofile && (<LinearLoading />)}
           {isErr && (<MessageBox message="Your profile is not available at the moment " severity="error" />)}
           {isFetched && (
-            <div>
-              {folder.data.map((item) => (
-                <TeacherPro key={item.id} item={item} teacherId={id} />
-              ))}
+            <div>              
+                <TeacherPro key={profile.id} item={profile}  />           
             </div>
           )}
 
@@ -94,10 +96,8 @@ function TeacherIndex() {
           {isLoading && (<LinearLoading />)}
           {isError && (<MessageBox message="Your user is not available at the moment " severity="error" />)}
           {isSuccess && (
-            <div>
-              {awards.data.map((item) => (
-                <Award key={item.id} item={item} id={item.id} />
-              ))}
+            <div>             
+                <Award key={award.id} item={award}  />             
             </div>
           )}
         </Box>

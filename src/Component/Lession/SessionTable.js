@@ -77,7 +77,7 @@ export default function SessionTable({ handleNext }) {
     },
   }))(TableRow);
   const classes = useStyles();
-  const userID = localStorage.getItem("userID");
+  const userId = localStorage.getItem("userId");
   const {
     teacherLectureDispatch,
     teacherLectureState: {
@@ -87,15 +87,13 @@ export default function SessionTable({ handleNext }) {
       subject: { isDeleted},
   },    
   } = useContext(GlobalContext);
-
-  console.log(FetchedLectures) 
   
   const handleForward = () => {
     handleNext()
   }
 
   useEffect(() => {
-    getLecturesByATeacher(userID)(teacherLectureDispatch);
+    getLecturesByATeacher(userId)(teacherLectureDispatch);
   }, [isDeleted]);
 
   return (
@@ -148,7 +146,7 @@ export default function SessionTable({ handleNext }) {
             <TableBody className={classes.body}>
               {isFetched && (
                 <div>
-                  {FetchedLectures.data.map((item) => (
+                  {FetchedLectures?.response.map((item) => (
                     <div key={item.id} item={item} className={classes.email}>
                       <Box className={classes.subject}>
 

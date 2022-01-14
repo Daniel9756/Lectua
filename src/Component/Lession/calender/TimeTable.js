@@ -37,9 +37,9 @@ function TimeTable({ item }) {
             paddingLeft: 14,
         },
     }))(TableRow);
-    const { courseid, topic, eventtype, startdate, starttime, enddate, endtime, id } = item
+    const { courseId, topic, eventtype, startdate, starttime, enddate, endtime, id } = item
     const [isOpen, setIsOpen] = useState(false);
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
 
     const {
         deleteTopicDispatch,
@@ -65,13 +65,13 @@ function TimeTable({ item }) {
                 ...confirmDialog,
                 isOpen: false,
             });
-            getTimetable(userID)(timetableDispatch);
+            getTimetable(userId)(timetableDispatch);
         }
     }
     return (
         <>
             <CustomTableRow
-                key={courseid}
+                key={courseId}
                 style={{
                     display: "flex",
                     alignItems: "center",
@@ -87,7 +87,7 @@ function TimeTable({ item }) {
 
                 >
                     <LabelText>
-                        {courseid}
+                        {courseId}
                     </LabelText>
 
                 </TableCell>
@@ -129,7 +129,7 @@ function TimeTable({ item }) {
                             onClick={() => {
                                 setConfirmDialog({
                                     isOpen: true,
-                                    subject: `${topic} (${courseid})`,
+                                    subject: `${topic} (${courseId})`,
                                     title: "Are you sure you want to delete this topic?",
                                     subtitle: "This operation cannot be undone!",
                                     onConfirm: () => {

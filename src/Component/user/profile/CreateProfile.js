@@ -25,18 +25,14 @@ function getSteps() {
   return ["BIOGRAPHY", "SELECT PLAN", "CERTIFICATES", "DONE"];
 }
 
-function CreateProfile() {
- 
-const userID = localStorage.getItem("userID");
- 
-
-  const [biography, setBiography] = useState("");
+function CreateProfile() { 
+const userId = localStorage.getItem("userId");
+  const [biography, setBiography] = useState({});
   const [selectedFile, setSelectedFile] = useState("");
 
   const handleBio=(values)=>{
     setBiography(values)
-  } 
-  
+  }   
 
   const handleFile = (avater) => {  
     setSelectedFile(avater);
@@ -49,9 +45,9 @@ const userID = localStorage.getItem("userID");
       case 0:
         return <Biography handleNext={handleNext}  handleBio={handleBio} handleFile={handleFile} selectedFile={selectedFile} />;
       case 1:
-        return <Plan handleNext={handleNext} handleBack={handleBack}  selectedFile={selectedFile}  biography={biography} userID={userID} />;
+        return <Plan handleNext={handleNext} handleBack={handleBack}  selectedFile={selectedFile}  biography={biography} userId={userId} />;
       case 2:
-        return <Awards handleNext={handleNext} handleBack={handleBack}  handleFile={handleFile} userID={userID} />;
+        return <Awards handleNext={handleNext} handleBack={handleBack}  handleFile={handleFile} userId={userId} />;
       case 3:
         return <Congrates handleNext={handleNext} handleBack={handleBack} message={message} highlight={highlight} />;
 

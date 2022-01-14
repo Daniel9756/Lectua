@@ -36,6 +36,7 @@ function Design(props) {
 
  
     const {data: category, isLoading, isError, isSuccess } = props
+    console.log(category, 'category')
     return (
         <div className={classes.root}>
         {isLoading && (<BlockLoading />)}
@@ -43,7 +44,7 @@ function Design(props) {
         {isSuccess && category?.data < 1 && (<MessageBox message="Your subjects is not available at the moment " severity="error" />)}
         {isSuccess && (
             <div className={classes.lists}>
-                {category.data.map((item) => (
+                {category?.data.map((item) => (
                     <AllData item={item} id={item.id} key={item.id} />
 
                 ))}

@@ -16,7 +16,6 @@ import { getLecturesByATeacher } from "../../../Context/actions/lesson/lesson";
 import { CircularProgress, Grid, Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
-
   minutes: {
     fontFamily: "serif",
     fontWeight: "bold",
@@ -26,12 +25,8 @@ const useStyles = makeStyles({
     marginLeft: 8,
     justifyContent: "center",
   },
-  "@media (max-width: 960px)": {
-
-  },
-  "@media (max-width: 440px)": {
-
-  },
+  "@media (max-width: 960px)": {},
+  "@media (max-width: 440px)": {},
 });
 
 function CreateSession({ handleNext }) {
@@ -40,23 +35,23 @@ function CreateSession({ handleNext }) {
 
   const {
     teacherLectureDispatch,
+   
     lectureDispatch,
     lectureState: {
       lecture: { isAddingLesson, lesson, isFixed },
     },
     getprofileDispatch,
     editSubjectState: {
-      editsubject: {  isEdited,  isError },
+      editsubject: { isEdited, isError },
     },
     loginpartnerState: {
       login: { isLoggin, logger: partner, isPemmitted },
-  },
+    },
   } = useContext(GlobalContext);
-  const userID = localStorage.getItem("userID");
- 
+  const userId = localStorage.getItem("userId");
   useEffect(() => {
-    getOneProfile(userID)(getprofileDispatch);
-    getLecturesByATeacher(userID)(teacherLectureDispatch);
+    getOneProfile(userId)(getprofileDispatch);
+    getLecturesByATeacher(userId)(teacherLectureDispatch);
   }, [isFixed, isEdited]);
 
   const formik = useFormik({
@@ -71,36 +66,45 @@ function CreateSession({ handleNext }) {
         .min(2, "subject must be more than two characters long")
         .required("This field is reqiured"),
       price: Yup.string().required("How much to pay for this lesson"),
-      per: Yup.string().required("How long will the price cover"),
-      target: Yup.string()
-        .required("This field is reqiured"),
+      per: Yup.string().required("For how long will the price cover"),
+      target: Yup.string().required("This field is reqiured"),
     }),
     onSubmit: (values, actions) => {
-      const { subject, target, price, per } = values
-     let creator;
-     let owner;
+      const { subject, target, price, per } = values;
+      let creator;
+      let owner;
 
-      if(isPemmitted){
-        owner = partner?.response?.orgid
-        creator = partner?.response?.partnerid
+      if (isPemmitted) {
+        owner = partner?.response?.orgId;
+        creator = partner?.response?.partnerId;
         const data = {
-          subject, target, userID, price, per, owner, creator
-        }
+          subject,
+          target,
+          userId,
+          price,
+          per,
+          owner,
+          creator,
+        };
         addLecture(data)(lectureDispatch);
-        actions.resetForm()
-        
-      }else{
-        owner = userID
-        creator = userID
+        actions.resetForm();
+      } else {
+        owner = userId;
+        creator = userId;
         const data = {
-          subject, target, userID, price, per, creator, owner
-        }
+          subject,
+          target,
+          price,
+          per,
+          creator,
+          owner,
+        };
         addLecture(data)(lectureDispatch);
-        actions.resetForm()
+        actions.resetForm();
       }
     },
   });
-  
+
   return (
     <Grid container>
       <Grid item md="4">
@@ -108,11 +112,17 @@ function CreateSession({ handleNext }) {
           <div>
             <Title>create your classroom</Title>
             <h4 className={classes.minutes}>in less than 5 minutes</h4>
-
           </div>
-          {isFixed && lesson?.message ===  "Your subject has been added" && (<MessageBox message={lesson?.message} severity="success" />)}
-          {lesson?.message === "Upgrade your membership to create more courses" && (<MessageBox message={lesson?.message} severity="error" />)}
-          {isError && (<MessageBox message="Error creating subject" severity="error" />)}
+          {isFixed && lesson?.message === "Your Subject has been added" && (
+            <MessageBox message={lesson?.message} severity="success" />
+          )}
+          {lesson?.message ===
+            "Upgrade your membership to create more courses" && (
+            <MessageBox message={lesson?.message} severity="error" />
+          )}
+          {isError && (
+            <MessageBox message="Error creating subject" severity="error" />
+          )}
 
           <form onSubmit={formik.handleSubmit}>
             <LabelText>Enter Your Subject</LabelText>

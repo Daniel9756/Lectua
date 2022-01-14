@@ -7,21 +7,13 @@ import { CustomSelect } from "../../../controls/Select";
 import { MultiFileInput } from "../../../controls/FileInput";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { Box, Container, Grid,  CircularProgress, } from "@material-ui/core";
+import { Box, Container, Grid, CircularProgress } from "@material-ui/core";
 
-
-import {
-  CustomInput,
-  LabelText,
-  Title,
- 
-  Info,
-} from "../../../controls/Input";
+import { CustomInput, LabelText, Title, Info } from "../../../controls/Input";
 
 import { GlobalContext } from "../../../Context/Provider";
 import { addAwards } from "../../../Context/actions/profile/Profile";
 import MessageBox from "../../../utils/Alert";
-
 
 const dynamicCertificateInitialState = [1];
 const dynamicCertificateReducer = (state, action) => {
@@ -35,7 +27,7 @@ const dynamicCertificateReducer = (state, action) => {
   }
 };
 function Awards(props) {
-  const { handleNext,  userID } = props;
+  const { handleNext, userId } = props;
   const [awardFile, setAwardFile] = useState([]);
   // const userID = localStorage.getItem("userID");
 
@@ -48,51 +40,48 @@ function Awards(props) {
     setAwardFile(award);
   };
 
-
   const {
     awardDispatch,
     awardState: {
       award: { isCreatingAward, error, isCertified, certificates, isError },
     },
   } = useContext(GlobalContext);
-  
-  console.log(isCreatingAward, error, isCertified, certificates)
 
+  console.log(isCreatingAward, error, isCertified, certificates);
 
   useEffect(() => {
-    if (isCertified) {
-      handleNext()
+    if (
+      isCertified &&
+      (certificates.message === "Your data was successfully submitted" ||
+        certificates.message === "We already have your data")
+    ) {
+      handleNext();
     }
   }, [isCertified]);
-
 
   const formik = useFormik({
     initialValues: {
       specialty: "",
       subjects: [],
       certifications: [],
-     
     },
     validationSchema: Yup.object({
-      specialty: Yup.string()
-        .required("This field is reqiured"),
-
+      specialty: Yup.string().required("This field is reqiured"),
     }),
     onSubmit: (values, action) => {
       const data = {
-        values, awardFile, userID
-      }
+        values,
+        awardFile,
+        userId,
+      };
       addAwards(data)(awardDispatch);
-      action.resetForm()
+      action.resetForm();
     },
   });
-  // const formSubmit = () => {
-  // }
-  console.log(formik.values, awardFile, userID, "values")
+
   return (
     <Box>
       <Container>
-
         <Grid container style={{ textAlign: "center", marginBottom: 22 }}>
           <Grid item md="2"></Grid>
           <Grid item md="8">
@@ -100,9 +89,15 @@ function Awards(props) {
               <Box style={{ textAlign: "center", marginBottom: 22 }}>
                 {" "}
                 <Title>Qualifications</Title>
-
-                {certificates && (<MessageBox message={certificates?.message} severity="success" />)}
-                {isError && (<MessageBox message="User was not created" severity="error" />)}
+                {certificates && (
+                  <MessageBox
+                    message={certificates?.message}
+                    severity="success"
+                  />
+                )}
+                {isError && (
+                  <MessageBox message="User was not created" severity="error" />
+                )}
               </Box>
               <Box
                 style={{
@@ -121,7 +116,6 @@ function Awards(props) {
                     onChange={formik.handleChange}
                   ></CustomSelect>
                 </Box>
-
               </Box>
               <Box
                 style={{
@@ -130,10 +124,10 @@ function Awards(props) {
                   marginTop: 20,
                 }}
               >
-
                 <Box style={{ width: "100%", marginLeft: 4 }}>
                   <LabelText>
-                    Subjects(<em>You can add maximum of 5 subjects</em>)(<em>Press Ctrl key to select</em>)
+                    Subjects(<em>You can add maximum of 5 subjects</em>)(
+                    <em>Press Ctrl key to select</em>)
                   </LabelText>
                   <CustomSelect
                     multiple="multiple"
@@ -178,7 +172,9 @@ function Awards(props) {
                       color: "#fff",
                       width: 30,
                     }}
-                    onClick={() => dynamicCertificateDispatch({ type: "REMOVE" })}
+                    onClick={() =>
+                      dynamicCertificateDispatch({ type: "REMOVE" })
+                    }
                   >
                     -
                   </GroupButton>
@@ -203,43 +199,40 @@ function Awards(props) {
                   </GroupButton>
                 </Box>
               </Box>
-              {dynamicCertificate.length > 0 && dynamicCertificate.map((item, index) => {
-                return (
-                  <Box
-                    style={{
-                      background: "#2f4454",
-                      borderRadius: 8,
-                      padding: 25,
-                      marginTop: 10,
-                    }}
-                    key={index}
-                  >
-                    <Box style={{ width: "100%" }}
-                      key={`awardTitle ${item}`}
+              {dynamicCertificate.length > 0 &&
+                dynamicCertificate.map((item, index) => {
+                  return (
+                    <Box
+                      style={{
+                        background: "#2f4454",
+                        borderRadius: 8,
+                        padding: 25,
+                        marginTop: 10,
+                      }}
+                      key={index}
                     >
-                      <CustomInput
-                        placeholder="Certificate title"
-                        text={`${item}`}
-                        name={`certifications[${index}].awardTitle`}
-                        value={formik.values.awardTitle}
-                        onChange={formik.handleChange}
-                      ></CustomInput>
-                    </Box>
+                      <Box style={{ width: "100%" }} key={`awardTitle ${item}`}>
+                        <CustomInput
+                          placeholder="Certificate title"
+                          text={`${item}`}
+                          name={`certifications[${index}].awardTitle`}
+                          value={formik.values.awardTitle}
+                          onChange={formik.handleChange}
+                        ></CustomInput>
+                      </Box>
 
-                    <Box style={{ width: "100%" }}
-                      key={`awardOrg ${item}`}
-                    >
-                      <CustomInput
-                        placeholder="Name of the Organisation"
-                        text={`${item}`}
-                        name={`certifications[${index}].awardOrg`}
-                        value={formik.values.awardOrg}
-                        onChange={formik.handleChange}
-                      ></CustomInput>
+                      <Box style={{ width: "100%" }} key={`awardOrg ${item}`}>
+                        <CustomInput
+                          placeholder="Name of the Organisation"
+                          text={`${item}`}
+                          name={`certifications[${index}].awardOrg`}
+                          value={formik.values.awardOrg}
+                          onChange={formik.handleChange}
+                        ></CustomInput>
+                      </Box>
                     </Box>
-                  </Box>
-                );
-              })}
+                  );
+                })}
               <Box style={{ width: "30%", marginTop: 20 }}>
                 <LabelText for="file">
                   Upload certificates
@@ -249,7 +242,6 @@ function Awards(props) {
                     }}
                   >
                     {" "}
-
                   </small>
                 </LabelText>
                 <MultiFileInput
@@ -265,7 +257,7 @@ function Awards(props) {
                   height: 40,
                   color: "#DA7B93",
                   borderRadius: 10,
-                  float: "right"
+                  float: "right",
                 }}
               >
                 {isCreatingAward ? (
@@ -275,9 +267,7 @@ function Awards(props) {
                 ) : (
                   "Next"
                 )}
-
               </CustomButton>
-
             </form>
           </Grid>
           <Grid item md="2"></Grid>

@@ -35,7 +35,6 @@ export const getOneLecture = (id) => (dispatch) => {
 
 
 export const addLecture = (values) => (dispatch) => {
-    console.log(values, "vaues frm cntext")
     const token = localStorage.getItem("token");
     dispatch({
         type: LESSON_LOADING,
@@ -56,10 +55,8 @@ export const addLecture = (values) => (dispatch) => {
         .catch((err) => dispatch({
             type: LESSON_ERROR,
             error: err.message
-
-
         }))
-}
+    }
 
 export const getLectures = () => (dispatch) => {
     dispatch({

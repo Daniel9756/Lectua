@@ -62,8 +62,6 @@ function Award({ item }) {
                 <Subtitle>Subjects:</Subtitle>
                 <ul>
                     <Info>
-
-
                         {
                             JSON.parse(item?.subjects).map((x) => (
                                 <ul>
@@ -72,13 +70,7 @@ function Award({ item }) {
 
                                     </li>
                                 </ul>
-                            ))
-
-
-                        }
-
-
-
+                            ))}
                     </Info>
                 </ul>
             </Box>
@@ -86,18 +78,15 @@ function Award({ item }) {
                 <Subtitle>Certificates:</Subtitle>
                 <Box style={{
                     display: "grid",
-                    gridTemplateColumns: "repeat(auto-fill, minmax(142px, 1fr))",
-                    gap: "44px",
+                    gridTemplateColumns: "repeat(auto-fill, minmax(120px, 1fr))",
+                    gap: "60px",
+                    maxWidth: 'auto'
                 }}>
-                    {item?.awardFiles.map((image) => (
+                    {JSON.parse(item?.awardFiles).map((image) => (
                         <ImageBox image={image} key={image} />
                     ))}
                 </Box>
             </Box>{" "}
-
-
-
-
         </Box>
     )
 }

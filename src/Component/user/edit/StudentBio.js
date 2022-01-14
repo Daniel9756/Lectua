@@ -58,7 +58,7 @@ const useStyles = makeStyles({
 function StudentBio({ setIsOpen }) {
 
     const [selectedFile, setSelectedFile] = useState("");
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
     const classes = useStyles();
     const handleFile = (avater) => {
         setSelectedFile(avater);
@@ -98,7 +98,7 @@ function StudentBio({ setIsOpen }) {
         }),
         onSubmit: (values, action) => {
             const data = {
-                values, selectedFile, userID
+                values, selectedFile, userId
             }
             editStudentBio(data)(editStudentDispatch);
             action.resetForm()

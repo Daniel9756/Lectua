@@ -1,8 +1,10 @@
-import React from 'react'
-import { Container,  makeStyles, Box,  Typography } from "@material-ui/core";
+import React, { useState, useRef } from 'react'
+import { Container, makeStyles, Box, Typography } from "@material-ui/core";
 import { CustomButton } from '../../controls/Button';
 import { CustomInput, CustomTextarea } from '../../controls/Input';
 
+// import emailjs from 'emailjs-com';
+import { FiLoader } from 'react-icons/fi';
 import {
     MdLocationOn,
     MdPhone,
@@ -27,8 +29,17 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: "column",
         marginTop: 50,
     },
+    input: {
+        width: "100%",
+        padding: "6px",
+        borderRadius: "4px",
+        border: "1px solid #A3333D",
+        "& .focus": {
+            backgroundColor: "#DA7B93",
+          },
+    },
     contxt: {
-      
+
         marginTop: 40,
         paddingRight: 151,
         paddingLeft: 151,
@@ -66,7 +77,23 @@ const useStyles = makeStyles((theme) => ({
 }));
 export const Contact = () => {
     const classes = useStyles();
+    const [message, setMessage] = useState('')
+    const [loading, setLoading] = useState(false)
+    const form = useRef();
 
+    const sendEmail = (e) => {
+        e.preventDefault();
+        setLoading(true)
+        message.sendForm(process.env.REACT_APP_EMAIL_SERVICE_ID, process.env.REACT_APP_EMAIL_TEMPLATE_ID, form.current, process.env.REACT_APP_EMAIL_USER_ID)
+            .then((result) => {
+                if (result.status === 200) {
+                    setMessage("Thanks for your Message. We will get intouch soon")
+                    setLoading(false)
+                }
+            }, (error) => {
+                console.log(error.text);
+            });
+    };
     return (
         <Container className={classes.body}>
             <Box className={classes.contact}>
@@ -107,37 +134,33 @@ export const Contact = () => {
                         variant="subtitle1"
                         style={{ fontFamily: "serif" }}
                     >
-                       Wish to write to us, you are welcome, just write your message and we will get back to you
+                        Wish to write to us, you are welcome, just drop your message and we will get back to you
                     </Typography>
                 </Box>
                 <div>
-                    <CustomInput
-                        placeholder="Your Email"
-                        style={{
-                            backgroundColor: "#fff",
-                            borderRadius: "5px",
-                            width: "100%",
-                        }}
-                    />
-                </div>
-                <div style={{ marginTop: "8px" }}>
-                    <CustomTextarea
-                        placeholder="Your Message"
-                        style={{ width: "100%", minHeight: "152px", fontFamily: "roboto" }}
-                    ></CustomTextarea>
-                </div>
-                <div>
-                    <CustomButton                       
-                        style={{
-                            width: "20%",
-                            color: "#DA7B93",
-                            padding: 12,
-                            borderRadius: 8,
+                    <form ref={form} onSubmit={sendEmail} className="form">
 
-                        }}
-                    >
-                        send
-                    </CustomButton>
+                        <div className="formelement" style={{ marginTop: 16 }}>
+                            <input type="text" name="user_name" className={classes.input} placeholder="Your Full Name"
+
+
+                            />
+
+                        </div>
+                        <div className="formelement" style={{ marginTop: 16 }}>
+                            <input type="email" name="user_email" className={classes.input} placeholder="Your Email Address" />
+
+
+                        </div>
+                        <div className="formelement" style={{ marginTop: 16 }}>
+                            <textarea name="message" className={classes.input} placeholder="Your Message" />
+
+                        </div>
+                        <h5 style={{ color: "#60993E", fontFamily: "cursive", marginLeft: 6, marginRight: 6 }}>{message}</h5>
+                        <div className="formelement">
+                            <button type="submit" className="emailbtn" style={{ marginTop: 6, backgroundColor: "#DA7B93", borderRadius: 6 }}>{loading ? <FiLoader /> : 'SEND'}</button>
+                        </div>
+                    </form>
                 </div>
             </Box>
         </Container>

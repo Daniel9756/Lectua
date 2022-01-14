@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     },
     lists: {
         display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+        gridTemplateColumns: "repeat(auto-fill, minmax(200px, 1fr))",
         gap: "15px",
     },
 
@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
 function GetRegProfile({ item, getPics }) {
     const classes = useStyles();
     getPics(item?.picsUrl)
-    console.log(item?.picsUrl)
+    // console.log(item?.picsUrl)
     return (
 
         <Box>
@@ -62,7 +62,7 @@ function GetRegProfile({ item, getPics }) {
                     <Box>
                         <Box>
                             <Typography variant="subtitle1" className={classes.title1}>
-                                {item.bio}
+                                {item?.bio}
                             </Typography>{" "}
                         </Box>
                         <Box>

@@ -111,7 +111,7 @@ export default function TeacherLesson() {
 
           <hr />
           <div>
-            <Title>{myenrolled?.data?.length}{' '}active courses</Title>
+            <Title>{myenrolled?.response?.length}{' '}active courses</Title>
             <hr />
 
           </div>
@@ -120,8 +120,8 @@ export default function TeacherLesson() {
         <div>
           <Table
             className={classes.table}
-            aria-label="sticky table"
-            size="medium"
+            // aria-label="sticky table"
+            // size="medium"
             padding="checkbox"
           >
             <TableHead>
@@ -138,12 +138,12 @@ export default function TeacherLesson() {
               >
                 <StyledTableCell align="left" className={classes.headtxt}>
                   {" "}
-                  Subjectid
+                  SubjectId
                 </StyledTableCell>
                 <StyledTableCell align="left" className={classes.headtxt}>Subject</StyledTableCell>
-                <StyledTableCell align="center" className={classes.headtxt}>NAme</StyledTableCell>
+                <StyledTableCell align="center" className={classes.headtxt}>Name</StyledTableCell>
                 <StyledTableCell align="right" className={classes.headtxt}>Price</StyledTableCell>
-                <StyledTableCell align="right" className={classes.headtxt}>Enrolled</StyledTableCell>
+                <StyledTableCell align="right" className={classes.headtxt}>Enrolled At</StyledTableCell>
              
               </StyledTableRow>
             </TableHead>
@@ -155,7 +155,7 @@ export default function TeacherLesson() {
 
               {isFetched && (
                 <div>
-                  {myenrolled?.data.map((item) => (
+                  {myenrolled?.response.map((item) => (
                     <TeacherEnrollData key={item.id} item={item} />
                   ))}
                 </div>

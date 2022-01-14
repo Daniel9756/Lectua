@@ -13,7 +13,7 @@ const useStyles = makeStyles({
     }
 });
 function StudentInfo({ item, id }) {
-    const regdate = new Date(parseInt(item?.createdAt)).toDateString()
+    // const regdate = Date now(parseInt(item?.createdAt))?.toDateString()
     const classes = useStyles();
 
     return (
@@ -28,7 +28,7 @@ function StudentInfo({ item, id }) {
                 <Typography
                     variant="h6"
                 >
-                    {item?.stuState}
+                    {item?.studentState}
                 </Typography>
                 <Box></Box>
 
@@ -44,7 +44,7 @@ function StudentInfo({ item, id }) {
                     variant="h6"
 
                 >
-                    {item?.stuCountry}
+                    {item?.studentCountry}
                 </Typography>
                 <Box></Box>
 
@@ -74,7 +74,7 @@ function StudentInfo({ item, id }) {
                 <Typography
                     variant="h6"
                 >
-                    {regdate}
+                    {item?.createdAt}
                 </Typography>
                 <Box></Box>
 

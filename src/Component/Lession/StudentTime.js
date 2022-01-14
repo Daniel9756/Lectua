@@ -24,6 +24,7 @@ import { LinearLoading } from "../../utils/Progress/Linear";
 import MessageBox from "../../utils/Alert";
 import { GlobalContext } from "../../Context/Provider";
 import { getMyEnrolled } from "../../Context/actions/enroll/lecture";
+
 const useStyles = makeStyles({
   table: {
     minHeigth: 860,
@@ -51,7 +52,7 @@ const useStyles = makeStyles({
 
 export default function StudentLesson(props) {
   const classes = useStyles();
-  const userID = localStorage.getItem("userID");
+  const userId = localStorage.getItem("userId");
   const StyledTableCell = withStyles((theme) => ({
     head: {
       color: theme.palette.common.white,
@@ -86,7 +87,7 @@ export default function StudentLesson(props) {
   // });
 
   useEffect(() => {
-    getMyEnrolled(userID)(myEnrolledlecturesDispatch)
+    getMyEnrolled(userId)(myEnrolledlecturesDispatch)
   
 }, []);
 
@@ -95,7 +96,7 @@ export default function StudentLesson(props) {
     <div
       style={{
         height: "100%",
-        background: "#dcdde1",
+        background: "black",
         overflow: "scroll",
         marginTop: 61,
       }}

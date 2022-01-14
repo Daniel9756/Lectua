@@ -15,16 +15,19 @@ import StudentBio from "../edit/StudentBio"
 
 
 function MyProfile({ getPics }) {
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
     const [isOpen, setIsOpen] = useState(false);
 
-    const { data, isLoading, isError, isSuccess, } = useQuery(["user", userID], () => fetchOneUser(userID), {
+    const { data, isLoading, isError, isSuccess, } = useQuery(["user", userId], () => fetchOneUser(userId), {
         // onSuccess: (data) => console.log(data),
     });
 
-    const { data: student, isError: isMistake, isSuccess: isSucced, isFetching, error: err } = useQuery(["studentprofile", userID], () => fetchOneStudent(userID), {
-        onSuccess: (data) => getPics(data?.data?.[0]?.picsUrl),
+    const { data: student, isError: isMistake, isSuccess: isSucced, isFetching, error: err } = useQuery(["studentprofile", userId], () => fetchOneStudent(userId), {
+        onSuccess: (data) => getPics(data?.response?.[0]?.picsUrl),
     });
+
+    const user = data?.user
+    const scholar = student?.response
 
 
     return (<>
@@ -61,10 +64,8 @@ function MyProfile({ getPics }) {
             {isLoading && (<LinearLoading />)}
             {isError && (<MessageBox message="Your user is not available at the moment " severity="error" />)}
             {isSuccess && (
-                <div>
-                    {data.data.map((item) => (
-                        <Student key={item.id} item={item} id={item.id} />
-                    ))}
+                <div>                   
+                        <Student key={user?.id} item={user}  />                  
                 </div>
             )}
         </Box>
@@ -73,9 +74,7 @@ function MyProfile({ getPics }) {
             {isMistake && (<MessageBox message="Your user is not available at the moment " severity="error" />)}
             {isSucced && (
                 <div>
-                    {student.data.map((item) => (
-                        <StudentInfo key={item.id} item={item} id={item.id} />
-                    ))}
+                        <StudentInfo key={scholar?.id} item={scholar}  />
                 </div>
             )}
         </Box>

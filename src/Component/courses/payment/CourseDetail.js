@@ -47,13 +47,14 @@ const useStyles = makeStyles(() => ({
 function CourseDetail(props) {
     const firstName = localStorage.getItem("firstName");
     const classes = useStyles();
-    const userID = localStorage.getItem("userID");
+    const userId = localStorage.getItem("userId");
 
-    const { item: { orgname, orgstate, orgcountry, subject, id, target, price, per } } = props
-    const { data: user, isLoading, isError, isSuccess } = useQuery(["user", userID], () => fetchOneUser(userID), {
+    const { item: { orgName, orgState, orgCountry, subject, id: courseId, target, price, per } } = props
+    const { data: user, isLoading, isError, isSuccess } = useQuery(["user", userId], () => fetchOneUser(userId), {
         onSuccess: (data) => console.log(data),
     });
-    const email = user?.data?.[0]?.email
+    const email = user?.user?.email
+    const detail = user?.user
     return (<Box>
 
         <Container style={{ paddingLeft: 50, paddingRight: 50, margin: 14, marginBottom: 18, borderBottom: '20px solid #DA7B93' }}>
@@ -70,7 +71,7 @@ function CourseDetail(props) {
                         {
                             price ==='Free' ?
                                 <Box>
-                                    <FreeClass subject={subject} email={email} id={id} userid={userID} />
+                                    <FreeClass subject={subject} email={email}  userId={userId} courseId={courseId} />
                                 </Box>
                                 :
                                 <div>
@@ -78,10 +79,11 @@ function CourseDetail(props) {
                                     {isError && (<MessageBox message="Your subjects is not available at the moment " severity="error" />)}
                                     {isSuccess && (
                                         <div>
-                                            {user.data.map((item) => (
-                                                <PaymentDetail item={item} id={id} key={item.id} subject={subject} price={price} />
+                                          
+                                                <PaymentDetail item={detail}  key={detail.id} subject={subject} price={price} courseId={courseId} />
+                                             
 
-                                            ))}
+                                           
                                         </div>
                                     )}
                                     <Box className={classes.lists}>
@@ -94,11 +96,11 @@ function CourseDetail(props) {
                 <Grid item md="6">
                     <Box style={{ padding: 10, margin: 14, background: "#dcdde1", borderRadius: 8 }}>
                         <Box className={classes.lists}>
-                            <Protitle>Name of Institutoin</Protitle><Typography variant="subtitle1">{orgname}</Typography>
+                            <Protitle>Name of Institutoin</Protitle><Typography variant="subtitle1">{orgName}</Typography>
                         </Box>
                         <hr />
                         <Box className={classes.lists}>
-                            <Protitle>Address</Protitle><Typography>{orgstate},{' '}{orgcountry}</Typography>
+                            <Protitle>Address</Protitle><Typography>{orgState},{' '}{orgCountry}</Typography>
                         </Box>
                         <hr />
 
@@ -107,7 +109,7 @@ function CourseDetail(props) {
                         </Box>
                         <hr />
                         <Box className={classes.lists}>
-                            <Protitle>Subject Id</Protitle><Typography>{id}</Typography>
+                            <Protitle>Subject Id</Protitle><Typography>{courseId}</Typography>
                         </Box>
                         <hr />
                         <Box className={classes.lists}>

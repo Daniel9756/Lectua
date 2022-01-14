@@ -9,7 +9,7 @@ import {
 import React, { useContext } from "react";
 import { CustomButton } from "../../controls/Button";
 import { CustomSelect } from "../../controls/Select";
-import { CustomInput, LabelText, Title,  } from "../../controls/Input";
+import { CustomInput, LabelText, Title } from "../../controls/Input";
 import { Link, useHistory } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     borderRadius: 12,
   },
   pics: {
-    marginRight: -100
+    marginRight: -100,
   },
 
   "@media (max-width: 960px)": {
@@ -45,11 +45,8 @@ const useStyles = makeStyles((theme) => ({
       display: "none",
       top: 4,
     },
-
   },
-  "@media (max-width: 440px)": {
-
-  },
+  "@media (max-width: 440px)": {},
 }));
 function Register() {
   const classes = useStyles();
@@ -58,21 +55,18 @@ function Register() {
   const {
     authDispatch,
     authState: {
-      auth: { isCreatingUser,  isAuthenticated, user, isError },
+      auth: { isCreatingUser, isAuthenticated, user, isError },
     },
   } = useContext(GlobalContext);
+  console.log(user);
+  localStorage.setItem("userId", user?.user?.id);
 
-  localStorage.setItem("userID", user?.userID);
-
-  
-
-  if (user?.registerAs === "Teacher") {
-    history.push("/CreateProfile")
+  if (user?.user?.registerAs === "Teacher") {
+    history.push("/CreateProfile");
   }
-  if (user?.registerAs === "Student") {
-    history.push("/StudentProfile")
+  if (user?.user?.registerAs === "Student") {
+    history.push("/StudentProfile");
   }
-
 
   const formik = useFormik({
     initialValues: {
@@ -99,14 +93,12 @@ function Register() {
       phone: Yup.string()
         .min(10, "Your phone must be more than 10 characters long")
         .required("This field is reqiured"),
-      registerAs: Yup.string()
-        .required("This field is reqiured")
-
+      registerAs: Yup.string().required("This field is reqiured"),
     }),
     onSubmit: (values, action) => {
       // console.log(values)
       addUser(values)(authDispatch);
-      action.resetForm()
+      action.resetForm();
     },
   });
   // console.log(formik.values)
@@ -134,8 +126,10 @@ function Register() {
             >
               Thanks for Choosen Us
             </Title>
-            {isAuthenticated && (<MessageBox message={user?.message} severity="success" />)}
-            {isError && (<MessageBox message={user?.message} severity="error" />)}
+            {isAuthenticated && (
+              <MessageBox message={user?.user?.message} severity="success" />
+            )}
+            {isError && <MessageBox message={user?.user?.message} severity="error" />}
             <form onSubmit={formik.handleSubmit}>
               <div
                 style={{
@@ -250,7 +244,6 @@ function Register() {
                     <ErrorMessage errorValue={formik.errors.registerAs} />
                   )}
                 </div>
-
               </div>{" "}
               <div>
                 <CustomButton
@@ -275,7 +268,7 @@ function Register() {
           </Grid>
         </Grid>
       </Container>
-       </Box>
+    </Box>
   );
 }
 
