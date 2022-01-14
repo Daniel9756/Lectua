@@ -3,16 +3,19 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { GlobalProvider } from "./Context/Provider";
+
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
-
 ReactDOM.render(
-  <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
-  </QueryClientProvider>,
+  <GlobalProvider>
+    <QueryClientProvider client={queryClient}>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </QueryClientProvider>
+  </GlobalProvider>,
 
   document.getElementById("root")
 );

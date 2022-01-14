@@ -14,3 +14,57 @@ R = reward per member.
 
 R = x - (p-1)y + (b-p)y
 
+###
+import { OTSession, OTPublisher } from 'opentok-react'
+import styled from 'styled-components'
+import { useState, useEffect } from 'react'
+
+const Container = styled.divwidth: 100%; height: 100%;
+
+export default function Publisher({ apiKey, sessionId, token }) {
+const [devices, setDevices] = useState(null)
+const [audioDeviceIds, setAudioDeviceIds] = useState(null)
+const [videoDeviceIds, setVideoDeviceIds] = useState(null)
+const [audioIndex, setAudioIndex] = useState(null)
+const [videoIndex, setVideoIndex] = useState(null)
+const [audioSource, setAudioSource] = useState(null)
+const [videoSource, setVideoSource] = useState(null)
+
+useEffect(() => {
+if (typeof window !== 'undefined') {
+window.OT.getDevices((error, devices) => {
+if (error) {
+return
+}
+setDevices(devices)
+setAudioDeviceIds(getDeviceIds('audioInput', devices))
+setVideoDeviceIds(getDeviceIds('videoInput', devices))
+setAudioIndex(0)
+setVideoIndex(0)
+})
+}
+}, [])
+
+const getDeviceIds = (kind, devices) => {
+const deviceIds = devices
+?.filter((device) => device.kind === kind)
+.map((device) => device.deviceId)
+return deviceIds
+}
+const publisherProperties = {
+resolution: '320x240',
+fitMode: 'contain',
+audioSource,
+videoSource,
+}
+
+return (
+<>
+<Container>
+<OTSession apiKey={apiKey} sessionId={sessionId} token={token}>
+<OTPublisher properties={publisherProperties} />
+</OTSession>
+</Container>
+</>
+)
+}

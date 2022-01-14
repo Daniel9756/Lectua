@@ -3,20 +3,14 @@ import React from "react";
 import {
   TableCell,
   TableRow,
-  Paper,
-  Checkbox,
-  Typography,
+  
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
-import { makeStyles, withStyles } from "@material-ui/core/styles";
-import { CustomButton } from "../../controls/Button";
-import { GoTrashcan } from "react-icons/go";
+import {  withStyles } from "@material-ui/core/styles";
 import { MdCancel } from "react-icons/md";
-import { useMutation, useQueryClient, useQuery } from "react-query";
-import { removeLecture, fetchOne } from "../../Async/lesson";
-import { GiJoint } from "react-icons/gi";
+import { useMutation, useQueryClient } from "react-query";
 import { Link } from "react-router-dom";
-import { removeDetail } from "../../Async/lessonDetail";
+import { removeDetail } from "../../Async/timeTable";
 
 function DataTable({ id, item }) {
   const CustomTableRow = withStyles((theme) => ({
@@ -36,9 +30,7 @@ function DataTable({ id, item }) {
   const remove = () => {
     mutate(id);
   };
-  // const fetchById = () => {
-  //   fetchOne(id);
-  // };
+ 
 
   return (
     <>

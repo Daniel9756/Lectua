@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
 function Subscriber(props) {
   const classes = useStyles();
   const [error, setError] = useState("");
-  const { topic, stream } = props;
+  const { topic } = props;
   const onError = (err) => {
     setError(`Failed to subscribe: ${err.message}`);
   };

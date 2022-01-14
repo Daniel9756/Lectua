@@ -1,12 +1,13 @@
-const baseUrl = " http://localhost:5500/message";
+const baseUrl = " http://localhost:5500/messages";
 
 
 export const sendMessage = async (values) => {
+  console.log(values,"frm Async func")
   try {
     return await await fetch(baseUrl, {
       method: "POST",
       body: JSON.stringify({
-        values: values.values
+        values
       }),
       headers: {
         "Content-Type": "application/json",

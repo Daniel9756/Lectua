@@ -3,9 +3,7 @@ import PropTypes from 'prop-types';
 
 
 const ErrorMessage = (props) => (
-    <div>
-        <p style={{color: "#e84118"}}> {props.errorValue} </p>
-    </div>
+    <em style={{ color: "#e84118" }}> {props.errorValue} </em>
 )
 
 ErrorMessage.propTypes = {

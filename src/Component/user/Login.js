@@ -1,94 +1,224 @@
-import { Container, Grid, makeStyles } from "@material-ui/core";
-import React from "react";
-import { CustomButton, GroupButton } from "../../controls/Button";
-import { CustomInput, LabelText, Title } from "../../controls/Input";
-import { Link } from "react-router-dom";
+
+import { Container, Grid, makeStyles, Box, Avatar } from "@material-ui/core";
+import React, { useContext } from "react";
+import { CustomButton } from "../../controls/Button";
+import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
+import { GlobalContext } from "../../Context/Provider";
+import { useFormik } from "formik";
+import { loginUser } from "../../Context/actions/auth/Login";
+import { Link, useHistory, Redirect } from "react-router-dom";
+import MessageBox from "../../utils/Alert";
+
 
 const useStyles = makeStyles((theme) => ({
   register: {
-    marginTop: 60,
-    background: "#376e6f",
-    color: "#fff",
+    marginBottom: 40,
+    background: "#fff",
     width: "100%",
     height: "auto",
-    padding: 20,
-    paddingBottom: 40,
+    padding: 11,
+
     borderRadius: 12,
+    zIndex: 5,
+    marginTop: 30,
   },
   Istgrid: {
-    backgroundImage: `url(/images/whero.jpg)`,
-    marginTop: 60,
-    width: "100%",
-    height: "auto",
+    width: "100vh",
+    height: "100%",
     borderRadius: 12,
-
   },
-  Secgrid: {
-    backgroundImage: `url(/images/whero4.jpg)`,
-    marginTop: 60,
-    width: "100%",
-    height: "auto",
-    borderRadius: 12,
 
-  }
+  "@media (max-width: 960px)": {
+    pics: {
+      display: "none",
+    },
+    register: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: 5,
+      paddingBottom: 15,
+    },
+  },
+  "@media (max-width: 440px)": {
+    register: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+
+    },
+  },
 }));
 function Login() {
   const classes = useStyles();
+  const history = useHistory();
+
+  const {
+    loginDispatch,
+    authState: {
+      auth: { isAuthenticated, user },
+    },
+    loginState: {
+      login: { isLoggin, logger, isPemmitted },
+    },
+  } = useContext(GlobalContext);
+  console.log(isLoggin, logger, isPemmitted, logger?.user?.id)
+  localStorage.setItem("token", logger?.token);
+  localStorage.setItem("userId", logger?.user?.id);
+  localStorage.setItem("firstName", logger?.user?.firstName);
+  localStorage.setItem("registerAs", logger?.user?.registerAs);
+
+
+  if (logger?.user?.registerAs === "Teacher") {
+    history.push({
+      pathname: '/MyProfile/MyLectures',
+      state: {
+        id: logger?.user?.id,
+        fname: logger?.user?.firstName,
+      }
+    })
+  }
+  if (logger?.user?.registerAs === "Student") {
+    history.push({
+      pathname: '/Student/MyProfile',
+      state: {
+        id: logger?.user?.userId,
+        fname: logger?.user?.firstName,
+      }
+    })
+  }
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+    },
+
+    onSubmit: (values, action) => {
+      loginUser(values)(loginDispatch);
+      action.resetForm()
+    },
+  });
   return (
-    <Container>
-      <Grid container>
-        <Grid item md="4" className={classes.Istgrid}></Grid>
-        <Grid item md="4" className={classes.Secgrid}></Grid>
-        <Grid item md="4" className={classes.register}>
-          <Title
-            style={{
-              marginTop: 20,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-          >
-            Welcome Back 
-          </Title>
-          <div
-            style={{
-              marginTop: 10,
-              marginBottom: 10,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              fontSize: 20,
-              color: "#DA7B93",
-            }}
-          >
-            Don't have an account{" "}
-            <Link to="/register" style={{ marginLeft: 10 }}>Register</Link>{" "}
-          </div>
-          <div>
-            <LabelText>Email</LabelText>
-            <CustomInput />
-          </div>
-         
-          <div>
-            <LabelText>Password</LabelText>
-            <CustomInput />
-          </div>{" "}
-        
-          <div>
-            <CustomButton
+
+    <Box style={{ background: "#2f4454", }}>
+      <Container>
+        <Grid
+          container
+          style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingTop: 20 }}
+        >
+          <Grid item md={8} className={classes.pics}>
+            <Avatar
+              variant="rounded"
+              src="/images/carol6.jpg"
+              alt="company logo"
+              className={classes.Istgrid}
+            ></Avatar>
+          </Grid>
+
+          <Grid item md={4} sm={8} className={classes.register}>
+            <Title
               style={{
-                color: "#376e6f",
-                background: "#DA7B93",
-                borderRadius: 12,
                 marginTop: 20,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
               }}
             >
-            Login
-            </CustomButton>
-          </div>
+              Welcome Back
+            </Title>
+            {isAuthenticated && (
+              <Info
+                style={{
+                  fontSize: 20,
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  color: "#2f4454",
+                  textTransform: "uppercase",
+                }}
+              >
+                {user?.user?.firstName}
+              </Info>
+            )}
+            <div
+              style={{
+                marginBottom: 10,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                fontSize: 20,
+                color: "#DA7B93",
+                fontWeight: "bold",
+                fontFamily: "serif",
+              }}
+            >
+              Don't have an account{" "}
+              <Link to="/Register" style={{ marginLeft: 10 }}>
+                Register
+              </Link>{" "}
+            </div>
+            {logger && (<MessageBox message={logger?.message} severity="error" />)}
+
+            <form onSubmit={formik.handleSubmit}>
+
+              <Box>
+                <LabelText>Email</LabelText>
+                <CustomInput
+
+                  name="email"
+                  type="text"
+                  placeholder="Your Email"
+                  label="label"
+                  onChange={formik.handleChange}
+                  value={formik.values.email}
+                />
+              </Box>
+              <Box>
+                <LabelText>Password</LabelText>
+
+                <CustomInput
+                  name="password"
+                  type="text"
+                  placeholder="Your Password"
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
+
+                />
+
+              </Box>{" "}
+
+
+              <Box>
+                <CustomButton
+                  type="Submit"
+                  style={{
+                    color: "#DA7B93",
+                    background: "#2f4454",
+                    borderRadius: 12,
+                    marginTop: 20,
+                  }}
+                >
+                  Login
+                </CustomButton>
+              </Box>
+            </form>
+            <Box style={{
+              marginTop: 10,
+              paddingLeft: 11
+            }}>
+
+              <Link >
+                Forget password
+              </Link>{" "}
+            </Box>{" "}
+          </Grid>
         </Grid>
-      </Grid>
-    </Container>
+      </Container>{" "}
+    </Box>
   );
 }
 

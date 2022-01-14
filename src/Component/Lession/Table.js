@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   makeStyles,
   withStyles,
@@ -9,19 +9,20 @@ import {
   TableHead,
   TableRow,
   Paper,
-  Checkbox,
-  Typography,
+ 
   TableFooter,
 } from "@material-ui/core";
 import { BiDotsVerticalRounded } from "react-icons/bi";
 // import LinearLoading from "../"
 import Avatar from "@material-ui/core/Avatar";
-import { useQuery, useQueryClient } from "react-query";
-import { fetchDetails } from "../../Async/lessonDetail";
+import { useQuery } from "react-query";
+// import { fetchDetails } from "../../Async/lessonDetail";
 import { Title, LabelText } from "../../controls/Input";
 import DataTable from "./DataTable";
 import { CustomButton } from "../../controls/Button";
 import LinearLoading from "../../utils/Progress/Linear";
+import MessageBox from "../../utils/Alert"
+
 const useStyles = makeStyles({
   table: {
     minHeigth: 860,
@@ -43,6 +44,10 @@ const useStyles = makeStyles({
   body: {
     overflowY: "scroll",
   },
+  headtxt:{
+    color: "#2f4454", width: "auto", fontFamily:"serif", fontWeight:"bold", padding: 2, borderRadius: 4 
+  }
+
 });
 
 export default function LessonTable() {
@@ -67,31 +72,31 @@ export default function LessonTable() {
     },
   }))(TableRow);
 
-  const queryClient = useQueryClient();
-  const [page, setPage] = React.useState(0);
 
   const { data, status } = useQuery("details", fetchDetails, {
     onSuccess: () => console.log("All details successfully fetched"),
   });
+  
   console.log(data, status);
   return (
     <div
       style={{
-        height: "100vh",
+        height: "100%",
         background: "#dcdde1",
         overflow: "scroll",
+        marginTop: 61,
       }}
     >
       <TableContainer
         component={Paper}
-        style={{ margin: 10, width: "97%", zIndex: -1 }}
+        style={{ margin: 10, width: "98%", zIndex: -1 }}
       >
         <div
           style={{
             display: "flex",
             justifyContent: "space-between",
             alignItems: "center",
-            margin: 8,
+           
             paddingRight: 16,
           }}
         >
@@ -101,7 +106,7 @@ export default function LessonTable() {
 
           <hr />
           <div>
-            <Title>{data?.details.length} Attendees in waiting room</Title>
+            <Title>{data?.details.length} classes in your waiting room</Title>
             <hr />
            
           </div>
@@ -123,18 +128,16 @@ export default function LessonTable() {
                   borderRadius: "30px",
                 }}
               >
-                <StyledTableCell align="left" style={{ border: "none" }}>
+                <StyledTableCell align="left"  className={classes.headtxt}>
                   {" "}
-                  <Checkbox style={{ color: "white" }} />
+                 S/N
                 </StyledTableCell>
 
-                <StyledTableCell align="left">Course</StyledTableCell>
-                <StyledTableCell align="right">Host</StyledTableCell>
-                <StyledTableCell align="right">Price(#)</StyledTableCell>
-                <StyledTableCell align="right">Institution</StyledTableCell>
-                <StyledTableCell align="right">Type</StyledTableCell>
-                <StyledTableCell align="center">Start</StyledTableCell>
-                <StyledTableCell align="right">End</StyledTableCell>
+                <StyledTableCell align="left" className={classes.headtxt}>Subject</StyledTableCell>
+                <StyledTableCell align="right"  className={classes.headtxt}>Topic</StyledTableCell>
+                <StyledTableCell align="right"  className={classes.headtxt}>Price(#)</StyledTableCell>
+                <StyledTableCell align="center"  className={classes.headtxt}>Start</StyledTableCell>
+                <StyledTableCell align="right"  className={classes.headtxt}>End</StyledTableCell>
                 <StyledTableCell align="right">
                   <BiDotsVerticalRounded />
                 </StyledTableCell>
@@ -142,7 +145,7 @@ export default function LessonTable() {
             </TableHead>
             <TableBody className={classes.body}>
             {status === "loading" && (<LinearLoading />)}
-            {status === "error" && <div>Error fetching data</div>}
+            {status === "error" && (<MessageBox message="Error fetching data" severity="error" />)}
               {status === "success" && (
                 <div>
                   {data.details.map((item) => (

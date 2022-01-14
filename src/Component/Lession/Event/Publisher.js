@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { OTPublisher, OT, getPublisher } from "opentok-react";
+import { OTPublisher } from "opentok-react";
 import { makeStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) => ({
@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Publisher(props) {
   const classes = useStyles();
-  const { topic, sessionId } = props;
+  const { topic } = props;
   const [error, setError] = useState("");
 
 

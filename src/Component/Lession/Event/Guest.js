@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import useOpenTok from "react-use-opentok";
-import { useQuery, useQueryClient } from "react-query";
+import React, {  useState } from "react";
+import { useQuery } from "react-query";
 import { fetchOneEvent } from "../../../Async/lesson";
-import { OTSession, OTPublisher, OTStreams,   } from "opentok-react";
+import { OTSession, OTStreams,   } from "opentok-react";
 import Connection from "./Connection";
 import Publisher from "./Publisher";
 import Subscriber from "./Subscriber";
@@ -43,13 +42,13 @@ function Guest() {
   if (data) {
     const { apiKey, session: sessionId, token } = data;
 
-    const sessionData = () => {
-        return {
-          apiKey,
-          sessionId,
-          token,
-        };
-      };
+    // const sessionData = () => {
+    //     return {
+    //       apiKey,
+    //       sessionId,
+    //       token,
+    //     };
+    //   };
 
   return (
     <div>

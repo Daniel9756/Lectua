@@ -1,5 +1,5 @@
 import React from "react";
-import { Button as MuiButton, makeStyles, Typography } from "@material-ui/core";
+import {  makeStyles, Typography } from "@material-ui/core";
 
 const useStyles = makeStyles(theme=>({
  
@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme=>({
 
 function MemberList(props) {
   const classes = useStyles();
-  const { text, icon, label } = props;
+  const { text, icon, } = props;
   return (
     <div className={classes.memberlist}>
    {icon}

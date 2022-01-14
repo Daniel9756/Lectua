@@ -1,24 +1,16 @@
-import React, { useState } from "react";
-import { Title } from "../../../controls/Input";
-// import { CustomSelect } from "../controls/Select";
-import { CustomSelect } from "../../../controls/Select";
-import { CustomButton } from "../../../controls/Button";
-import { CustomDivRight, CustomDivLeft } from "../../../controls/Div";
-import { useFormik } from "formik";
-import LessonTable from "../Table";
-import { useMutation, useQueryClient } from "react-query";
-import { BiInfoCircle } from "react-icons/bi";
+import React, { useState} from "react";
+import SubjectTable from "../SubjectTable";
 import CreateSession from "./CreateSession";
 import LessionDetail from "./LessonDetail";
 import CreateFinish from "./CreateFinish";
 import InviteStudent from "./InviteStudents";
-import { Link } from "react-router-dom";
-
-import { Stepper, Step, StepLabel } from "@material-ui/core";
-
+import { Stepper, Step, StepLabel, Box } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { GiClawSlashes } from "react-icons/gi";
+
 const useStyles = makeStyles({
+  cont: {
+    marginTop: 20, marginBottom: 40
+  },
   root: {
     width: "90%",
     margin: "2rem auto",
@@ -39,18 +31,21 @@ const useStyles = makeStyles({
     marginLeft: 8,
     justifyContent: "center",
   },
+  "@media (max-width: 960px)": {
+
+  },
+  "@media (max-width: 440px)": {
+    cont: {
+      display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column"
+    },
+  },
 });
-const options = [
-  { value: "tutorial", label: "tutorial" },
-  { value: "annoucement", label: "annoucement" },
-  { value: "lecture", label: "lecture" },
-  { value: "fixed lecture", label: "fixed lecture" },
-  { value: "prayer", label: "prayer" },
-];
+
 
 function getSteps() {
-  return ["CREATE SESSION", "ADD DETAILS", "INVITE", "FINISH"];
+  return ["CREATE SESSION", "SET TIMETABLE", "INVITE", "FINISH"];
 }
+
 
 function Lesson() {
   function getStepContent(index) {
@@ -75,7 +70,7 @@ function Lesson() {
   }
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
-
+  
   const steps = getSteps();
 
   const handleNext = () => {
@@ -87,64 +82,37 @@ function Lesson() {
   };
 
   return (
-    <>
-      <div className="container-fluid">
-        <div>
-          <Stepper
-            alternativeLabel
-            className={classes.root}
-            activeStep={activeStep}
-          >
-            {steps.map((label) => (
-              <Step key={label}>
-                <StepLabel>{label}</StepLabel>
-              </Step>
-            ))}
-          </Stepper>
-        </div>
-        <div style={{ display: "flex", justifyContent: "center" }}></div>
-        <div style={{ marginLeft: 20 }}></div>
-        <div class="row" style={{ marginTop: 40, marginBottom: 40 }}>
-          <div style={{ marginLeft: 20 }}>
-            <Title>create your classroom</Title>
-            <h4 className={classes.minutes}>in less than 5 minutes</h4>
-            {/* <data>{isSuccess ? <div>Lecture Fixed</div> : null}</data> */}
-          </div>
-          <div className="col-sm-12 col-md-4">
-            <div>
-              <div style={{ margin: 20 }}>{getStepContent(activeStep)}</div>
-              <div
-                className="row"
-                style={{
-                  display: "flex",
-                  justifyContent: "center",
-                  marginLeft: 10,
-                  marginRight: 5,
-                  marginBottom: 20,
-                }}
-              ></div>
-              <div
-                className="row"
-                style={{ marginLeft: 10, marginRight: 5, marginBottom: 20 }}
-              ></div>
-            </div>
-          </div>
-
-          <div className="col-sm-12 col-md-8">
-            {" "}
-            <LessonTable />
-          </div>
-        </div>
-        <div className="row" style={{ margin: 10 }}>
-          <div className="col-md-6 col-sm-12">
-            <CustomDivRight />
-          </div>
-          <div className="col-md-6 col-sm-12">
-            <CustomDivLeft />
-          </div>
-        </div>
+    <Box>
+      <div>
+        <Stepper
+          alternativeLabel
+          className={classes.root}
+          activeStep={activeStep}
+        >
+          {steps.map((label) => (
+            <Step key={label}>
+              <StepLabel>{label}</StepLabel>
+            </Step>
+          ))}
+        </Stepper>
       </div>
-    </>
+      <div style={{ display: "flex", justifyContent: "center" }}></div>
+      {/* <div style={{ marginLeft: 20 }}></div> */}
+      <div class="row" className={classes.cont}>
+
+        <Box>
+
+          {getStepContent(activeStep)}
+
+        </Box>
+
+        <Box>
+          {" "}
+          <SubjectTable />
+        </Box>
+      </div>
+
+    </Box>
   );
 }
 

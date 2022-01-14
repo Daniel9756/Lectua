@@ -1,52 +1,29 @@
-import React, { useState } from "react";
-import { LabelText } from "../../controls/Input";
-import {
-  Collapse,
-  Navbar,
-  NavbarToggler,
-  NavbarBrand,
-  Nav,
-  NavItem,
-  NavLink,
-} from "reactstrap";
-import { Link, useLocation } from "react-router-dom";
-
-import { Avatar, makeStyles, Typography, Grid, Box } from "@material-ui/core";
-import NestedList from "./Settings";
-import {
-  MdRateReview,
-  MdSend,
-  MdExpandLess,
-  MdExpandMore,
-  MdBookmarkBorder,
-  MdEmail,
-} from "react-icons/md";
-import { GroupButton } from "../../controls/Button";
+import React, { useState, useContext } from "react";
+import { Navbar, NavbarBrand } from "reactstrap";
+import { Link, useLocation, useHistory } from "react-router-dom";
+import { GlobalContext } from "../../Context/Provider";
+import { makeStyles, Box } from "@material-ui/core";
+import { MdExpandLess, MdExpandMore } from "react-icons/md";
 import Settings from "./Settings";
-import Academics from "./Academics";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    position: "",
-  },
+
   anchor: {
     textDecoration: "none",
     padding: "10px",
     color: "#DA7B93",
-     fontFamily: "serif",
-    '&:hover': {
+    fontFamily: "serif",
+    "&:hover": {
       color: "#DA7B93",
-   
-    textDecoration: "none",
-    padding: "10px",
-   },
+
+      textDecoration: "none",
+    },
   },
   btn: {
     borderRadius: 8,
-    background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 435,
+    marginTop: 200,
     padding: 1,
     position: "fixed",
     zIndex: 100,
@@ -58,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 255,
+    marginTop: 270,
     zIndex: 100,
     position: "fixed",
   },
@@ -67,57 +44,114 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "serif",
     textDecoration: "none",
     padding: "10px",
-    '&:hover': {
+    "&:hover": {
       color: "#DA7B93",
+      fontFamily: "serif",
+      textDecoration: "none",
+      padding: "10px",
+    },
+  },
+  reg: {
+    background: "#DA7B93",
+    color: "#376e6f",
     fontFamily: "serif",
     textDecoration: "none",
-    padding: "10px",
-   },
+    width: 200,
+    height: "auto",
+    padding: 8,
+    marginLeft: 8,
+    borderRadius: 4,
+    "&:hover": {
+      background: "#fff",
+      color: "#DA7B93",
+      fontFamily: "serif",
+      textDecoration: "none",
+    },
+  },
+
+  reg1: {
+    background: "#DA7B93",
+    color: "#376e6f",
+    fontFamily: "serif",
+    textDecoration: "none",
+    width: 70,
+    height: "auto",
+    padding: 8,
+    marginLeft: 8,
+    borderRadius: 4,
+    "&:hover": {
+      background: "#fff",
+      color: "#DA7B93",
+      fontFamily: "serif",
+      textDecoration: "none",
+    },
+  },
+  "@media (min-width: 960px)": {
+    reg: {
+      display: "none"
+    },
+
+  },
+  "@media (max-width: 960px)": {
+    reg: {
+      display: "none"
+    },
+
+
+  },
+  "@media (max-width: 440px)": {
+    reg: {
+      display: "none"
+    },
+
   },
 }));
 const NavgBar = (props) => {
   const classes = useStyles();
-  const location = useLocation();
-  console.log(location);
 
+  const registerAs = localStorage.getItem("registerAs");
+  const {
+    loginState: {
+      login: { isPemmitted, logger },
+    },
+  } = useContext(GlobalContext);
+  const history = useHistory()
+
+  const location = useLocation();
   const active = {
     color: "#376e6f",
-    borderBottom: "3px solid #376e6f",
+    borderBottom: "3px solid #DA7B93",
   };
 
-  const [isShown, setIsShown] = useState(false);
   const [isSeen, setIsSeen] = useState(false);
 
-  const togleInDisplay = () => {
-    setIsShown(true);
-  };
-  const togleOutDisplay = () => {
-    setIsShown(false);
-  };
   const togleInAvaterDisplay = () => {
     setIsSeen(true);
   };
   const togleOutAvaterDisplay = () => {
     setIsSeen(false);
   };
-
-  const [collapsed, setCollapsed] = useState(true);
+  const logout = () => {
+    localStorage.clear();
+    history.push('/')
+  }
 
   return (
-    <div className={classes.root}>
+    <Box>
       <Navbar
         light
         style={{
           backgroundColor: "#2f4454",
           color: "#1C3334",
-          padding: 10,
-          height: 100,
+          paddingBottom: 5,
+          paddingTop: 2,
+          height: 151,
         }}
       >
-        <div
+        <Box
           style={{
             display: "flex",
-            justifyContent: "flex-start",
+            justifyContent: "center",
             alignItems: "center",
           }}
         >
@@ -140,26 +174,40 @@ const NavgBar = (props) => {
               LECTUA
             </Link>
           </NavbarBrand>
-
-          <Link
-            to="/CreateLesson"
-            style={location.pathname === "/CreateLesson" ? active : {}}
+          {logger?.registerAs === "Teacher" ? <Link
+            to="/MyProfile/MyLectures"
+            style={location.pathname === "/MyProfile/MyLectures" ? active : {}}
             className={classes.links}
           >
             {" "}
             Create Lession
-          </Link>
+          </Link> : ''}
+
           <Link
-            to="/register"
-            style={location.pathname === "/register" ? active : {}}
+            to="/Messanger"
+            style={location.pathname === "/Messanger" ? active : {}}
             className={classes.links}
           >
             {" "}
+            Messages
+          </Link>
+
+          
+        <Box>
+          <Link
+            to="/Register"
+            style={location.pathname === "/register" ? active : {}}
+            className={classes.reg1}
+          >
             Register
           </Link>
-        </div>
+        </Box>
+        </Box>
 
-        <div
+
+
+
+        <Box
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -167,48 +215,18 @@ const NavgBar = (props) => {
             marginRight: 10,
           }}
         >
-          <Box
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-            }}
-            onMouseEnter={togleInDisplay}
-            onMouseLeave={togleOutDisplay}
-          >
-             <Link
-            to="/dashboard"
-            style={location.pathname === "/dashboard" ? active : {}}
-            className={classes.links}
-          >
-            {" "}
-            Academics
-          </Link>
-          
-            {isShown ? (
-              <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
-            ) : (
-              <MdExpandMore style={{ color: "#DA7B93", margin: 0 }} />
-            )}
 
-            <Box className={classes.btn}>
-              {isShown && (
-                <Academics
-                  onMouseEnter={togleInDisplay}
-                  onMouseLeave={togleOutDisplay}
-                />
-              )}
-            </Box>
-          </Box>
           <Link
-            to="/CreateLesson"
-            style={location.pathname === "/Find Courses" ? active : {}}
+            to="/courses"
+            style={location.pathname === "/courses" ? active : {}}
             className={classes.links}
           >
             {" "}
-            Find Courses
+            Find courses
           </Link>
-        
+
+
+
 
           <Box
             style={{
@@ -219,20 +237,25 @@ const NavgBar = (props) => {
             onMouseEnter={togleInAvaterDisplay}
             onMouseLeave={togleOutAvaterDisplay}
           >
-             <Link
-            to="/Settings"
-            style={location.pathname === "/Settings" ? active : {}}
-            className={classes.links}
-          >
-            {" "}
-            Settings
-          </Link>
-        
+            <Link
+              to={registerAs === "Teacher" ? "/MyProfile/MyLectures" : "/Student/MyProfile"}
+              className={classes.links}
+              onMouseEnter={togleInAvaterDisplay}
+              onMouseLeave={togleOutAvaterDisplay}
+            >
+              {" "}
+              Setting
+            </Link>
+
 
             {isSeen ? (
-              <MdExpandLess style={{ color: "#DA7B93", margin: 0 }} />
+              <MdExpandLess
+                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
+              />
             ) : (
-              <MdExpandMore style={{ color: "#DA7B93", margin: 0 }} />
+              <MdExpandMore
+                style={{ color: "#DA7B93", margin: 0, fontSize: 30 }}
+              />
             )}
 
             <Box className={classes.btnSet}>
@@ -244,9 +267,20 @@ const NavgBar = (props) => {
               )}
             </Box>
           </Box>
-        </div>
+
+          {isPemmitted ? <Link className={classes.anchor} onClick={logout} >
+            Log Off
+          </Link> : <Link
+            to="/login"
+            className={classes.links}
+          >
+
+            Log In
+          </Link>}
+
+        </Box>
       </Navbar>
-    </div>
+    </Box>
   );
 };
 
