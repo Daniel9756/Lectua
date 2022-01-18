@@ -203,7 +203,7 @@ export const editAwards = (data) => (dispatch) => {
 export const editStudentBio = (data) => (dispatch) => {
     const token = localStorage.getItem("token");
     console.log(data, token, "values from editStudentBio")
-    const { values: { specialty, studentCountry, studentState }, selectedFile, userID: id } = data
+    const { values: { specialty, studentCountry, studentState }, selectedFile, userId} = data
     const formData = new FormData();
 
     formData.append("specialty", specialty);
@@ -214,7 +214,7 @@ export const editStudentBio = (data) => (dispatch) => {
         type: EDITSTUDENTBIO_LOADING,
     });
     axios
-        .put(baseUrl + `students/${id}`, formData, {
+        .put(baseUrl + `students/${userId}`, formData, {
             headers: {
                 Authorization: `Bearer ${token}`,
                 "Content-Type": "multipart/form-data",

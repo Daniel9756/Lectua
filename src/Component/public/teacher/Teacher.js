@@ -73,6 +73,7 @@ function TeacherIndex() {
       });
       const award = awards?.data
       const profile = folder?.data
+      
 
   return (
 <>

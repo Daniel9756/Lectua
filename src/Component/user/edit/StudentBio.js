@@ -72,10 +72,9 @@ function StudentBio({ setIsOpen }) {
 
     } = useContext(GlobalContext);
 
-
     console.log(isEditingStudent, editscholar, isEditEnrolled, error, isError)
     useEffect(() => {
-        if (isEditEnrolled) {
+        if (isEditEnrolled && editscholar?.message === "Your Profile Updated successfully") {
             setIsOpen(false)
         }
     }, [setIsOpen]);
@@ -156,7 +155,7 @@ function StudentBio({ setIsOpen }) {
                                     )}
                                 </div>
                             </Box>
-                            <Box className={classes.loc}>
+                            <Box className={classes.locs}>
                                 <LabelText for="studentState">State</LabelText>
                                 <CustomSelect
                                     placeholder="Your State"
