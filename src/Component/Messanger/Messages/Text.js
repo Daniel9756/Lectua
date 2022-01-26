@@ -6,19 +6,18 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import ErrorMessage from "../../../utils/Error/ErrorMessage";
 import { useMutation } from "react-query";
-import { sendMessage } from "../../../Async/message";
+import { GlobalContext } from "../../../Context/Provider";
 import { ChatContext } from "../../../ChatContext";
+import { sendChat } from "../../../Context/actions/messenger/chat";
 
 const useStyles = makeStyles((theme) => ({
   txtarea: {
     display: "flex",
     alignItems: "center",
-    bottom: 4,
-    position: "absolute",
     justifyContent: "flex-start",
     backgroundColor: "#fff2f1",
     width: "100%",
-    paddingTop: 12,
+    paddingTop: 4,
   },
   Textarea: {
     width: 286,
@@ -31,24 +30,57 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       alignItems: "start",
       flexDirection: "column",
-      bottom: 4,
+      // bottom: 4,
       position: "absolute",
       justifyContent: "flex-start",
       backgroundColor: "#fff2f1",
       width: "100%",
-      paddingTop: 12,
+      paddingTop: 4,
     },
   },
 }));
-function Text({ friend }) {
+function Text() {
   const classes = useStyles();
-
-  const { ws, setWs, chat, setChat, messageList, setMessageList } =
+  const userId = localStorage.getItem("userId");
+  const [errmessage, setErrmessage] = useState("");
+  // console.log(userId, "USERD");
+  const { socket, chat, setChat, messageList, setMessageList, friend } =
     useContext(ChatContext); // console.log(data?.response)
+  const {
+    loginState: {
+      login: { isLoggin, logger, isPemmitted },
+    },
+    addChatDispatch,
+    addChatState: {
+      message: {
+        isLoading: isLoadin,
+        data,
+        error: err,
+        isError: isErr,
+        isSend,
+      },
+    },
+  } = useContext(GlobalContext);
+  // console.log(isLoadin, data, isSend);
+
   const sendMessage = async () => {
+    let teacherId;
+    let studentId;
+
+    if (logger?.user?.registerAs === "Teacher") {
+      studentId = friend;
+      teacherId = userId;
+    }
+    if (logger?.user?.registerAs === "Student") {
+      studentId = userId;
+      teacherId = friend;
+    }
+    console.log(studentId, teacherId, "ids");
     if (chat !== "") {
       const message = {
-        text: chat,
+        text: chat.trim(),
+        teacherId,
+        studentId,
         time:
           new Date(Date.now()).getDate() +
           ":" +
@@ -57,66 +89,47 @@ function Text({ friend }) {
           new Date(Date.now()).getMinutes(),
       };
 
-      ws.send(JSON.stringify(message));
-      console.log(message);
-        setMessageList([...messageList, message]);
+      await socket.emit("send_message", message);
+      // sendChat(message)(addChatDispatch);
+      setMessageList((prevChat) => [...prevChat, message]);
       setChat("");
     }
   };
 
-  useEffect(() => {
-    ws.onopen = () => {
-      console.log("WebSocket Connected");
-    };
-
-    ws.onmessage = (e) => {
-      const message = JSON.parse(e.data);
-      console.log(message);
-      setMessageList([...messageList, message]);
-    };
-
-    return () => {
-      ws.onclose = () => {
-        console.log("WebSocket Disconnected");
-        // setWs(new WebSocket(URL));
-      };
-    };
-  }, [ws.onmessage, ws.onopen, ws.onclose]);
   return (
-    <div>
-      <Box className={classes.txtarea}>
-        <Box>
-          <CustomTextarea
-            name="message"
-            type="text"
-            label="firstName"
-            placeholder="Your Message"
-            className={classes.Textarea}
-            value={chat}
-            onChange={(event) => {
-              setChat(event.target.value);
-            }}
-            onKeyPress={(event) => {
-              event.key === "Enter" && sendMessage();
-            }}
-          ></CustomTextarea>
-          <p style={{ marginLeft: 4 }}></p>
-        </Box>
-        <CustomButton
-          onClick={() => sendMessage()}
-          style={{
-            marginLeft: "8px",
-            marginBottom: "18px",
-            width: 92,
-            color: "#376e6f",
-            background: "#DA7B93",
-            borderRadius: 8,
+    <Box className={classes.txtarea}>
+      <Box>
+        <CustomTextarea
+          name="message"
+          type="text"
+          label="firstName"
+          placeholder="Your Message"
+          className={classes.Textarea}
+          value={chat}
+          onChange={(event) => {
+            setChat(event.target.value);
           }}
-        >
-          send
-        </CustomButton>
+          onKeyPress={(event) => {
+            event.code === "Enter" && sendMessage();
+          }}
+        ></CustomTextarea>
+        <p style={{ marginLeft: 4 }}></p>
       </Box>
-    </div>
+      <CustomButton
+        onClick={() => sendMessage()}
+        style={{
+          marginLeft: "8px",
+          marginBottom: "18px",
+          width: 92,
+          color: "#376e6f",
+          background: "#DA7B93",
+          borderRadius: 8,
+        }}
+      >
+        send
+      </CustomButton>
+      <p style={{ color: "#DA7B93" }}>{errmessage}</p>
+    </Box>
   );
 }
 

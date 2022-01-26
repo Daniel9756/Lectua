@@ -1,33 +1,64 @@
 import axios from 'axios'
 
 import {
-    CONVERSATION_LOADING,
-    CONVERSATION_SUCCESS,
-    CONVERSATION_ERROR,
-    GETUSERCONVERSATION_LOADING, GETUSERCONVERSATION_SUCCESS, GETUSERCONVERSATION_ERROR
+    MESSAGE_LOADING,
+    MESSAGE_SUCCESS,
+    MESSAGE_ERROR,
+    FETCHMESSAGE_LOADING,
+    FETCHMESSAGE_SUCCESS,
+    FETCHMESSAGE_ERROR
+  
 } from "../ActionTypes";
 
 
-const baseUrl = "http://localhost:5500/conversations/";
+const baseUrl = "http://localhost:5500/messages/";
 
 
+export const fetchFriendMessage = (id) => (dispatch) => {
+    console.log(id, 'id from fetchFriendMessage')
+    const token = localStorage.getItem("token");
 
-
-export const addConversations = (ids) => (dispatch) => {
-    console.log(ids, "values from register")
     dispatch({
-        type: CONVERSATION_LOADING,
+        type: FETCHMESSAGE_LOADING,
     });
     axios
-        .post(baseUrl, ids)
+        .get(baseUrl + id, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+              
+            },
+        })
+        .then((res) =>
+            dispatch({
+                type: FETCHMESSAGE_SUCCESS, 
+                payload: res.data
+            }))
+        .catch((err) => dispatch({
+            type: FETCHMESSAGE_ERROR,
+            error: err.message
+
+
+        }))
+}
+
+
+
+
+export const sendChat = (message) => (dispatch) => {
+console.log(message, 'message from context')
+    dispatch({
+        type: MESSAGE_LOADING,
+    });
+    axios
+        .post(baseUrl, message)
         .then((res) =>
             dispatch(                {
-                    type: CONVERSATION_SUCCESS,
+                    type: MESSAGE_SUCCESS,
                     payload: res.data
                 }))
         .catch((err) =>
             dispatch({
-                type: CONVERSATION_ERROR,
+                type: MESSAGE_ERROR,
                 error: err
 
 

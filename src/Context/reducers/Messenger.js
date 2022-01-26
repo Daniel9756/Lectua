@@ -3,17 +3,122 @@ import {
     CONVERSATION_LOADING,
     CONVERSATION_SUCCESS,
     CONVERSATION_ERROR,
-    GETUSERCONVERSATION_LOADING, GETUSERCONVERSATION_SUCCESS, GETUSERCONVERSATION_ERROR
+    GETUSERCONVERSATION_LOADING, GETUSERCONVERSATION_SUCCESS, GETUSERCONVERSATION_ERROR,
+    MESSAGE_LOADING,
+    MESSAGE_SUCCESS,
+    MESSAGE_ERROR,
+    FETCHMESSAGE_LOADING,
+    FETCHMESSAGE_SUCCESS,
+    FETCHMESSAGE_ERROR
 
 } from "../actions/ActionTypes";
 
-// conversation: {
-//     isLoading: false,
-//     member: null,
-//     error: null,
-//     isError: false,
-//     isAFriend: false
+// message: {
+//   isLoading: false,
+//   data: null,
+//   error: null,
+//   isError: false,
+//   isSend: false
 // },
+
+
+export const fetchChat = (state, action) => {
+  switch (action.type) {
+    case FETCHMESSAGE_LOADING:
+      return {
+        ...state,
+        fetchmessage: {
+          ...state.fetchmessage,
+          isLoading: true,
+          error: false,
+          isSend: false,
+          isError: false,
+          data: null
+        },
+      };
+      case FETCHMESSAGE_SUCCESS:
+        return {
+          ...state,
+          fetchmessage: {
+            ...state.fetchmessage,
+            isLoading: false,
+            error: false,
+            isSend: true,
+            data: action.payload,
+            isError: false,
+          },
+        }; 
+      case FETCHMESSAGE_ERROR:
+        return {
+          ...state,
+          fetchmessage: {
+            ...state.fetchmessage,
+            isLoading: false,
+            isSend: false,
+            error: action.payload,
+            isError: true,
+            data: null
+
+          },
+        };
+    default:
+      return state;
+  }
+};
+
+export const addChat = (state, action) => {
+  switch (action.type) {
+    case MESSAGE_LOADING:
+      return {
+        ...state,
+        message: {
+          ...state.message,
+          isLoading: true,
+          error: false,
+          isSend: false,
+          isError: false,
+          data: null
+        },
+      };
+      case MESSAGE_SUCCESS:
+        return {
+          ...state,
+          message: {
+            ...state.message,
+            isLoading: false,
+            error: false,
+            isSend: true,
+            data: action.payload,
+            isError: false,
+          },
+        }; 
+      case MESSAGE_ERROR:
+        return {
+          ...state,
+          message: {
+            ...state.message,
+            isLoading: false,
+            isSend: false,
+            error: action.payload,
+            isError: true,
+            data: null
+
+          },
+        };
+    default:
+      return state;
+  }
+};
+
+
+
+
+
+
+
+
+
+
 
 
 export const getFriends = (state, action) => {
@@ -103,4 +208,5 @@ export const friend = (state, action) => {
       return state;
   }
 };
+
 
