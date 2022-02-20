@@ -45,14 +45,14 @@ function CreateSession({ handleNext }) {
       editsubject: { isEdited, isError },
     },
     loginpartnerState: {
-      login: { isLoggin, logger: partner, isPemmitted },
+      login: {  logger: partner, isPemmitted },
     },
   } = useContext(GlobalContext);
   const userId = localStorage.getItem("userId");
   useEffect(() => {
     getOneProfile(userId)(getprofileDispatch);
     getLecturesByATeacher(userId)(teacherLectureDispatch);
-  }, [isFixed, isEdited]);
+  }, [isFixed, isEdited, teacherLectureDispatch, userId, getprofileDispatch]);
 
   const formik = useFormik({
     initialValues: {

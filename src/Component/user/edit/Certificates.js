@@ -43,7 +43,7 @@ const dynamicCertificateReducer = (state, action) => {
 
 function Certificates(props) {
   const classes = useStyles();
-  const [fileMessage, setFileMessage] = useState("");
+  const [ setFileMessage] = useState("");
 
   const [awardFile, setAwardFile] = useState([]);
   const { setOpenPopUp } = props;
@@ -72,7 +72,7 @@ function Certificates(props) {
     if (isAwardEdited) {
       setOpenPopUp(false);
     }
-  }, [isAwardEdited]);
+  }, [isAwardEdited, setOpenPopUp]);
 
   const [dynamicCertificate, dynamicCertificateDispatch] = useReducer(
     dynamicCertificateReducer,

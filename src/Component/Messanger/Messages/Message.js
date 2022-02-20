@@ -1,9 +1,22 @@
+import { useEffect } from "react";
 import { Box, makeStyles } from "@material-ui/core";
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext } from "react";
 import { ChatContext } from "../../../ChatContext";
-import ScrollToBottom from "react-scroll-to-bottom";
+import TextList from "./TextList";
+import { GlobalContext } from "../../../Context/Provider";
+import { CustomButton } from "../../../controls/Button";
+import { CustomInput } from "../../../controls/Input";
+import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
 
 const useStyles = makeStyles((theme) => ({
+  txtarea: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "space-between",
+    backgroundColor: "#fff2f1",
+    paddingTop: 4,
+    width: "80%",
+  },
   text: {
     backgroundColor: "#376e6f",
     color: "#FBFFF1",
@@ -23,9 +36,8 @@ const useStyles = makeStyles((theme) => ({
     fontSize: 66,
   },
   messages: {
-    height: "350px",
+    height: 400,
     overflowY: "auto",
-    padding: "15px 10px",
   },
   li: {
     textDecoration: "none",
@@ -37,90 +49,135 @@ const useStyles = makeStyles((theme) => ({
       flexDirection: "column",
       // margin: 2,
     },
+    txtarea: {
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "space-between",
+      backgroundColor: "#fff2f1",
+      paddingTop: 4,
+      width: "100%",
+    },
   },
   "@media (max-width: 440px)": {},
 }));
 
-const start = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-start",
-};
-const end = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "right",
-  direction: "rtl",
-  // flexDirection: 'row-reverse',
-};
 function Message() {
   const classes = useStyles();
-  const messagesEnd = useRef();
-  const start = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "flex-start",
-  };
-  const end = {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "right",
-    direction: "rtl",
-    // flexDirection: 'row-reverse',
-  };
-  const { socket, messageList, setMessageList, friend, loggerId } =
-    useContext(ChatContext);
+  const scrollToBottom = useScrollToBottom();
 
-  // console.log(messagesEnd, userId, friend, "messagesEnd");
+  const { socket, chat, setChat, messageList, setMessageList, friend, userId } =
+    useContext(ChatContext);
+  const {
+    addChatState: {
+      message: {
+        // isLoading: isLoadin,
+        data,
+        // error: err,
+        // isError: isErr,
+        // isSend,
+      },
+    },
+  } = useContext(GlobalContext);
+  console.log(data, "messagesEnd");
+
+  const sendMessage = async () => {
+    if (chat !== "") {
+      const message = {
+        text: chat.trim(),
+        sender: userId,
+        receiver: friend,
+        time:
+          new Date(Date.now()).getDate() +
+          ":" +
+          new Date(Date.now()).getHours() +
+          ":" +
+          new Date(Date.now()).getMinutes(),
+      };
+
+      await socket.emit("send_message", message);
+      setMessageList((prevChat) => [...prevChat, message]);
+      setChat("");
+      scrollToBottom();
+    }
+  };
+
   useEffect(() => {
     socket.on("receive_message", (data) => {
+      console.log(data)
       setMessageList((prevChat) => [...prevChat, data]);
-      messagesEnd.current = window.scrollTo({
-        bottom: 0,
-        left: 100,
-        behavior: "smooth",
-      });
     });
-  }, [socket, messagesEnd]);
+    scrollToBottom();
+  }, [socket, setMessageList, scrollToBottom]);
   return (
-    <div className={classes.messages}>
-      {(messageList?.length < 1) ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            fontSize: 60,
-            opacity: "0.4",
-            textTransform: "uppercase",
-          }}
-        >
-          select a friend to display chat
-        </div>
-      ) : (
-        <div>
-          {messageList?.map((content) => {
-            return (
-              <Box ref={messagesEnd}>
-                <Box className={classes.li}  style={loggerId === content.studentId ? end : start}>
-                  <p
-                    style={{
-                      display: "flex",
-                      justifyContent: "space-between",
-                      alignItems: "baseline",
-                      margin: 0,
-                    }}
-                  >
-                    {content.text}
-                  </p>
-                  <p style={{ margin: 0, opacity: "0.4" }}>{content.time}</p>
-                </Box>
-              </Box>
-            );
-          })}
-        </div>
-      )}
-    </div>
+    <Box
+      style={{
+        backgroundColor: "#fff",
+        padding: 20,
+      }}
+    >
+      <Box
+        style={{
+          height: "400px",
+          overflowY: "scroll",
+        }}
+      >
+        {messageList?.length > 1 ? (
+          <>
+            {messageList?.map((content) => {
+              return (
+                <ScrollToBottom>
+                  <TextList item={content} userId={userId} />
+                </ScrollToBottom>
+              );
+            })}
+          </>
+        ) : (
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              fontSize: 60,
+              opacity: "0.4",
+              textTransform: "uppercase",
+            }}
+          >
+            select a friend to display chat
+          </div>
+        )}
+      </Box>
+      <Box>
+        <Box className={classes.txtarea}>
+          <CustomInput
+            name="message"
+            type="text"
+            label="firstName"
+            placeholder="Your Message"
+            className={classes.Textarea}
+            value={chat}
+            onChange={(event) => {
+              setChat(event.target.value);
+            }}
+            onKeyPress={(event) => {
+              event.code === "Enter" && sendMessage();
+            }}
+          ></CustomInput>
+
+          <CustomButton
+            onClick={() => sendMessage()}
+            style={{
+              width: 92,
+              color: "#376e6f",
+              background: "#DA7B93",
+              borderRadius: 8,
+            }}
+          >
+            send
+          </CustomButton>
+        </Box>
+        {/* <p style={{ color: "#DA7B93" }}>{errmessage}</p> */}
+      </Box>
+    </Box>
   );
 }
 

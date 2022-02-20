@@ -48,7 +48,7 @@ function LessionDetail({ handleBack }) {
       topic: { isAddingTopic, timetable, isScheduled,  isError },
     },
     loginpartnerState: {
-      login: { isLoggin, logger: partner, isPemmitted },
+      login: { logger: partner, isPemmitted },
   },
   } = useContext(GlobalContext);
   console.log(timetable);

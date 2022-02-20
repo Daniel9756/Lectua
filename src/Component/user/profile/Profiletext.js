@@ -34,7 +34,7 @@ function Profiletext({ getPics }) {
   const teacher = folder?.data;
   useEffect(() => {
     getOneProfile(userId)(getprofileDispatch);
-  }, [getprofileDispatch]);
+  }, [getprofileDispatch, userId]);
   return (
     <>
       <Box>

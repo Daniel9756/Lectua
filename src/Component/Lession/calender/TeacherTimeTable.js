@@ -109,7 +109,7 @@ export default function TeacherTimeTable() {
     console.log(lists, "timetane")
     useEffect(() => {
         getTimetable(userId)(timetableDispatch);
-    }, [isScheduled, isTopDeleted]);
+    }, [isScheduled, isTopDeleted, timetableDispatch, userId]);
 
     return (
         <div

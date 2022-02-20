@@ -1,10 +1,9 @@
-import React, { useEffect, useContext, useState, useMemo } from "react";
+import React, { useEffect, useContext, useState,  } from "react";
 import { makeStyles, Badge, Box } from "@material-ui/core";
 import { Link } from "react-router-dom";
 import { GlobalContext } from "../../Context/Provider";
 import PopUp from "../../utils/PopUp";
 import { PartnerLogin } from "./PartnerLogin";
-import { loginPartner } from "../../Context/actions/auth/Login";
 import { MdCancel } from "react-icons/md";
 import Confirm from "../../utils/Confirm";
 import { deletePartner } from "../../Context/actions/auth/Register";
@@ -50,18 +49,10 @@ export default function GetPartners({ item }) {
       login: { logger },
     },
     loginpartnerState: {
-      login: { isLoggin, logger: partner, isPemmitted },
+      login: {  logger: partner, isPemmitted },
     },
     deletepartnerDispatch,
-    deletepartnerState: {
-      partner: {
-        isLoading,
-        data: deleted,
-        isError,
-        isSuccess: isDeleted,
-        error,
-      },
-    },
+   
   } = useContext(GlobalContext);
 
   const onDelete = (id) => {

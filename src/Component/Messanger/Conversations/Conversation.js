@@ -1,10 +1,4 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
-import { GlobalContext } from "../../../Context/Provider";
 import { makeStyles, Avatar, Box } from "@material-ui/core";
-
-import { useQuery } from "react-query";
-import { fetchOneTeacher, fetchOneStudent } from "../../../Async/profile";
 
 const useStyles = makeStyles((theme) => ({
   list: {
@@ -22,13 +16,8 @@ function Conversation({ friends, setTutor, setLeaner }) {
   const classes = useStyles();
 
 //   console.log(friends);
-  const { id, picsUrl, orgName, studentName, plan, specialty } = friends;
+  const { picsUrl, orgName, studentName, plan, specialty } = friends;
 
-  const {
-    loginState: {
-      login: { isLoggin, logger, isPemmitted },
-    },
-  } = useContext(GlobalContext);
 
   return (
     <>

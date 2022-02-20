@@ -1,7 +1,6 @@
 import React, { useState, useRef } from 'react'
 import { Container, makeStyles, Box, Typography } from "@material-ui/core";
-import { CustomButton } from '../../controls/Button';
-import { CustomInput, CustomTextarea } from '../../controls/Input';
+
 
 // import emailjs from 'emailjs-com';
 import { FiLoader } from 'react-icons/fi';

@@ -4,7 +4,6 @@ import { GlobalContext } from "../../../Context/Provider";
 import { LinearLoading } from "../../../utils/Progress/Linear";
 import MessageBox from "../../../utils/Alert";
 import { getAStudentTimeTable } from "../../../Context/actions/timeTable/student";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 
 import {
   makeStyles,
@@ -96,7 +95,7 @@ function EnrolledCourses(props) {
 
   useEffect(() => {
     getAStudentTimeTable(userId)(getStudentTableDispatch);
-  }, [getStudentTableDispatch]);
+  }, [getStudentTableDispatch, userId]);
 
   return (
     <>

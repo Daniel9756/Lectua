@@ -64,7 +64,7 @@ function InitChat(props) {
   const {
     addfriendDispatch,
     addfriendState: {
-      conversation: { isLoading, error, isAFriend, member, isError },
+      conversation: {isAFriend, member, isError },
     },
   } = useContext(GlobalContext);
   const errMassage = "Connection was not created!!!";

@@ -29,7 +29,7 @@ function MyProfile({ getPics }) {
     isError: isMistake,
     isSuccess: isSucced,
     isFetching,
-    error: err,
+ 
   } = useQuery(["studentprofile", userId], () => fetchOneStudent(userId), {
     //   onSuccess: (data) => console.log(data, 'data'),
     onSuccess: (data) => getPics(data?.response?.picsUrl),

@@ -49,15 +49,10 @@ function TeacherBio(props) {
   const {
     editDispatch,
     editState: {
-      edit: { isEditingProfile, error, isEdited, editor, isError },
+      edit: { isEditingProfile, isEdited, editor },
     },
     getprofileState: {
-      getprofile: {
-        isGettingprofile: isFetching,
-        folder,
-        isFetched,
-        isError: isMistake,
-      },
+      getprofile: { folder },
     },
   } = useContext(GlobalContext);
   const item = folder?.data;
@@ -70,7 +65,7 @@ function TeacherBio(props) {
     if (isEdited) {
       setOpenPopUp(false);
     }
-  }, [setOpenPopUp]);
+  }, [setOpenPopUp, isEdited]);
 
   const handleFiles = (pics) => {
     setSelectedFile(pics);
@@ -247,8 +242,8 @@ function TeacherBio(props) {
           <div
             style={{
               color: "#DA7B93",
-              fontFamily: 'cursive',
-              textTransform: "capitalize"
+              fontFamily: "cursive",
+              textTransform: "capitalize",
             }}
           >
             {fileMessage}

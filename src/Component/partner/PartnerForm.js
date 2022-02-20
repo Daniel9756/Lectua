@@ -4,16 +4,14 @@ import { CustomButton } from "../../controls/Button";
 import { CustomInput, LabelText } from "../../controls/Input";
 import { GlobalContext } from "../../Context/Provider";
 import { useFormik } from "formik";
-import { Link, useHistory } from "react-router-dom";
 import MessageBox from "../../utils/Alert";
 import { addPartner } from "../../Context/actions/auth/Register";
 
 export default function PartnerForm() {
-  const history = useHistory();
   const {
     partnerDispatch,
     partnerState: {
-      partner: { isLoading, data, isError, isSuccess, error },
+      partner: { data },
     },   
   } = useContext(GlobalContext);
   const orgId = localStorage.getItem("userId");

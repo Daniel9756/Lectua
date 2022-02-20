@@ -1,39 +1,9 @@
 import React from 'react'
-import { Box, Grid, Avatar, makeStyles } from "@material-ui/core";
+import { Box,} from "@material-ui/core";
 import { Info, Subtitle } from "../../../controls/Input";
 import { ImageBox } from './ImageBox';
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        marginTop: 6,
-
-    },
-    lists: {
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(150px, 1fr))",
-        gap: "15px",
-    },
-
-    "@media (max-width: 960px)": {
-        image: {
-            width: "100%",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-
-        },
-
-    },
-    "@media (max-width: 440px)": {
-
-    },
-}));
-
 function Award({ item }) {
-    const classes = useStyles();
 
     return (
         <Box>

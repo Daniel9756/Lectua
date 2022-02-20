@@ -1,8 +1,6 @@
 import React from "react";
 import { TableCell, TableRow } from "@material-ui/core";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 import { withStyles } from "@material-ui/core/styles";
-import { MdCancel } from "react-icons/md";
 
 const CustomTableRow = withStyles((theme) => ({
     root: {

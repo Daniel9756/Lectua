@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useCallback } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import {
   Box,
   Container,
@@ -14,7 +14,7 @@ import Sidebar from "./Sidebar";
 import CreateLesson from "../../Lession/createlession/CreateLesson";
 import { Title } from "../../../controls/Input";
 import { GroupButton } from "../../../controls/Button";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import GetPartners from "../../partner/GetPartners";
 import { GlobalContext } from "../../../Context/Provider";
 import { getPartners } from "../../../Context/actions/auth/Register";
@@ -119,10 +119,10 @@ function Profile(props) {
   const {
     getpartnerDispatch,
     getpartnerState: {
-      partner: { isLoading, data, isSuccess, isError, error },
+      partner: {  data, isSuccess },
     },
     loginState: {
-      login: { isLoggin, logger, isPemmitted },
+      login: {  logger },
     },
     deletepartnerState: {
       partner: { data: deleted, isSuccess: isDeleted },
@@ -135,11 +135,11 @@ function Profile(props) {
       isOpen: false,
     });
     getPartners(userId)(getpartnerDispatch);
-  }, [isDeleted]);
+  }, [isDeleted, confirmDialog, userId, getpartnerDispatch]);
 
   useEffect(() => {
     getPartners(userId)(getpartnerDispatch);
-  }, [getpartnerDispatch]);
+  }, [getpartnerDispatch, userId]);
 
   return (
     <Box style={{ marginBottom: 11, marginTop: 8, backgroundColor: "#f1f2f6" }}>

@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
-import axios from "axios";
 import { GlobalContext } from "./Context/Provider";
 import { fetchFriendMessage } from "./Context/actions/messenger/chat";
 import io from "socket.io-client";
@@ -11,15 +10,15 @@ export const ChatContext = createContext();
 export const ChatProvider = ({ children }) => {
   const {
     loginState: {
-      login: { isLoggin, logger, isPemmitted },
+      login: { logger, isPemmitted },
     },
     fetchChatDispatch,
     fetchChatState: {
       fetchmessage: {
-        isLoading: isLoadin,
+        // isLoading,
         data,
-        error: err,
-        isError: isErr,
+        // error,
+        // isError,
         isSend,
       },
     },
@@ -27,28 +26,25 @@ export const ChatProvider = ({ children }) => {
   console.log(data, isSend, "isSend");
   const [friend, setFriend] = useState("");
   const [loggerId, setLoggerId] = useState("");
-  const [roomId, setRoomId] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [getingFriends, setGetingFriends] = useState(false);
-  const [activefriend, setActivefriend] = useState({});
+
   const [chat, setChat] = useState("");
+  const userId = localStorage.getItem("userId");
   const [messageList, setMessageList] = useState([]);
 
   // logger?.user?.id
   useEffect(() => {
-    if(isPemmitted){
-      setLoggerId(logger?.user?.id)
-      }
-  }, [isPemmitted]);
- 
-console.log(loggerId, 'loggerId')
+    if (isPemmitted) {
+      setLoggerId(logger?.user?.id);
+    }
+  }, [logger?.user?.id, isPemmitted]);
+
+  console.log(loggerId, "loggerId");
   useEffect(() => {
-    if(isSend){
-        setMessageList(data?.response)
-      }
-  }, [isSend]);
+    if (isSend) {
+      setMessageList(data?.response);
+    }
+  }, [isSend,  data?.response]);
   const getFriendMessage = (id) => {
-    // console.log(id, userId, 'id userId');
     setFriend(id);
     fetchFriendMessage(id)(fetchChatDispatch);
   };
@@ -63,7 +59,8 @@ console.log(loggerId, 'loggerId')
         getFriendMessage,
         friend,
         setFriend,
-        loggerId
+        loggerId,
+        userId,
       }}
     >
       {children}

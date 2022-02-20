@@ -8,7 +8,7 @@ import {
 } from "@material-ui/core";
 import React from "react";
 import { CustomButton } from "../../../controls/Button";
-import { useQuery, useQueryClient, useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { fetchOneCategory } from "../../../Async/lesson";
 
 const useStyles = makeStyles((theme) => ({
@@ -48,7 +48,7 @@ function Arts(props) {
   const { content } = props
   console.log(content)
 
-  const { data: category, isLoading, isError, isSuccess } = useQuery(["category", content], () => fetchOneCategory(content), {
+  const { data } = useQuery(["category", content], () => fetchOneCategory(content), {
     onSuccess: (category) => console.log(category),
   });
   return (

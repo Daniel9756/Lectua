@@ -19,9 +19,7 @@ function Subject(props) {
         editSubjectState: {
             editsubject: { isEditingSubject, error, isEdited, edited, isError },
         },
-        loginpartnerState: {
-            login: { isLoggin, logger: partner, isPemmitted },
-        },
+      
     } = useContext(GlobalContext);
     console.log(isEditingSubject, error, edited, isError)
 

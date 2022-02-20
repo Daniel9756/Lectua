@@ -10,14 +10,11 @@ import {
   TableRow,
   Paper,
 
-  TableFooter,
 } from "@material-ui/core";
-import { BiDotsVerticalRounded } from "react-icons/bi";
 // import LinearLoading from "../"
 import Avatar from "@material-ui/core/Avatar";
 import { Title, LabelText } from "../../controls/Input";
 import { TeacherEnrollData } from "./TeacherEnrollData";
-import { CustomButton } from "../../controls/Button";
 import { LinearLoading } from "../../utils/Progress/Linear";
 import MessageBox from "../../utils/Alert";
 import { GlobalContext } from "../../Context/Provider";
@@ -53,9 +50,7 @@ export default function TeacherLesson() {
   const classes = useStyles();
   const StyledTableCell = withStyles((theme) => ({
     head: {
-      color: theme.palette.common.white,
       fontSize: 15,
-      textTransform: "capitalize",
       boxShadow: 0,
       border: "none",
       textTransform: "uppercase",
@@ -75,13 +70,10 @@ export default function TeacherLesson() {
   }))(TableRow);
 
   const {
-    myEnrolledlecturesDispatch,
     myEnrolledlecturesState: {
-      myenrollecture: { isEnrolling, myenrolled, error, isError, isFetched },
+      myenrollecture: { isEnrolling, myenrolled, isError, isFetched },
     },
-    loginState: {
-      login: { logger, },
-    },
+  
   } = useContext(GlobalContext);
   return (
     <div

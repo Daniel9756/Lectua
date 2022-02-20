@@ -21,9 +21,8 @@ export const TeacherEnrollData = (props) => {
     studentEmail,
     price,
     courseId,
-    owner,
+   
     subject,
-    orgName,
     createdAt,
   } = item;
 

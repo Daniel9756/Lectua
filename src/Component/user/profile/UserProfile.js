@@ -12,7 +12,6 @@ import MessageBox from "../../../utils/Alert";
 import PopUp from "../../../utils/PopUp";
 import TeacherBio from "../edit/TeacherBio";
 import Certificates from "../edit/Certificates";
-import { Partner } from "../../partner/Partner";
 
 function UserProfile({ getPics }) {
   const userId = localStorage.getItem("userId");

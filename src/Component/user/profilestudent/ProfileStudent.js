@@ -1,5 +1,5 @@
 
-import React, { useState, useContext } from "react";
+import React, { useState } from "react";
 import { Box, Container, Grid, makeStyles, Avatar, Typography } from "@material-ui/core";
 import MyProfile from "./MyProfile";
 import EnrolledCourses from "./EnrolledCourses";
@@ -8,7 +8,6 @@ import { useHistory } from "react-router-dom"
 import SideBar from "./SideBar";
 import { Title } from "../../../controls/Input";
 import { GroupButton } from "../../../controls/Button";
-import { GlobalContext } from "../../../Context/Provider";
 
 
 const useStyles = makeStyles({
@@ -103,12 +102,7 @@ function ProfileStudent() {
     const getPics = (photo) => {
         setPics(photo)
     }
-    const {
-        myEnrolledlecturesDispatch,
-        myEnrolledlecturesState: {
-          myenrollecture: { isEnrolling, myenrolled, isFetched, isError },
-        },
-      } = useContext(GlobalContext);
+  
     return (
         <Box className={classes.root}>
             <Container className={classes.cont}>

@@ -109,10 +109,14 @@ function Plan(props) {
   console.log(isCreatingProfile, error, isProfiled, folder);
 
   useEffect(() => {
-    if (isProfiled  && (folder.message === "Your data was successfully submitted" || folder.message === "We already have your data")) {
+    if (
+      isProfiled &&
+      (folder.message === "Your data was successfully submitted" ||
+        folder.message === "We already have your data")
+    ) {
       handleNext();
     }
-  }, [isProfiled]);
+  }, [isProfiled, folder.message, handleNext]);
   const handlePlan = (selected) => {
     setPlan(selected);
   };
