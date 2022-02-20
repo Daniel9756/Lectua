@@ -77,7 +77,7 @@ function StudentBio({ setIsOpen }) {
         if (isEditEnrolled && editscholar?.message === "Your Profile Updated successfully") {
             setIsOpen(false)
         }
-    }, [setIsOpen]);
+    }, [setIsOpen, isEditEnrolled, editscholar?.message]);
 
 
     const formik = useFormik({

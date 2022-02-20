@@ -1,9 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { useParams, useHistory } from "react-router-dom";
-import { useFlutterwave, FlutterWaveButton } from 'react-flutterwave';
+import { useHistory } from "react-router-dom";
 import { GlobalContext } from "../../../Context/Provider";
-import { CircularProgress, makeStyles } from '@material-ui/core';
-import { GroupButton } from '../../../controls/Button';
+import {  makeStyles } from '@material-ui/core';
+// import { GroupButton } from '../../../controls/Button';
 import { enrolLecture } from '../../../Context/actions/enroll/lecture';
 import { PaystackButton } from 'react-paystack';
 import MessageBox from '../../../utils/Alert';
@@ -28,7 +27,6 @@ function PaymentDetail(props) {
     const [isOpen, setIsOpen] = useState(false);
     const history = useHistory()
 
-    const params = useParams()
     const { item: { firstName, email, id: userId, phone }, subject, courseId, price: amount } = props
     const publicKey = process.env.REACT_APP_PAYSTACK_API
     const {

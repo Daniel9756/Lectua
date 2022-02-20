@@ -1,27 +1,22 @@
 
-import { Container, Grid, makeStyles, Box, Avatar } from "@material-ui/core";
+import { Container,  Box, } from "@material-ui/core";
 import React, { useContext } from "react";
 import { CustomButton } from "../../controls/Button";
-import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
+import { CustomInput, LabelText} from "../../controls/Input";
 import { GlobalContext } from "../../Context/Provider";
 import { useFormik } from "formik";
 import { loginPartner } from "../../Context/actions/auth/Login";
-import { Link, useHistory, useParams, Redirect } from "react-router-dom";
 import MessageBox from "../../utils/Alert";
 
 export const PartnerLogin = (props) => {
     const { orgId, userId } = props
-    const history = useHistory();
 
     const {
         loginpartnerDispatch,
         loginpartnerState: {
             login: { isLoggin, logger: partner, isPemmitted },
         },
-        getpartnerState: {
-            partner: {
-                isLoading, data, isSuccess, isError, error },
-        },
+       
     } = useContext(GlobalContext);
         console.log(isLoggin, partner, isPemmitted)
 

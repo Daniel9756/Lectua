@@ -57,14 +57,14 @@ function Awards(props) {
     ) {
       handleNext();
     }
-  }, [isCertified]);
+  }, [isCertified, certificates.message, handleNext]);
 
   const formik = useFormik({
     initialValues: {
       specialty: "",
       subjects: [],
       certifications: [],
-    },
+    }, 
     validationSchema: Yup.object({
       specialty: Yup.string().required("This field is reqiured"),
     }),

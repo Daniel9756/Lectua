@@ -68,9 +68,7 @@ function StudentProfile(props) {
         scholarState: {
             student: { isCreatingStudent, scholar, isEnrolled, error },
         },
-        loginState: {
-            login: { logger },
-        },
+      
     } = useContext(GlobalContext);
     const userId = localStorage.getItem("userId");
     console.log(isCreatingStudent, scholar, isEnrolled, error)

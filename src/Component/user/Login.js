@@ -6,7 +6,7 @@ import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
 import { GlobalContext } from "../../Context/Provider";
 import { useFormik } from "formik";
 import { loginUser } from "../../Context/actions/auth/Login";
-import { Link, useHistory, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import MessageBox from "../../utils/Alert";
 
 

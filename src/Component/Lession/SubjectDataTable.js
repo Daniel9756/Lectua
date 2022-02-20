@@ -40,8 +40,7 @@ function SubjectDataTable({ item }) {
     target,
     createdAt,
     teacher,
-    creator,
-    owner,
+   
   } = item;
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
@@ -51,11 +50,8 @@ function SubjectDataTable({ item }) {
     deleteSubjectState: {
       subject: { isDeleted },
     },
-    loginState: {
-      login: { isLoggin, logger, isPemmitted },
-    },
+   
   } = useContext(GlobalContext);
-  const userId = localStorage.getItem("userId");
   const [confirmDialog, setConfirmDialog] = useState({
     isOpen: false,
     subject,
@@ -68,7 +64,7 @@ function SubjectDataTable({ item }) {
       ...confirmDialog,
       isOpen: false,
     });
-  }, [isDeleted]);
+  }, [isDeleted, confirmDialog]);
 
   const onDelete = (id) => {
     deleteASubject(id)(deleteSubjectDispatch);

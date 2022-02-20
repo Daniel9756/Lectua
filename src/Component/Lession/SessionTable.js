@@ -94,7 +94,7 @@ export default function SessionTable({ handleNext }) {
 
   useEffect(() => {
     getLecturesByATeacher(userId)(teacherLectureDispatch);
-  }, [isDeleted]);
+  }, [isDeleted, teacherLectureDispatch, userId]);
 
   return (
     <div

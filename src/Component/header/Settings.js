@@ -1,7 +1,6 @@
-import React, { useContext } from "react";
+import React from "react";
 import { makeStyles, Typography, Box } from "@material-ui/core";
 import { Link, } from "react-router-dom";
-import { GlobalContext } from "../../Context/Provider";
 
 const useStyles = makeStyles(() => ({
   box: {
@@ -33,11 +32,7 @@ function Settings(props) {
   const classes = useStyles();
   const { onMouseEnter, onMouseLeave } = props
   const registerAs = localStorage.getItem("registerAs");
-  const {
-    loginState: {
-      login: { isPemmitted, logger },
-    },
-  } = useContext(GlobalContext);
+  
   return (
     <Box
       onMouseEnter={onMouseEnter}

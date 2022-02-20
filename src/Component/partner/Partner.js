@@ -1,8 +1,8 @@
-import React, { useState, useContext } from "react";
+import React, { useState} from "react";
 import {
   makeStyles,
   withStyles,
-  CircularProgress,
+ 
   Box,
 } from "@material-ui/core";
 import {
@@ -15,11 +15,9 @@ import {
   Paper,
 } from "@material-ui/core";
 import { GoDiffAdded, GoPrimitiveDot } from "react-icons/go";
-import { Link } from "react-router-dom";
-import MessageBox from "../../utils/Alert";
+
 import { LabelText, Title } from "../../controls/Input";
-import { GlobalContext } from "../../Context/Provider";
-import { getLecturesByATeacher } from "../../Context/actions/lesson/lesson";
+
 import PopUp from "../../utils/PopUp";
 import PartnerForm from "./PartnerForm";
 

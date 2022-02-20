@@ -22,6 +22,7 @@ import DataTable from "./DataTable";
 import { CustomButton } from "../../controls/Button";
 import LinearLoading from "../../utils/Progress/Linear";
 import MessageBox from "../../utils/Alert"
+import { fetchDetails } from "../../Async/timeTable";
 
 const useStyles = makeStyles({
   table: {

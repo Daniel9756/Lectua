@@ -95,7 +95,7 @@ function Footer() {
   const classes = useStyles();
   const {
     loginState: {
-      login: { isPemmitted, logger },
+      login: {  logger },
     },
   } = useContext(GlobalContext);
   const [message, setMessage] = useState('')

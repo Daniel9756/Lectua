@@ -5,15 +5,13 @@ import { GlobalContext } from "../../Context/Provider";
 import { CustomInput } from "../../controls/Input";
 import Conversation from "./Conversations/Conversation";
 import Message from "./Messages/Message";
-import Text from "./Messages/Text";
 import { ChatContext } from "../../ChatContext";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    height: "100%",
     background: "#fff2f1",
     paddingLeft: 52,
+    
   },
   grid2: {
     background: "#EEE5E9",
@@ -24,12 +22,11 @@ const useStyles = makeStyles((theme) => ({
     padding: 10,
   },
   chat: {
-    height: "76vh",
-    padding: 40,
+   
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-between",
-    position: "relative",
+   
   },
   txtarea: {
     display: "flex",
@@ -49,6 +46,7 @@ const useStyles = makeStyles((theme) => ({
   "@media (max-width: 960px)": {
     root: {
       paddingLeft: 2,
+      marginBottom: 200,
     },
     chat: {
       padding: 8,
@@ -68,33 +66,48 @@ const useStyles = makeStyles((theme) => ({
 }));
 function Index() {
   const classes = useStyles();
-
-  const [friend, setFriend] = useState("");
   const [tutor, setTutor] = useState("");
   const [leaner, setLeaner] = useState("");
   const {
-    loginState: {
-      login: { isLoggin, logger, isPemmitted },
-    },
+  
     getFriendsDispatch,
     getFriendsState: {
-      conversation: { isLoading, member, isAFriend, error, isError },
+      conversation: { member, isAFriend },
     },
+   
   } = useContext(GlobalContext);
   const userId = localStorage.getItem("userId");
 
-  const { ws, setWs, chat, setChat, messageList, setMessageList , getFriend} =
-    useContext(ChatContext); // console.log(data?.response)
-
+  const {
+   
+    getFriendMessage,
+    friend,
+    
+  } = useContext(ChatContext); // console.log(data?.response)
+console.log(friend, "friend")
   useEffect(() => {
     getUserConversations(userId)(getFriendsDispatch);
-  }, [getFriendsDispatch]);
+  }, [getFriendsDispatch, userId]);
 
+  // const getFriendMessage = async (m) => {
+  //   // setGetingFriends(true)
+  //   // setActivefriend(m);
+  //   console.log(m);
+  //   const payload = {
+  //     userId,
+  //     friendId: m.id,
+  //   };
+
+  //   socket.emit("get_friend", payload);
+  //   //  console.log(fdata)
+  // };
+
+ 
 
   return (
     <Box className={classes.root}>
       <Grid container className={classes.container}>
-        <Grid item md="4" sm="12" className={classes.grid2}>
+        <Grid item md="3" sm="12" className={classes.grid2}>
           <Box style={{ margin: 16 }}>
             <CustomInput
               name="serch"
@@ -110,7 +123,7 @@ function Index() {
                 {member?.response
                   ?.filter((p) => p.userId !== userId)
                   .map((f) => (
-                    <div onClick={() => getFriend(f.userId)}>
+                    <div onClick={() => getFriendMessage(f.userId)}>
                       <Conversation
                         key={f.id}
                         friends={f}
@@ -123,11 +136,11 @@ function Index() {
             )}
           </Box>
         </Grid>
-        <Grid item md="8" sm="12">
+        <Grid item md="9" sm="12">
           <Box className={classes.chat}>
             <Message friend={friend} tutor={tutor} leaner={leaner} />
-            <Text friend={friend} tutor={tutor} leaner={leaner} />
           </Box>
+         
         </Grid>
       </Grid>
     </Box>

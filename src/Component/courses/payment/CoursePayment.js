@@ -18,8 +18,8 @@ function CoursePayment() {
   // console.log(isGettingLecture, lesson, isFetched, isError, error)
   useEffect(() => {
     getOneLecture(id)(getAlectureDispatch);
-  }, []);
-const subject = lesson?.response
+  }, [id, getAlectureDispatch]);
+  const subject = lesson?.response;
   return (
     <div>
       {isGettingLecture && <BlockLoading />}
@@ -31,9 +31,7 @@ const subject = lesson?.response
       )}
       {isFetched && (
         <div>
-         
-            <CourseDetail item={subject}  key={subject.id} />
-        
+          <CourseDetail item={subject} key={subject.id} />
         </div>
       )}
     </div>

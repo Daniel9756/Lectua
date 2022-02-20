@@ -27,11 +27,11 @@ export const CustomTextarea = styled.textarea.attrs((props) => ({
   onChange: props.onChange,
   value: props.value,
   name: props.name,
+  onKeyPress: props.onKeyPress
  
 }))`
   padding: 6px;
   border: 2px solid palevioletred;
-  
  
   border-radius: 6px;
   outline: none;

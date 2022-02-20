@@ -8,5 +8,18 @@ export default {
         isError: false,
         isAFriend: false
     },
-    
+    message: {
+        isLoading: false,
+        data: null,
+        error: null,
+        isError: false,
+        isSend: false
+    },
+        fetchmessage: {
+        isLoading: false,
+        data: null,
+        error: null,
+        isError: false,
+        isSend: false
+    },
 }
