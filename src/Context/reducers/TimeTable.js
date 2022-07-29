@@ -8,6 +8,8 @@ import {
 
 
 export const studenttimetable = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case GETTIMETABLE_LOADING:
             return {
@@ -52,6 +54,8 @@ export const studenttimetable = (state, action) => {
 };
 
 export const tables = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case TIMETABLE_LOADING:
             return {
@@ -96,6 +100,8 @@ export const tables = (state, action) => {
 };
 
 export const timetable = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case GETTIMETABLE_LOADING:
             return {
@@ -140,6 +146,8 @@ export const timetable = (state, action) => {
 };
 
 export const deleteTopic = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case DELETEATOPIC_LOADING:
             return {
@@ -184,6 +192,8 @@ export const deleteTopic = (state, action) => {
 };
 
 export const editedTopic = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case EDITATOPIC_LOADING:
             return {

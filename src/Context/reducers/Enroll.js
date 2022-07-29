@@ -8,6 +8,8 @@ import {
 
 
 export const enrollAlecture = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case ENROLLECTURE_LOADING:
             return {
@@ -54,6 +56,8 @@ export const enrollAlecture = (state, action) => {
 
 
 export const myEnrolledlectures = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case MYENROLLECTURE_LOADING:
             return {

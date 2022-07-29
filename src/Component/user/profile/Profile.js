@@ -129,17 +129,16 @@ function Profile(props) {
     },
   } = useContext(GlobalContext);
   const userId = logger?.user?.id;
-  useEffect(() => {
-    setConfirmDialog({
-      ...confirmDialog,
-      isOpen: false,
-    });
-    getPartners(userId)(getpartnerDispatch);
-  }, [isDeleted, confirmDialog, userId, getpartnerDispatch]);
+  // useEffect(() => {
+  //   setConfirmDialog({
+  //     ...confirmDialog,
+  //     isOpen: false,
+  //   });
+  // }, [confirmDialog]);
 
-  useEffect(() => {
-    getPartners(userId)(getpartnerDispatch);
-  }, [getpartnerDispatch, userId]);
+  // useEffect(() => {
+  //   getPartners(userId)(getpartnerDispatch);
+  // }, [getpartnerDispatch]);
 
   return (
     <Box style={{ marginBottom: 11, marginTop: 8, backgroundColor: "#f1f2f6" }}>
@@ -151,7 +150,7 @@ function Profile(props) {
             </Box>
             <Sidebar setContent={setContent} />
 
-            <Box style={{ marginTop: 121, color: "#2f4454" }}>
+            {/* <Box style={{ marginTop: 121, color: "#2f4454" }}>
               <Title
                 style={{
                   color: "#DA7B93",
@@ -174,7 +173,7 @@ function Profile(props) {
                   ))}
                 </div>
               )}
-            </Box>
+            </Box> */}
           </Grid>
           <Grid md="9" className={classes.sidebar2}>
             <Box className={classes.header}>

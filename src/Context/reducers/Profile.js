@@ -8,6 +8,8 @@ import {
 } from "../actions/ActionTypes";
 
 export const profile = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case PROFILE_LOADING:
       return {
@@ -52,6 +54,8 @@ export const profile = (state, action) => {
 };
 
 export const awards = (state, action) => {
+  console.log('auth')
+  
   switch (action.type) {
     case AWARD_LOADING:
       return {
@@ -99,6 +103,8 @@ export const awards = (state, action) => {
 //  Create Student reducers
 
 export const students = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case STUDENT_LOADING:
       return {
@@ -145,6 +151,8 @@ export const students = (state, action) => {
 
 
 export const editors = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case EDIT_LOADING:
       return {
@@ -188,6 +196,8 @@ export const editors = (state, action) => {
 };
 
 export const editedFiles = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case EDITAWARD_LOADING:
       return {
@@ -231,6 +241,8 @@ export const editedFiles = (state, action) => {
 };
 
 export const editedStudent = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case EDITSTUDENTBIO_LOADING:
       return {

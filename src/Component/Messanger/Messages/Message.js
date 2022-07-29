@@ -7,6 +7,8 @@ import { GlobalContext } from "../../../Context/Provider";
 import { CustomButton } from "../../../controls/Button";
 import { CustomInput } from "../../../controls/Input";
 import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5500");
 
 const useStyles = makeStyles((theme) => ({
   txtarea: {
@@ -65,7 +67,7 @@ function Message() {
   const classes = useStyles();
   const scrollToBottom = useScrollToBottom();
 
-  const { socket, chat, setChat, messageList, setMessageList, friend, userId } =
+  const { chat, setChat, messageList, setMessageList, friend, userId } =
     useContext(ChatContext);
   const {
     addChatState: {

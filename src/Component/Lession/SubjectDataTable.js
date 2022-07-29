@@ -64,7 +64,7 @@ function SubjectDataTable({ item }) {
       ...confirmDialog,
       isOpen: false,
     });
-  }, [isDeleted, confirmDialog]);
+  }, [confirmDialog]);
 
   const onDelete = (id) => {
     deleteASubject(id)(deleteSubjectDispatch);

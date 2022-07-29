@@ -140,7 +140,7 @@ export const GlobalProvider = ({ children }) => {
     studenttimetable,
     EnrolInitialState
   );
-
+console.log("global")
   return (
     <GlobalContext.Provider
       value={{

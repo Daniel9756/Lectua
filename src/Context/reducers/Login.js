@@ -6,6 +6,8 @@ import {
 } from "../actions/ActionTypes";
 
  export const loginpartner = (state, action) => { 
+  console.log('auth')
+
   switch (action.type) {
     case PARTNERLOGIN_LOADING:
       return {
@@ -51,6 +53,8 @@ import {
 
 
 export const login = (state, action) => { 
+  console.log('auth')
+
   switch (action.type) {
     case LOGIN_LOADING:
       return {

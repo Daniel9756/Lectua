@@ -49,10 +49,10 @@ function CreateSession({ handleNext }) {
     },
   } = useContext(GlobalContext);
   const userId = localStorage.getItem("userId");
-  useEffect(() => {
-    getOneProfile(userId)(getprofileDispatch);
-    getLecturesByATeacher(userId)(teacherLectureDispatch);
-  }, [isFixed, isEdited, teacherLectureDispatch, userId, getprofileDispatch]);
+  // useEffect(() => {
+  //   getOneProfile(userId)(getprofileDispatch);
+  //   getLecturesByATeacher(userId)(teacherLectureDispatch);
+  // }, [isFixed, isEdited, teacherLectureDispatch, userId, getprofileDispatch]);
 
   const formik = useFormik({
     initialValues: {
@@ -134,7 +134,7 @@ function CreateSession({ handleNext }) {
                 alignItems: "center",
               }}
             >
-              <CustomInput
+              <input
                 name="subject"
                 type="text"
                 placeholder="Your Course"

@@ -11,6 +11,7 @@ import {
 
 
 export const deletepartner = (state, action) => {
+  console.log('auth')
   switch (action.type) {
     case DELETEPARTNER_LOADING:
       return {
@@ -54,6 +55,8 @@ export const deletepartner = (state, action) => {
 };
 
 export const getpartners = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case GETPARTNERS_LOADING:
       return {
@@ -97,6 +100,8 @@ export const getpartners = (state, action) => {
 };
 
 export const partner = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case PARTNER_LOADING:
       return {
@@ -141,6 +146,8 @@ export const partner = (state, action) => {
 
 
 export const auth = (state, action) => {
+  console.log('auth')
+
   switch (action.type) {
     case REGISTER_LOADING:
       return {

@@ -1,6 +1,8 @@
 import { GETPROFILE_LOADING, GETPROFILE_SUCCESS, GETPROFILE_ERROR } from "../actions/ActionTypes"
 
 export const fetchProfile = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
       case GETPROFILE_LOADING:
         return {

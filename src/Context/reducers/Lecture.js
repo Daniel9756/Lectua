@@ -18,6 +18,8 @@ import {
 // }, 
 
 export const getAlecture = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case GETONELECTURE_LOADING:
             return {
@@ -62,6 +64,8 @@ export const getAlecture = (state, action) => {
 };
 
 export const getlectures = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case GETLECTURES_LOADING:
             return {
@@ -106,6 +110,8 @@ export const getlectures = (state, action) => {
 };
 
 export const lectures = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case LESSON_LOADING:
             return {
@@ -195,6 +201,8 @@ export const teacherLectures = (state, action) => {
 
 
 export const deleteSubject = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case DELETEASUBJECT_LOADING:
             return {
@@ -240,6 +248,8 @@ export const deleteSubject = (state, action) => {
 
 
 export const editSubject = (state, action) => {
+  console.log('auth')
+
     switch (action.type) {
         case EDITASUBJECT_LOADING:
             return {

@@ -1,8 +1,8 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { GlobalContext } from "./Context/Provider";
 import { fetchFriendMessage } from "./Context/actions/messenger/chat";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:5500");
+// import io from "socket.io-client";
+// const socket = io.connect("http://localhost:5500");
 
 export const ChatContext = createContext();
 
@@ -53,7 +53,7 @@ export const ChatProvider = ({ children }) => {
       value={{
         chat,
         setChat,
-        socket,
+    
         messageList,
         setMessageList,
         getFriendMessage,

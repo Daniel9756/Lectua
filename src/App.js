@@ -28,7 +28,7 @@ import Membership from "./Component/membership/Membership";
 import CoursePayment from "./Component/courses/payment/CoursePayment";
 import { Contact } from "./Component/contact/Contact";
 import Footer from "./Component/footer/Footer";
-import  Messanger from "./Component/Messanger/Index";
+// import  Messanger from "./Component/Messanger/Index";
 import InitChat from "./Component/Messanger/Conversations/InitChat";
 
 function App() {
@@ -84,7 +84,7 @@ function App() {
           <Protected path="/Student/MyProfile" exact component={ProfileStudent} />
           <Protected path="/Student/EnrolledCourses" exact component={ProfileStudent} />
           <Protected path="/Contact" exact component={Contact} />
-          <Protected path="/Messanger" exact component={Messanger} />
+          {/* <Protected path="/Messanger" exact component={Messanger} /> */}
           <Protected path="/initConversation/:name/:id" exact component={InitChat} />
         </Switch>
         <Footer />

@@ -11,13 +11,13 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
   <GlobalProvider>
-    <ChatProvider>
+    {/* <ChatProvider> */}
       <QueryClientProvider client={queryClient}>
         <React.StrictMode>
           <App />
         </React.StrictMode>
       </QueryClientProvider>
-    </ChatProvider>
+    {/* </ChatProvider> */}
   </GlobalProvider>,
 
   document.getElementById("root")
