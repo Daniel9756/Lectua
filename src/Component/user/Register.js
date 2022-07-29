@@ -55,10 +55,10 @@ function Register() {
   const {
     authDispatch,
     authState: {
-      auth: { isCreatingUser, isAuthenticated, user, isError },
+      auth: { isCreatingUser, isAuthenticated, user },
     },
   } = useContext(GlobalContext);
-  console.log(user);
+  console.log(user, "user");
   localStorage.setItem("userId", user?.user?.id);
 
   if (user?.user?.registerAs === "Teacher") {
@@ -129,7 +129,7 @@ function Register() {
             {isAuthenticated && (
               <MessageBox message={user?.user?.message} severity="success" />
             )}
-            {isError && <MessageBox message={user?.user?.message} severity="error" />}
+            {user && !isAuthenticated && <MessageBox message={user?.user?.message} severity="error" />}
             <form onSubmit={formik.handleSubmit}>
               <div
                 style={{

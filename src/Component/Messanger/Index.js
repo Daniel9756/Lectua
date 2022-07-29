@@ -78,11 +78,9 @@ function Index() {
   } = useContext(GlobalContext);
   const userId = localStorage.getItem("userId");
 
-  const {
-   
+  const {   
     getFriendMessage,
-    friend,
-    
+    friend,    
   } = useContext(ChatContext); // console.log(data?.response)
 console.log(friend, "friend")
   useEffect(() => {

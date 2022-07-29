@@ -12,8 +12,6 @@ import {
 
 const baseUrl = "http://localhost:5500/profile/";
 
-
-
 export const addProfile = (values) => (dispatch) => {
     const token = localStorage.getItem("token");
     const { biography: { orgName,

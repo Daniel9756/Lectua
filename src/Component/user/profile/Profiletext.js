@@ -73,9 +73,8 @@ function Profiletext({ getPics }) {
           )}
           {isSuccess && (
             <div>
-              <GetRegInfo  item={result} id={result.id} />
-             
-            </div>
+              <GetRegInfo  item={result} id={result?.id} />
+                         </div>
           )}
         </Box>
       </Box>

@@ -30,6 +30,7 @@ import { Contact } from "./Component/contact/Contact";
 import Footer from "./Component/footer/Footer";
 import  Messanger from "./Component/Messanger/Index";
 import InitChat from "./Component/Messanger/Conversations/InitChat";
+import CreateSession2 from "./Component/Lession/createlession/CreateSession2";
 
 function App() {
 
@@ -86,6 +87,8 @@ function App() {
           <Protected path="/Contact" exact component={Contact} />
           <Protected path="/Messanger" exact component={Messanger} />
           <Protected path="/initConversation/:name/:id" exact component={InitChat} />
+          <Protected path="/CreateSession2" exact component={CreateSession2} />
+
         </Switch>
         <Footer />
       </Router>

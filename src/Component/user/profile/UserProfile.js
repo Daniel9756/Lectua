@@ -106,15 +106,12 @@ function UserProfile({ getPics }) {
               severity="error"
             />
           )}
-          {isSuccess && (
+          {data && isSuccess && (
             <div>
-                <Award key={result.id} item={result} id={result.id} />
-
-              {/* {Object.keys(data?.data).map((item) => (
-                <Award key={item.id} item={item} id={item.id} />
-              ))} */}
+                <Award key={result?.id} item={result} id={result?.id} />
+              
             </div>
-          )}`
+          )}
         </Box>{" "}
       </Box>{" "}
       <Box>
