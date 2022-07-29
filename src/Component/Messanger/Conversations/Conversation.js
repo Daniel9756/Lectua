@@ -4,7 +4,7 @@ const useStyles = makeStyles((theme) => ({
   list: {
     display: "flex",
     alignItems: "center",
-    // marginTop: 2,
+    cursor: 'pointer',
     padding: 4,
     "&:hover": {
       backgroundColor: "#dcdde1",

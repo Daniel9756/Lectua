@@ -15,6 +15,7 @@ import { GlobalContext } from "../../../Context/Provider";
 import { MdCropFree, MdAccountBalance } from "react-icons/md";
 import { GroupButton } from "../../../controls/Button";
 
+
 const useStyles = makeStyles((theme) => ({
   container: {
     textAlign: "center",
@@ -111,12 +112,12 @@ function Plan(props) {
   useEffect(() => {
     if (
       isProfiled &&
-      (folder.message === "Your data was successfully submitted" ||
-        folder.message === "We already have your data")
+      (folder?.message === "Your data was successfully submitted" ||
+        folder?.message === "We already have your data")
     ) {
       handleNext();
     }
-  }, [isProfiled, folder.message, handleNext]);
+  }, [isProfiled, folder?.message, handleNext]);
   const handlePlan = (selected) => {
     setPlan(selected);
   };

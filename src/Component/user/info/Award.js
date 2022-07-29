@@ -18,10 +18,10 @@ function Award({ item }) {
             <Box style={{ display: "inline-block", alignItems: "center" }}>
                 <Subtitle>Certificates:</Subtitle>
                 <Info>
-                    {JSON.parse(item?.certifications).map((x) => (
+                    {JSON?.parse(item?.certifications).map((x) => (
                         <ul>
                             <li>
-                                {x.awardTitle}{' '}: <em style={{ color: "#376e6f", }}>{x.awardOrg}</em>
+                                {x?.awardTitle}{' '}: <em style={{ color: "#376e6f", }}>{x?.awardOrg}</em>
                             </li>
                         </ul>
                     ))
@@ -33,10 +33,10 @@ function Award({ item }) {
                 <ul>
                     <Info>
                         {
-                            JSON.parse(item?.subjects).map((x) => (
+                            JSON?.parse(item?.subjects).map((x) => (
                                 <ul>
                                     <li>
-                                        <em style={{ color: "#376e6f", }}> {x.split('')}</em>
+                                        <em style={{ color: "#376e6f", }}> {x?.split('')}</em>
 
                                     </li>
                                 </ul>
@@ -52,7 +52,7 @@ function Award({ item }) {
                     gap: "60px",
                     maxWidth: 'auto'
                 }}>
-                    {JSON.parse(item?.awardFiles).map((image) => (
+                    {JSON?.parse(item?.awardFiles).map((image) => (
                         <ImageBox image={image} key={image} />
                     ))}
                 </Box>

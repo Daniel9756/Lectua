@@ -21,6 +21,49 @@ import {
 //   isSend: false
 // },
 
+export const deletedChat = (state, action) => {
+  switch (action.type) {
+    case MESSAGE_LOADING:
+      return {
+        ...state,
+        chatdelete: {
+          ...state.chatdelete,
+          isDeleting: true,
+          error: false,
+          isDeleted: false,
+          isError: false,
+          deleted: null
+        },
+      };
+      case MESSAGE_SUCCESS:
+        return {
+          ...state,
+          chatdelete: {
+            ...state.chatdelete,
+            isDeleting: false,
+            error: false,
+            isDeleted: true,
+            deleted: action.payload,
+            isError: false,
+          },
+        }; 
+      case MESSAGE_ERROR:
+        return {
+          ...state,
+          chatdelete: {
+            ...state.chatdelete,
+            isDeleting: false,
+            isDeleted: false,
+            error: action.payload,
+            isError: true,
+            deleted: null
+
+          },
+        };
+    default:
+      return state;
+  }
+};
 
 export const fetchChat = (state, action) => {
   switch (action.type) {

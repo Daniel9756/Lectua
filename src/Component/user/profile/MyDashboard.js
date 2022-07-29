@@ -64,9 +64,9 @@ function MyDashboard() {
     myEnrolledlecturesState: {
       myenrollecture: { isEnrolling, myenrolled, error, isError, isFetched },
     },
-    loginState: {
-      login: { logger },
-    },
+    // loginState: {
+    //   login: { logger },
+    // },
   } = useContext(GlobalContext);
   console.log(isEnrolling, myenrolled, error, isError, isFetched);
   const userId = localStorage.getItem("userId");
@@ -78,7 +78,7 @@ function MyDashboard() {
   console.log(amount);
   useEffect(() => {
     getMyEnrolled(userId)(myEnrolledlecturesDispatch);
-  }, [myEnrolledlecturesDispatch]);
+  }, [myEnrolledlecturesDispatch, userId]);
   return (
     <Box className={classes.root}>
       <Typography

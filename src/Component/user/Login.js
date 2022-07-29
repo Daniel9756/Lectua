@@ -1,5 +1,11 @@
-
-import { Container, Grid, makeStyles, Box, Avatar } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  makeStyles,
+  Box,
+  Avatar,
+  CircularProgress,
+} from "@material-ui/core";
 import React, { useContext } from "react";
 import { CustomButton } from "../../controls/Button";
 import { CustomInput, LabelText, Title, Info } from "../../controls/Input";
@@ -8,7 +14,6 @@ import { useFormik } from "formik";
 import { loginUser } from "../../Context/actions/auth/Login";
 import { Link, useHistory } from "react-router-dom";
 import MessageBox from "../../utils/Alert";
-
 
 const useStyles = makeStyles((theme) => ({
   register: {
@@ -48,7 +53,6 @@ const useStyles = makeStyles((theme) => ({
       display: "flex",
       justifyContent: "center",
       alignItems: "center",
-
     },
   },
 }));
@@ -65,30 +69,29 @@ function Login() {
       login: { isLoggin, logger, isPemmitted },
     },
   } = useContext(GlobalContext);
-  console.log(isLoggin, logger, isPemmitted, logger?.user?.id)
+  console.log(isLoggin, logger, isPemmitted, logger?.user?.id);
   localStorage.setItem("token", logger?.token);
   localStorage.setItem("userId", logger?.user?.id);
   localStorage.setItem("firstName", logger?.user?.firstName);
   localStorage.setItem("registerAs", logger?.user?.registerAs);
 
-
   if (logger?.user?.registerAs === "Teacher") {
     history.push({
-      pathname: '/MyProfile/MyLectures',
+      pathname: "/MyProfile/MyLectures",
       state: {
         id: logger?.user?.id,
         fname: logger?.user?.firstName,
-      }
-    })
+      },
+    });
   }
   if (logger?.user?.registerAs === "Student") {
     history.push({
-      pathname: '/Student/MyProfile',
+      pathname: "/Student/MyProfile",
       state: {
         id: logger?.user?.userId,
         fname: logger?.user?.firstName,
-      }
-    })
+      },
+    });
   }
 
   const formik = useFormik({
@@ -99,16 +102,20 @@ function Login() {
 
     onSubmit: (values, action) => {
       loginUser(values)(loginDispatch);
-      action.resetForm()
+      action.resetForm();
     },
   });
   return (
-
-    <Box style={{ background: "#2f4454", }}>
+    <Box style={{ background: "#2f4454" }}>
       <Container>
         <Grid
           container
-          style={{ display: "flex", justifyContent: "center", alignItems: "center", paddingTop: 20 }}
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            paddingTop: 20,
+          }}
         >
           <Grid item md={8} className={classes.pics}>
             <Avatar
@@ -161,14 +168,13 @@ function Login() {
                 Register
               </Link>{" "}
             </div>
-            {logger && (<MessageBox message={logger?.message} severity="error" />)}
-
+            {logger && (
+              <MessageBox message={logger?.message} severity="error" />
+            )}
             <form onSubmit={formik.handleSubmit}>
-
               <Box>
                 <LabelText>Email</LabelText>
                 <CustomInput
-
                   name="email"
                   type="text"
                   placeholder="Your Email"
@@ -186,12 +192,8 @@ function Login() {
                   placeholder="Your Password"
                   onChange={formik.handleChange}
                   value={formik.values.password}
-
                 />
-
               </Box>{" "}
-
-
               <Box>
                 <CustomButton
                   type="Submit"
@@ -202,18 +204,17 @@ function Login() {
                     marginTop: 20,
                   }}
                 >
-                  Login
+                  {isLoggin ? <CircularProgress  color="#DA7B93" /> : "Login"}
                 </CustomButton>
               </Box>
             </form>
-            <Box style={{
-              marginTop: 10,
-              paddingLeft: 11
-            }}>
-
-              <Link >
-                Forget password
-              </Link>{" "}
+            <Box
+              style={{
+                marginTop: 10,
+                paddingLeft: 11,
+              }}
+            >
+              <Link>Forget password</Link>{" "}
             </Box>{" "}
           </Grid>
         </Grid>

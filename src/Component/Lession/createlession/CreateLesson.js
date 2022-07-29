@@ -51,7 +51,7 @@ function Lesson() {
   function getStepContent(index) {
     switch (index) {
       case 0:
-        return <CreateSession handleNext={handleNext} />;
+        return <CreateSession handleNext={handleNext} />
       case 1:
         return (
           <LessionDetail handleBack={handleBack} handleNext={handleNext} />

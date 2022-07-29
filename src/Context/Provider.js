@@ -32,7 +32,7 @@ import {
   editedTopic,
   studenttimetable,
 } from "./reducers/TimeTable";
-import { friend, getFriends, addChat, fetchChat } from "./reducers/Messenger";
+import { friend, getFriends, addChat, fetchChat, deletedChat } from "./reducers/Messenger";
 import MessageInitialState from "./initials/MessageInitialState";
 
 export const GlobalContext = createContext({});
@@ -135,6 +135,10 @@ export const GlobalProvider = ({ children }) => {
     fetchChat,
     MessageInitialState
   );
+  const [deleteChatState, deleteChatDispatch] = useReducer(
+    deletedChat,
+    MessageInitialState
+  );
 
   const [getStudentTableState, getStudentTableDispatch] = useReducer(
     studenttimetable,
@@ -199,10 +203,13 @@ export const GlobalProvider = ({ children }) => {
         getFriendsState,
         getFriendsDispatch,
         getStudentTableState,
+        getStudentTableDispatch,
         addChatDispatch,
         addChatState,
         fetchChatState,
         fetchChatDispatch,
+        deleteChatState,
+         deleteChatDispatch,
       }}
     >
       {children}

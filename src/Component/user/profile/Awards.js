@@ -52,18 +52,18 @@ function Awards(props) {
   useEffect(() => {
     if (
       isCertified &&
-      (certificates.message === "Your data was successfully submitted" ||
-        certificates.message === "We already have your data")
+      (certificates?.message === "Your data was successfully submitted" ||
+        certificates?.message === "We already have your data")
     ) {
       handleNext();
     }
-  }, [isCertified, certificates.message, handleNext]);
+  }, [isCertified, certificates?.message, handleNext]);
 
   const formik = useFormik({
     initialValues: {
       specialty: "",
-      subjects: [],
-      certifications: [],
+      subjects: '',
+      certifications: '',
     }, 
     validationSchema: Yup.object({
       specialty: Yup.string().required("This field is reqiured"),

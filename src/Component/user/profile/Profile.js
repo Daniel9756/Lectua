@@ -110,12 +110,7 @@ function Profile(props) {
   const [content, setContent] = useState("MyTable");
   const firstName = localStorage.getItem("firstName");
 
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    subject: "",
-    title: "",
-    subtitle: "",
-  });
+  const [confirmDialog, setConfirmDialog] = useState(false);
   const {
     getpartnerDispatch,
     getpartnerState: {
@@ -130,12 +125,8 @@ function Profile(props) {
   } = useContext(GlobalContext);
   const userId = logger?.user?.id;
   useEffect(() => {
-    setConfirmDialog({
-      ...confirmDialog,
-      isOpen: false,
-    });
-    getPartners(userId)(getpartnerDispatch);
-  }, [isDeleted, confirmDialog, userId, getpartnerDispatch]);
+    setConfirmDialog(false);
+  }, [confirmDialog]);
 
   useEffect(() => {
     getPartners(userId)(getpartnerDispatch);
@@ -166,10 +157,9 @@ function Profile(props) {
               {isDeleted && (
                 <MessageBox message={deleted?.message} severity="success" />
               )}
-
               {isSuccess && (
                 <div>
-                  {data?.response.map((item) => (
+                  {data?.response?.map((item) => (
                     <GetPartners key={item?.id} item={item} />
                   ))}
                 </div>

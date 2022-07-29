@@ -191,7 +191,14 @@ const NavgBar = (props) => {
             {" "}
             Messages
           </Link>
-
+          <Link
+            to="/CreateSession2"
+            style={location.pathname === "/CreateSession2" ? active : {}}
+            className={classes.links}
+          >
+            {" "}
+            CreateSession2
+          </Link>
           
         <Box>
           <Link
