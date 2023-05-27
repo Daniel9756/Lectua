@@ -1,10 +1,11 @@
 import React, { createContext, useState, useContext, useEffect } from "react";
 import { GlobalContext } from "./Context/Provider";
 import { fetchFriendMessage } from "./Context/actions/messenger/chat";
-// import io from "socket.io-client";
-// const socket = io.connect("http://localhost:5500");
 
-export const ChatContext = createContext();
+import io from "socket.io-client";
+const socket = io.connect("http://localhost:5500/Messanger/");
+
+export const ChatContext = createContext({});
 
 // This context provider is passed to any component requiring the context
 export const ChatProvider = ({ children }) => {
@@ -28,6 +29,8 @@ export const ChatProvider = ({ children }) => {
   const [loggerId, setLoggerId] = useState("");
 
   const [chat, setChat] = useState("");
+  const [deletedMessage, setDeletedMessage] = useState("");
+
   const userId = localStorage.getItem("userId");
   const [messageList, setMessageList] = useState([]);
 
@@ -44,16 +47,18 @@ export const ChatProvider = ({ children }) => {
       setMessageList(data?.response);
     }
   }, [isSend,  data?.response]);
+
   const getFriendMessage = (id) => {
     setFriend(id);
     fetchFriendMessage(id)(fetchChatDispatch);
   };
+
   return (
     <ChatContext.Provider
       value={{
         chat,
         setChat,
-    
+        socket,
         messageList,
         setMessageList,
         getFriendMessage,
@@ -61,6 +66,8 @@ export const ChatProvider = ({ children }) => {
         setFriend,
         loggerId,
         userId,
+        deletedMessage, 
+        setDeletedMessage
       }}
     >
       {children}

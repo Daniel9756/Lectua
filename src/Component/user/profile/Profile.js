@@ -11,7 +11,7 @@ import UserProfile from "./UserProfile";
 import Appointments from "./Appointments";
 import MyDashboard from "./MyDashboard";
 import Sidebar from "./Sidebar";
-import CreateLesson from "../../Lession/createlession/CreateLesson";
+import CreateSession from "../../Lession/createlession/CreateLesson";
 import { Title } from "../../../controls/Input";
 import { GroupButton } from "../../../controls/Button";
 import { Link } from "react-router-dom";
@@ -92,7 +92,7 @@ function Profile(props) {
   function getContent(page) {
     switch (page) {
       case "MyTable":
-        return <CreateLesson />;
+        return <CreateSession />;
       case "MyDashboard":
         return <MyDashboard />;
       case "General":
@@ -110,12 +110,7 @@ function Profile(props) {
   const [content, setContent] = useState("MyTable");
   const firstName = localStorage.getItem("firstName");
 
-  const [confirmDialog, setConfirmDialog] = useState({
-    isOpen: false,
-    subject: "",
-    title: "",
-    subtitle: "",
-  });
+  const [confirmDialog, setConfirmDialog] = useState(false);
   const {
     getpartnerDispatch,
     getpartnerState: {
@@ -129,16 +124,14 @@ function Profile(props) {
     },
   } = useContext(GlobalContext);
   const userId = logger?.user?.id;
-  // useEffect(() => {
-  //   setConfirmDialog({
-  //     ...confirmDialog,
-  //     isOpen: false,
-  //   });
-  // }, [confirmDialog]);
 
-  // useEffect(() => {
-  //   getPartners(userId)(getpartnerDispatch);
-  // }, [getpartnerDispatch]);
+  useEffect(() => {
+    setConfirmDialog(false);
+  }, [confirmDialog]);
+
+  useEffect(() => {
+    getPartners(userId)(getpartnerDispatch);
+  }, [getpartnerDispatch]);
 
   return (
     <Box style={{ marginBottom: 11, marginTop: 8, backgroundColor: "#f1f2f6" }}>
@@ -150,7 +143,7 @@ function Profile(props) {
             </Box>
             <Sidebar setContent={setContent} />
 
-            {/* <Box style={{ marginTop: 121, color: "#2f4454" }}>
+            <Box style={{ marginTop: 121, color: "#2f4454" }}>
               <Title
                 style={{
                   color: "#DA7B93",
@@ -165,15 +158,14 @@ function Profile(props) {
               {isDeleted && (
                 <MessageBox message={deleted?.message} severity="success" />
               )}
-
               {isSuccess && (
                 <div>
-                  {data?.response.map((item) => (
+                  {data?.response?.map((item) => (
                     <GetPartners key={item?.id} item={item} />
                   ))}
                 </div>
               )}
-            </Box> */}
+            </Box>
           </Grid>
           <Grid md="9" className={classes.sidebar2}>
             <Box className={classes.header}>

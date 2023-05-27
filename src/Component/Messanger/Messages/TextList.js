@@ -1,9 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Box, makeStyles, Avatar } from "@material-ui/core";
 import { GlobalContext } from "../../../Context/Provider";
 import { ChatContext } from "../../../ChatContext";
 import { Link } from "react-router-dom";
-import { FiSettings } from "react-icons/fi";
+import { FiEdit2 } from "react-icons/fi";
+import { AiOutlineDelete } from "react-icons/ai";
+import Confirm from "../../../utils/Confirm";
+import { deleteChat } from "../../../Context/actions/messenger/chat";
+// import ScrollToBottom, { useScrollToBottom } from "react-scroll-to-bottom";
 
 // import ScrollToBottom, {
 //   useScrollToBottom,
@@ -14,7 +18,7 @@ import { FiSettings } from "react-icons/fi";
 const useStyles = makeStyles((theme) => ({
   li: {
     textDecoration: "none",
-    marginTop: 16,
+    marginTop: 2,
     padding: 4,
     // maxWidth: "90%",
     "&:hover": {
@@ -62,11 +66,25 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "left",
     alignItems: "center",
   },
+  textBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "end",
+    paddingRight: 60,
+  },
+  iconBox: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
   "@media (min-width: 960px)": {},
   "@media (max-width: 960px)": {
     root: {
       display: "flex",
       flexDirection: "column",
+    },
+    text: {
+      maxWidth: "100%",
     },
   },
   "@media (max-width: 440px)": {},
@@ -74,21 +92,49 @@ const useStyles = makeStyles((theme) => ({
 
 function TextList(props) {
   const classes = useStyles();
+  // const scrollToBottom = useScrollToBottom();
 
   const { item, userId } = props;
   const {
     getFriendsState: {
       conversation: { member },
     },
+
+    deleteChatDispatch,
+    deleteChatState: {
+      chatdelete: { deleted },
+    },
   } = useContext(GlobalContext);
 
-  const { friend } = useContext(ChatContext);
+  console.log(deleted);
+  const [confirmDialog, setConfirmDialog] = useState({
+    isOpen: false,
+    title: "",
+    subtitle: "",
+  });
 
+  const { friend, socket, setDeletedMessage } = useContext(ChatContext);
   const teacher = member?.response.find((p) => p.userId === friend);
   const me = member?.response.find((p) => p.userId === userId);
 
-  console.log(member, "item");
+  const onDelete = async (id) => {
+    console.log("about to delete chat");
+    deleteChat(id)(deleteChatDispatch);
 
+    // const data = {
+    //   sender,
+    //   receiver,
+    //   id,
+    // };
+    // await socket.emit("delete_message", data);
+  };
+
+  useEffect(() => {
+    socket.on("deleted_message", (data) => {
+      console.log(data);
+      setDeletedMessage(data);
+    });
+  }, [socket, setDeletedMessage]);
   return (
     <>
       <Box className={classes.li}>
@@ -121,10 +167,47 @@ function TextList(props) {
             <Box className={classes.time}>{item.time}</Box>
           </Box>
         </Box>
-        <Box style={{display: 'flex', justifyContent: 'space-between', alignItems: 'start', paddingRight:60}}>
+        <Box className={classes.textBox}>
           <Box className={classes.text}>{item?.text}</Box>
-          <FiSettings fontSize={22} />
+          <Box className={classes.iconBox}>
+            <Box
+              style={{
+                marginRight: 8,
+                cursor: "pointer",
+              }}
+            >
+              <AiOutlineDelete
+                fontSize={20}
+                color="#DA7B93"
+                title="Delete"
+                onClick={() => {
+                  setConfirmDialog({
+                    isOpen: true,
+                    title: "Are you sure you want to delete this chat?",
+                    subtitle: "This operation cannot be undone!",
+                    onConfirm: () => {
+                      onDelete(item.id);
+                    },
+                  });
+                }}
+              />
+            </Box>
+            <Box
+              style={{
+                marginRight: 12,
+                cursor: "pointer",
+              }}
+            >
+              <FiEdit2 fontSize={20} color="#DA7B93" title="Edit" />
+            </Box>
+          </Box>
         </Box>
+      </Box>
+      <Box>
+        <Confirm
+          confirmDialog={confirmDialog}
+          setConfirmDialog={setConfirmDialog}
+        />
       </Box>
     </>
   );

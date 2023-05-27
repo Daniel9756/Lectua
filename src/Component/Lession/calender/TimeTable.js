@@ -37,7 +37,8 @@ function TimeTable({ item }) {
             paddingLeft: 14,
         },
     }))(TableRow);
-    const { courseId, topic, eventtype, startdate, starttime, enddate, endtime, id } = item
+    console.log(item, 'item')
+    const { course, courseId, topic, eventtype, startdate, starttime, enddate, endtime, id } = item
     const [isOpen, setIsOpen] = useState(false);
     const userId = localStorage.getItem("userId");
 
@@ -88,6 +89,16 @@ function TimeTable({ item }) {
                 >
                     <LabelText>
                         {courseId}
+                    </LabelText>
+
+                </TableCell>
+                <TableCell
+                    align="left"
+                    className={classes.tablehead}
+
+                >
+                    <LabelText>
+                        {course}
                     </LabelText>
 
                 </TableCell>

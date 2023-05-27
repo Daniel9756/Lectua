@@ -4,20 +4,19 @@ import "./index.css";
 import App from "./App";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { GlobalProvider } from "./Context/Provider";
-import { ChatProvider } from "./ChatContext";
 
 import { QueryClient, QueryClientProvider } from "react-query";
 const queryClient = new QueryClient();
 
 ReactDOM.render(
   <GlobalProvider>
-    {/* <ChatProvider> */}
+   
       <QueryClientProvider client={queryClient}>
         <React.StrictMode>
           <App />
         </React.StrictMode>
       </QueryClientProvider>
-    {/* </ChatProvider> */}
+    
   </GlobalProvider>,
 
   document.getElementById("root")

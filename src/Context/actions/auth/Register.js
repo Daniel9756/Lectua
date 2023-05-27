@@ -3,10 +3,8 @@ import axios from "axios";
 import {
   REGISTER_ERROR,
   REGISTER_LOADING,
-  REGISTER_SUCCESS,
-  PARTNER_ERROR,
+  REGISTER_SUCCESS, 
   PARTNER_LOADING,
-  PARTNER_SUCCESS,
   GETPARTNERS_LOADING,
   GETPARTNERS_SUCCESS,
   GETPARTNERS_ERROR,
@@ -94,7 +92,7 @@ export const addUser = (values) => (dispatch) => {
 };
 
 export const addPartner = (values) => (dispatch) => {
-  const token = localStorage.getItem("token");
+ 
   dispatch({
     type: PARTNER_LOADING,
   });

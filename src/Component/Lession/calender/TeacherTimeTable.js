@@ -135,7 +135,7 @@ export default function TeacherTimeTable() {
                    
                     <hr />
                     <div>
-                        <Title>{lists?.response.length} Topics Created</Title>
+                        <Title>{lists?.response?.length} Topics Created</Title>
                         <hr />
                         {isTopDeleted && (<MessageBox message={deletedTopic?.message} severity="success" />)}
                         {isEditedTopic && (<MessageBox message={editedTopic?.message} severity="success" />)}
@@ -167,7 +167,11 @@ export default function TeacherTimeTable() {
                                 </StyledTableCell>
                                 <StyledTableCell align="left" className={classes.headtxt}>
                                     {" "}
-                                    courseid
+                                    CODE
+                                </StyledTableCell>
+                                <StyledTableCell align="left" className={classes.headtxt}>
+                                    {" "}
+                                    Course
                                 </StyledTableCell>
                                 <StyledTableCell align="left" className={classes.headtxt}>Topic</StyledTableCell>
                                 <StyledTableCell align="center" className={classes.headtxt}>Event Type</StyledTableCell>

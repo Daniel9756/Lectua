@@ -1,6 +1,11 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CustomSelect } from "../../../controls/Select";
-import { CustomInput, LabelText, CustomDateInput, Title } from "../../../controls/Input";
+import {
+  CustomInput,
+  LabelText,
+  CustomDateInput,
+  Title,
+} from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
 import { useFormik } from "formik";
 import { useParams } from "react-router-dom";
@@ -16,11 +21,11 @@ import {
   Box,
   CircularProgress,
   Container,
-  Grid, makeStyles
+  Grid,
+  makeStyles,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
-
   btns: {
     width: "100%",
     display: "flex",
@@ -28,16 +33,11 @@ const useStyles = makeStyles({
     alignItems: "center",
     marginTop: 12,
   },
-  "@media (max-width: 960px)": {
-
-  },
-  "@media (max-width: 440px)": {
-
-  },
-
+  "@media (max-width: 960px)": {},
+  "@media (max-width: 440px)": {},
 });
 
-function LessionDetail({ handleBack }) {
+function LessionDetail({ handleBack, handleNext }) {
   const classes = useStyles();
   const { id } = useParams();
   const userId = localStorage.getItem("userId");
@@ -45,13 +45,19 @@ function LessionDetail({ handleBack }) {
   const {
     topicDispatch,
     topicState: {
-      topic: { isAddingTopic, timetable, isScheduled,  isError },
+      topic: { isAddingTopic, timetable, isScheduled, isError },
     },
     loginpartnerState: {
       login: { logger: partner, isPemmitted },
-  },
+    },
   } = useContext(GlobalContext);
   console.log(timetable);
+
+  useEffect(() => {
+    if (isScheduled && timetable?.message === "Your Lectures  has been Fixed") {
+      handleNext();
+    }
+  }, [isScheduled, timetable]);
 
   const formik = useFormik({
     initialValues: {
@@ -69,47 +75,71 @@ function LessionDetail({ handleBack }) {
       starttime: Yup.string().required("Lesson start time"),
     }),
     onSubmit: (values, action) => {
-      const { topic, eventtype, startdate, starttime, enddate, endtime } = values
+      const { topic, eventtype, startdate, starttime, enddate, endtime } =
+        values;
       let creator;
       let owner;
-      if(isPemmitted){
-        owner = partner?.response?.orgId
-        creator = partner?.response?.partnerId
+      if (isPemmitted) {
+        owner = partner?.response?.orgId;
+        creator = partner?.response?.partnerId;
         const data = {
-          topic, eventtype, startdate, starttime, enddate, endtime, id, owner, creator
-        }
-        addTimetable(data)(topicDispatch)
-        action.resetForm()
-      
-      
-      }else{
-        owner = userId
-        creator = userId
+          topic,
+          eventtype,
+          startdate,
+          starttime,
+          enddate,
+          endtime,
+          id,
+          owner,
+          creator,
+        };
+        addTimetable(data)(topicDispatch);
+        action.resetForm();
+      } else {
+        owner = userId;
+        creator = userId;
         const data = {
-          topic, eventtype, startdate, starttime, enddate, endtime, id, owner, creator
-        }
-        addTimetable(data)(topicDispatch)
-        action.resetForm()
+          topic,
+          eventtype,
+          startdate,
+          starttime,
+          enddate,
+          endtime,
+          id,
+          owner,
+          creator,
+        };
+        addTimetable(data)(topicDispatch);
+        action.resetForm();
       }
-
-      
-      }
-     
+    },
   });
-  
+
   return (
     <Box>
       <Container>
         <Grid container>
           <Grid item md="2"></Grid>
-         
+
           <Grid item md="8">
             <Title style={{ marginBottom: 4 }}>set your first event</Title>
-            {isScheduled && (timetable?.message === "Your Lectures  has been Fixed") && (<MessageBox message={timetable?.message} severity="success" />)}
-            {isScheduled && (timetable?.message === "Upgrade Your membership to fix Multiple Classes") && (<MessageBox message={timetable?.message} severity="success" />)}
-            
-            {isScheduled && (timetable?.message ===  "User or Course does not Exist") && (<MessageBox message={timetable?.message} severity="error" />)}
-            {isError && (<MessageBox message="Error creating subject" severity="error" />)}
+            {isScheduled &&
+              timetable?.message === "Your Lectures  has been Fixed" && (
+                <MessageBox message={timetable?.message} severity="success" />
+              )}
+            {isScheduled &&
+              timetable?.message ===
+                "Upgrade Your membership to fix Multiple Classes" && (
+                <MessageBox message={timetable?.message} severity="success" />
+              )}
+
+            {isScheduled &&
+              timetable?.message === "User or Course does not Exist" && (
+                <MessageBox message={timetable?.message} severity="error" />
+              )}
+            {isError && (
+              <MessageBox message="Error creating subject" severity="error" />
+            )}
             <form onSubmit={formik.handleSubmit}>
               <div class="row" style={{ marginTop: 2 }}>
                 <div class="col-md-6 col-sm-12">
@@ -147,7 +177,6 @@ function LessionDetail({ handleBack }) {
                   </div>
                 </div>
               </div>
-
 
               <div class="row" style={{ marginTop: 2 }}>
                 <div class="col-md-6 col-sm-12">
@@ -210,21 +239,29 @@ function LessionDetail({ handleBack }) {
                 </div>
               </div>
               <Box className={classes.btns}>
-                <CustomButton style={{ marginTop: 20, marginRight: 10, borderRadius: 10 }} onClick={handleBack}>
+                <CustomButton
+                  style={{ marginTop: 20, marginRight: 10, borderRadius: 10 }}
+                  onClick={handleBack}
+                >
                   Back
                 </CustomButton>
-                <CustomButton type="submit" style={{ marginTop: 20, marginLeft: 10, borderRadius: 10 }}>
-                  {isAddingTopic ? <CircularProgress style={{ fontSize: 40, color: "#DA7B93" }} /> : "Next"}
+                <CustomButton
+                  type="submit"
+                  style={{ marginTop: 20, marginLeft: 10, borderRadius: 10 }}
+                >
+                  {isAddingTopic ? (
+                    <CircularProgress
+                      style={{ fontSize: 40, color: "#DA7B93" }}
+                    />
+                  ) : (
+                    "Next"
+                  )}
                 </CustomButton>
               </Box>
             </form>
-
           </Grid>
           <Grid item md="2"></Grid>
-
         </Grid>
-
-
       </Container>
     </Box>
   );

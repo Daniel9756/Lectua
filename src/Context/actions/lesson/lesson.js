@@ -12,10 +12,6 @@ import {
 
 const baseUrl = "http://localhost:5500/";
 
-
-
-
-
 export const getOneLecture = (id) => (dispatch) => {
     dispatch({
         type: GETONELECTURE_LOADING,
@@ -76,6 +72,7 @@ export const getLectures = () => (dispatch) => {
 }
 
 export const getLecturesByATeacher = (id) => (dispatch) => {
+    
     dispatch({
         type: GETLECTURESBYAUSER_LOADING,
     });

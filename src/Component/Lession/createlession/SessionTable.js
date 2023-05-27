@@ -1,7 +1,4 @@
-import InviteStudentDataTable from "../InviteStudentDataTable";
 import React, { useEffect, useContext, useState } from "react";
-import axios from "axios";
-
 import {
   makeStyles,
   withStyles,
@@ -25,7 +22,6 @@ import { GlobalContext } from "../../../Context/Provider";
 import { getLecturesByATeacher } from "../../../Context/actions/lesson/lesson";
 import SessionDataTable from "../SessionDataTable";
 import { AiFillDingtalkSquare } from "react-icons/ai";
-import { CustomCheckbox } from "../../../controls/Checkbox";
 
 const useStyles = makeStyles({
   root: {
@@ -51,6 +47,7 @@ const useStyles = makeStyles({
     minHeight: "100px",
   },
 
+  
   "@media (max-width: 960px)": {},
   "@media (max-width: 440px)": {},
 });
@@ -72,60 +69,52 @@ const StyledTableRow = withStyles((theme) => ({
   },
 }))(TableRow);
 
-function InviteStudent({ handleNext, handleBack }) {
+function SessionTable({ handleNext }) {
   const classes = useStyles();
-  const [checked, setChecked] = useState(false);
-  const [result, setResult] = useState([]);
-
-  const [mycourses, setMycourses] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [subject, setSubject] = useState([]);
+  console.log(subject);
+  const [loading, setLoading] = useState(AiFillDingtalkSquare);
   const userId = localStorage.getItem("userId");
-  console.log(mycourses)
-  const token = localStorage.getItem("token");
+
   useEffect(() => {
     setLoading(true);
-    axios
-      .get(`http://localhost:5500/lectures/${userId}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-      })
-      .then((data) => setMycourses(data?.data))
-      .catch((err) => {
-        console.log(err);
-      });
+    fetch(`http://localhost:5500/lectures/${userId}`)
+      .then((response) => response.json())
+      .then((data) => setSubject(data));
     setLoading(false);
   }, []);
-  const handelboxcheck = () => {
-    setChecked(true);
-  };
-  // useEffect(() => {
-  //   const info = mycourses?.reduce((accumulator, curr) => {
-  //     const { subject } = curr;
-  //     return {
-  //       ...accumulator,
-  //       [subject]: (accumulator[subject] || 0) + 1,
-  //     };
-  //   }, {});
-  //   // setResult(info);
-  //   console.log(info, 'info')
-  // }, [mycourses, setResult]);
-
-  console.log(result, "results");
-
   return (
-    <>
-      <TableContainer>
-        <div>
-          {loading && <CircularProgress />}
-          {!loading && mycourses?.response?.length === 0 && (
-            <MessageBox message="No data fetched" severity="error" />
-          )}
-          {!loading && mycourses?.response?.length > 0 && (
-            <MessageBox message={mycourses?.message} severity="success" />
-          )}
-        </div>
+    <Box className={classes.root}>
+      <TableContainer component={Paper} style={{ marginTop: 15 }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            margin: 8,
+            paddingRight: 26,
+          }}
+        >
+          <div className={classes.title}>
+            <LabelText style={{ display: "inline-block" }}>
+              ADD EVENT DETAILS
+            </LabelText>
+          </div>
+
+          <hr />
+          <div>
+            {loading && <CircularProgress />}
+            {!loading && subject?.response?.length === 0 && (
+              <MessageBox message="No data fetched" severity="error" />
+            )}
+            {!loading && subject?.response?.length > 0 && (
+              <MessageBox
+                message={subject?.message}
+                severity="success"
+              />
+            )}
+          </div>
+        </div>{" "}
         <div>
           <Table
             className={classes.table}
@@ -137,22 +126,24 @@ function InviteStudent({ handleNext, handleBack }) {
               <StyledTableRow>
                 <StyledTableCell align="center">
                   <Title style={{ color: "#DA7B93", fontFamily: "serif" }}>
-                    Your COURses
+                    Edit classroom Timetable
                   </Title>
                 </StyledTableCell>
               </StyledTableRow>
             </TableHead>
             <TableBody className={classes.body}>
-              {!loading && mycourses?.response?.length > 0 &&
-                mycourses?.response?.map((item) => (
-                  <InviteStudentDataTable item={item} />
-                ))}
+              <div>
+                {!loading &&
+                  subject?.response?.map((item) => (
+                    <SessionDataTable item={item} handleNext={handleNext} />
+                  ))}
+              </div>
             </TableBody>
           </Table>
         </div>
       </TableContainer>
-    </>
+    </Box>
   );
 }
 
-export default InviteStudent;
+export default SessionTable;

@@ -7,10 +7,7 @@ import {
     GETUSERCONVERSATION_LOADING, GETUSERCONVERSATION_SUCCESS, GETUSERCONVERSATION_ERROR
 } from "../ActionTypes";
 
-
 const baseUrl = "http://localhost:5500/conversations/";
-
-
 
 export const getUserConversations = (id) => (dispatch) => {
     const token = localStorage.getItem("token");

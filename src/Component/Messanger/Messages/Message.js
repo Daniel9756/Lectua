@@ -85,7 +85,7 @@ function Message() {
   const sendMessage = async () => {
     if (chat !== "") {
       const message = {
-        text: chat.trim(),
+        text: chat?.trim(),
         sender: userId,
         receiver: friend,
         time:
@@ -96,16 +96,16 @@ function Message() {
           new Date(Date.now()).getMinutes(),
       };
 
+      scrollToBottom();
       await socket.emit("send_message", message);
       setMessageList((prevChat) => [...prevChat, message]);
       setChat("");
-      scrollToBottom();
     }
   };
 
   useEffect(() => {
     socket.on("receive_message", (data) => {
-      console.log(data)
+      console.log(data);
       setMessageList((prevChat) => [...prevChat, data]);
     });
     scrollToBottom();
@@ -123,12 +123,12 @@ function Message() {
           overflowY: "scroll",
         }}
       >
-        {messageList?.length > 1 ? (
+        {messageList?.length > 0 ? (
           <>
             {messageList?.map((content) => {
               return (
-                <ScrollToBottom>
-                  <TextList item={content} userId={userId} />
+                <ScrollToBottom>                
+                    <TextList item={content} userId={userId} sender={userId} receiver={friend} />                  
                 </ScrollToBottom>
               );
             })}

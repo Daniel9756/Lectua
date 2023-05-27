@@ -9,13 +9,15 @@ export function CustomeFileInput(props) {
   };
   const handleChange = (event) => {
     const fileUploaded = event.target.files[0];
-    if (fileUploaded.size > 100100) {
-      props.onFileSelectError({
-        error: "File size cannot exceed more than 66MB",
-      });
-    } else {
+    // if (fileUploaded.size > 500100) {
+    //   props.onFileSelectError({
+    //     error: "File size cannot exceed more than 500MB",
+    //   });
+    // } else {
+    //   props.onFileSelectSuccess(fileUploaded);
+    // }
       props.onFileSelectSuccess(fileUploaded);
-    }
+
   };
   return (
     <div>

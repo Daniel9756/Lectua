@@ -1,16 +1,15 @@
 import styled from "styled-components";
 
 export const CustomCheckbox = styled.input.attrs((props) => ({
-  text: props.text,
+  text: props.text || "",
   type: props.type,
-  placeholder: props.placeholder,
   onChange: props.onChange,
-  values: props.value,
-  name: props.name,
+  checked: props.checked,
+  name: props.name || "",
 }))`
-  color:#2f4454
+  color: #DA7B93
     padding: 6px;
-    border: 3px solid palevioletred;
+    border: 3px solid #DA7B93;
     width: 30px; 
     height: 30px;
     border-radius: 4px;
@@ -19,6 +18,6 @@ export const CustomCheckbox = styled.input.attrs((props) => ({
       color: black;
     }
     &:active {
-      background: #2f4454;
+      background: #DA7B93;
     }
   `;

@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     background: "#2f4454",
     justifyContent: "center",
     hight: "auto",
-    marginTop: 270,
+    marginTop: 330,
     zIndex: 100,
     position: "fixed",
   },
@@ -191,7 +191,7 @@ const NavgBar = (props) => {
             {" "}
             Messages
           </Link>
-
+         
           
         <Box>
           <Link
@@ -203,11 +203,7 @@ const NavgBar = (props) => {
           </Link>
         </Box>
         </Box>
-
-
-
-
-        <Box
+         <Box
           style={{
             display: "flex",
             justifyContent: "space-between",
@@ -233,6 +229,7 @@ const NavgBar = (props) => {
               display: "flex",
               justifyContent: "center",
               alignItems: "center",
+              marginRight: '30px'
             }}
             onMouseEnter={togleInAvaterDisplay}
             onMouseLeave={togleOutAvaterDisplay}

@@ -1,18 +1,13 @@
-import React, { useContext, useEffect } from "react";
-import { useFormik } from "formik";
+import React, { useContext } from "react";
+import { useForm, Controller } from "react-hook-form";
 import { CustomInput, LabelText, Title } from "../../../controls/Input";
 import { CustomButton } from "../../../controls/Button";
-import SessionTable from "../SessionTable";
-import ErrorMessage from "../../../utils/Error/ErrorMessage";
-import * as Yup from "yup";
+import SessionTable from "./SessionTable";
 import { addLecture } from "../../../Context/actions/lesson/lesson";
 import { GlobalContext } from "../../../Context/Provider";
 import MessageBox from "../../../utils/Alert";
-import { getOneProfile } from "../../../Context/actions/profile/getProfile";
 import * as lecturerData from "../../../utils/LecturerData";
 import { CustomSelect } from "../../../controls/Select";
-import { getLecturesByATeacher } from "../../../Context/actions/lesson/lesson";
-
 import { CircularProgress, Grid, Box, makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
@@ -31,11 +26,20 @@ const useStyles = makeStyles({
 
 function CreateSession({ handleNext }) {
   const classes = useStyles();
-  // const history = useHistory();
-
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    control,
+    reset,
+  } = useForm();
+  const registerOptions = {
+    // ...
+    Target: { required: "Role is required" },
+    Duration: { required: "Duration is required" },
+  };
   const {
     teacherLectureDispatch,
-   
     lectureDispatch,
     lectureState: {
       lecture: { isAddingLesson, lesson, isFixed },
@@ -45,70 +49,55 @@ function CreateSession({ handleNext }) {
       editsubject: { isEdited, isError },
     },
     loginpartnerState: {
-      login: {  logger: partner, isPemmitted },
+      login: { logger: partner, isPemmitted },
     },
   } = useContext(GlobalContext);
   const userId = localStorage.getItem("userId");
+
   // useEffect(() => {
   //   getOneProfile(userId)(getprofileDispatch);
   //   getLecturesByATeacher(userId)(teacherLectureDispatch);
-  // }, [isFixed, isEdited, teacherLectureDispatch, userId, getprofileDispatch]);
+  // }, [isEdited, teacherLectureDispatch, userId, getprofileDispatch]);
 
-  const formik = useFormik({
-    initialValues: {
-      subject: "",
-      target: "",
-      price: "",
-      per: "",
-    },
-    validationSchema: Yup.object({
-      subject: Yup.string()
-        .min(2, "subject must be more than two characters long")
-        .required("This field is reqiured"),
-      price: Yup.string().required("How much to pay for this lesson"),
-      per: Yup.string().required("For how long will the price cover"),
-      target: Yup.string().required("This field is reqiured"),
-    }),
-    onSubmit: (values, actions) => {
-      const { subject, target, price, per } = values;
-      let creator;
-      let owner;
+  const onSubmit = (values) => {
+    const { subject, target, price, per } = values;
+    let creator;
+    let owner;
 
-      if (isPemmitted) {
-        owner = partner?.response?.orgId;
-        creator = partner?.response?.partnerId;
-        const data = {
-          subject,
-          target,
-          userId,
-          price,
-          per,
-          owner,
-          creator,
-        };
-        addLecture(data)(lectureDispatch);
-        actions.resetForm();
-      } else {
-        owner = userId;
-        creator = userId;
-        const data = {
-          subject,
-          target,
-          price,
-          per,
-          creator,
-          owner,
-        };
-        addLecture(data)(lectureDispatch);
-        actions.resetForm();
-      }
-    },
-  });
+    if (isPemmitted) {
+      owner = partner?.response?.orgId;
+      creator = partner?.response?.partnerId;
+      const data = {
+        subject,
+        target,
+        userId,
+        price,
+        per,
+        owner,
+        creator,
+      };
+      addLecture(data)(lectureDispatch);
+      reset();
+    } else {
+      owner = userId;
+      creator = userId;
+      const data = {
+        subject,
+        target,
+        price,
+        per,
+        creator,
+        owner,
+      };
+      addLecture(data)(lectureDispatch);
+      reset();
+    }
+  };
 
   return (
-    <Grid container>
-      <Grid item md="4">
-        <Box>
+    <Box>
+      <Grid container>
+        <Grid item md="4">
           <div>
             <Title>create your classroom</Title>
             <h4 className={classes.minutes}>in less than 5 minutes</h4>
@@ -123,8 +112,7 @@ function CreateSession({ handleNext }) {
           {isError && (
             <MessageBox message="Error creating subject" severity="error" />
           )}
-
-          <form onSubmit={formik.handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <LabelText>Enter Your Subject</LabelText>
             <div
               style={{
@@ -134,19 +122,16 @@ function CreateSession({ handleNext }) {
                 alignItems: "center",
               }}
             >
-              <input
-                name="subject"
-                type="text"
+              <CustomInput
                 placeholder="Your Course"
+                name="subject"
                 label="label"
-                onChange={formik.handleChange}
-                value={formik.values.subject}
+                type="text"
+                {...register("subject", { required: true })}
               />
             </div>
             <div style={{ marginLeft: 4 }}>
-              {formik.touched && formik.errors && (
-                <ErrorMessage errorValue={formik.errors.subject} />
-              )}
+              {errors.subject?.type === "required" && "Subject is required"}
             </div>
             <LabelText>Target Student</LabelText>
             <div
@@ -157,18 +142,22 @@ function CreateSession({ handleNext }) {
                 alignItems: "center",
               }}
             >
-              <CustomSelect
-                type="text"
+              <Controller
                 name="target"
-                options={lecturerData.lecturerTarget()}
-                value={formik.values.target}
-                onChange={formik.handleChange}
+                control={control}
+                defaultValue="target"
+                rules={registerOptions.role}
+                render={({ field }) => (
+                  <CustomSelect
+                    options={lecturerData.lecturerTarget()}
+                    {...field}
+                    label="Text field Target"
+                  />
+                )}
               />
             </div>
             <div style={{ marginLeft: 4 }}>
-              {formik.touched && formik.errors && (
-                <ErrorMessage errorValue={formik.errors.target} />
-              )}
+              {errors.target?.type === "required" && "Target is required"}
             </div>
             <div class="row">
               <div class="col-md-6 col-sm-12">
@@ -178,32 +167,33 @@ function CreateSession({ handleNext }) {
                     placeholder="eg. Free or #1000"
                     name="price"
                     label="label"
-                    onChange={formik.handleChange}
-                    value={formik.values.price}
                     type="text"
+                    {...register("price", { required: true })}
                   />
                 </div>{" "}
                 <div style={{ marginLeft: 4 }}>
-                  {formik.touched && formik.errors && (
-                    <ErrorMessage errorValue={formik.errors.price} />
-                  )}
+                  {errors.price?.type === "required" && "Price is required"}
                 </div>
               </div>
               <div class="col-md-6 col-sm-12">
                 <div style={{ marginTop: 8 }}>
                   <LabelText>Per</LabelText>
-                  <CustomSelect
+                  <Controller
                     name="per"
-                    type="text"
-                    options={lecturerData.duration()}
-                    onChange={formik.handleChange}
-                    value={formik.values.per}
+                    control={control}
+                    defaultValue="per"
+                    rules={registerOptions.role}
+                    render={({ field }) => (
+                      <CustomSelect
+                        options={lecturerData.duration()}
+                        {...field}
+                        label="Duration Field"
+                      />
+                    )}
                   />
                 </div>{" "}
                 <div style={{ marginLeft: 4 }}>
-                  {formik.touched && formik.errors && (
-                    <ErrorMessage errorValue={formik.errors.per} />
-                  )}
+                  {errors.per?.type === "required" && "Duration is required"}
                 </div>
               </div>
             </div>
@@ -224,15 +214,15 @@ function CreateSession({ handleNext }) {
                 "Create subject"
               )}
             </CustomButton>
-          </form>
-        </Box>
+          </form>{" "}
+        </Grid>
+        <Grid item md="8">
+          <Box style={{ margin: 4, height: "auto" }}>
+            <SessionTable handleNext={handleNext} />
+          </Box>
+        </Grid>
       </Grid>
-      <Grid item md="8">
-        <Box style={{ margin: 4, height: "auto" }}>
-          <SessionTable handleNext={handleNext} />
-        </Box>
-      </Grid>
-    </Grid>
+    </Box>
   );
 }
 
